@@ -34,25 +34,31 @@
       height: 100%;
       z-index: 0;
       pointer-events: none;
+      display: none;
     }
 
     .glow-orb {
-      position: fixed;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(162, 98, 247, 0.14) 0%, rgba(0, 0, 0, 0) 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      z-index: 1;
-      pointer-events: none;
-      animation: pulseGlow 8s ease-in-out infinite alternate;
+      display: none;
     }
 
-    @keyframes pulseGlow {
-      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.6; }
-      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+    #vanta {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      filter: blur(7px) saturate(0.72);
+      transform: scale(1.08);
+      opacity: 0.78;
+      pointer-events: none;
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.7;
     }
 
     /* Centered Main Layout */
@@ -64,7 +70,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 3rem 1.5rem;
+      padding: 5.5rem 1.5rem 7rem;
       text-align: center;
       min-height: 100vh;
     }
@@ -74,22 +80,24 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      max-width: 680px;
+      max-width: 720px;
       animation: fadeIn 0.5s ease-out;
     }
 
     h1 {
-      font-size: 3.5rem;
+      max-width: 620px;
+      font-size: clamp(2.35rem, 5vw, 3.15rem);
       font-weight: 700;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       color: #ffffff;
       margin-bottom: 0.5rem;
-      text-shadow: 0 0 35px rgba(187, 134, 252, 0.3);
+      text-shadow: 0 0 24px rgba(187, 134, 252, 0.16);
     }
 
     .accent-text {
       color: #bb86fc;
       background: linear-gradient(135deg, #d3a4ff 0%, #a262f7 100%);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -99,14 +107,14 @@
       font-size: 0.95rem;
       letter-spacing: -0.01em;
       font-weight: 400;
-      margin-bottom: 2rem;
+      margin-bottom: 1.45rem;
     }
 
     .search-box {
       width: 100%;
-      max-width: 520px;
+      max-width: 600px;
       position: relative;
-      margin-bottom: 2rem;
+      margin-bottom: 2.4rem;
     }
 
     .search-bar {
@@ -148,15 +156,27 @@
     /* Quick Links */
     .quick-links {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 0.75rem;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
       width: 100%;
-      max-width: 520px;
+      max-width: 600px;
+    }
+
+    .quick-links-heading {
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 0.65rem;
+      color: #8b93a7;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-align: left;
+      text-transform: uppercase;
     }
 
     @media (max-width: 520px) {
       .quick-links {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .browser-toolbar {
@@ -190,8 +210,9 @@
       gap: 0.35rem;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 0.75rem 0.5rem;
-      border-radius: 12px;
+      min-height: 72px;
+      padding: 0.7rem 0.5rem;
+      border-radius: 10px;
       color: #d1d5db;
       text-decoration: none;
       font-size: 0.75rem;
@@ -275,6 +296,103 @@
       stroke-width: 1.7;
       stroke-linecap: round;
       stroke-linejoin: round;
+    }
+
+    .regen-games-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.15rem;
+      color: #f8fafc;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .regen-games-logo svg {
+      width: 34px;
+      height: 34px;
+      fill: none;
+      stroke: #8b5cf6;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 9px rgba(139, 92, 246, 0.55));
+    }
+
+    .regen-games-logo strong {
+      color: #a78bfa;
+      font-weight: 800;
+    }
+
+    .cloak-menu {
+      position: fixed;
+      top: 64px;
+      right: 1rem;
+      z-index: 175;
+      width: min(300px, calc(100vw - 2rem));
+      padding: 0.8rem;
+      border: 1px solid rgba(196, 181, 253, 0.22);
+      border-radius: 12px;
+      background: rgba(12, 13, 21, 0.96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .cloak-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .cloak-menu h2 {
+      margin: 0.1rem 0 0.2rem;
+      color: #f8fafc;
+      font-size: 0.85rem;
+    }
+
+    .cloak-menu p {
+      margin: 0 0 0.7rem;
+      color: #94a3b8;
+      font-size: 0.7rem;
+      line-height: 1.45;
+    }
+
+    .cloak-options {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .cloak-option,
+    .uncloak-option {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #e2e8f0;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.72rem;
+      text-align: left;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cloak-option:hover,
+    .uncloak-option:hover {
+      border-color: rgba(167, 139, 250, 0.55);
+      background: rgba(167, 139, 250, 0.12);
+    }
+
+    .uncloak-option {
+      margin-top: 0.6rem;
+      border-color: rgba(52, 211, 153, 0.25);
+      color: #6ee7b7;
     }
 
     .nav-btn {
@@ -690,6 +808,43 @@
       opacity: 1;
     }
 
+    .screen-monitor-notice {
+      position: fixed;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      z-index: 220;
+      width: min(330px, calc(100vw - 2rem));
+      padding: 0.85rem 0.95rem;
+      border: 1px solid rgba(251, 191, 36, 0.34);
+      border-radius: 11px;
+      background: rgba(24, 20, 10, 0.95);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(18px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .screen-monitor-notice.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .screen-monitor-notice strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #fbbf24;
+      font-size: 0.76rem;
+    }
+
+    .screen-monitor-notice span {
+      display: block;
+      color: #fde68a;
+      font-size: 0.68rem;
+      line-height: 1.45;
+    }
+
     .home-bottom-bar {
       position: fixed;
       left: 50%;
@@ -769,6 +924,12 @@
     }
 
     @media (max-width: 520px) {
+      .screen-monitor-notice {
+        right: 0.5rem;
+        bottom: 5.25rem;
+        width: calc(100vw - 1rem);
+      }
+
       .home-bottom-bar {
         bottom: 0.7rem;
         width: calc(100vw - 1rem);
@@ -791,6 +952,8 @@
 
   <canvas id="bg-canvas"></canvas>
   <div class="glow-orb"></div>
+  <div id="vanta" aria-hidden="true"></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
   <!-- Improved Browser Navigation Header -->
   <div id="topBrowserBar" class="top-browser-bar hidden">
@@ -882,8 +1045,27 @@
     </div>
   </div>
 
+  <div id="cloakMenu" class="cloak-menu" aria-label="Tab appearance options" aria-hidden="true">
+    <h2>Tab appearance</h2>
+    <p>Choose a neutral presentation for this tab. Restore the Regen identity any time.</p>
+    <div class="cloak-options">
+      <button class="cloak-option" type="button" data-cloak-title="New Tab | Search" data-cloak-icon="search">Search tab</button>
+      <button class="cloak-option" type="button" data-cloak-title="Notes | Workspace" data-cloak-icon="notes">Notes tab</button>
+      <button class="cloak-option" type="button" data-cloak-title="Reading List" data-cloak-icon="reading">Reading tab</button>
+    </div>
+    <button id="uncloakBtn" class="uncloak-option" type="button">Restore Regen Games</button>
+  </div>
+
   <main>
     <div class="hero-content">
+      <div class="regen-games-logo" aria-label="Regen Games">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M9 12.5 12 8h8l3 4.5v7a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-7Z"/>
+          <path d="M12 16h5M14.5 13.5v5M20 15.5h.01M23 18h.01"/>
+          <path d="m9 14-3-2.5M23 14l3-2.5"/>
+        </svg>
+        <span><strong>Regen</strong> Games</span>
+      </div>
       <h1>welcome to <span class="accent-text">Regen Unblocker</span>!</h1>
       <p>ultra-fast web proxy and search portal.</p>
       
@@ -896,7 +1078,7 @@
         <input type="text" id="searchInput" class="search-bar" placeholder="Search the web or type a URL..." autocomplete="off" />
       </div>
 
-      <!-- Quick Links -->
+      <div class="quick-links-heading">Quick access</div>
       <div class="quick-links">
         <a class="quick-btn" onclick="openSearch('https://youtube.com')">
           <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -962,7 +1144,80 @@
     <span id="toastMsg">URL copied to clipboard</span>
   </div>
 
+  <div id="screenMonitorNotice" class="screen-monitor-notice" role="status" aria-live="polite" aria-hidden="true">
+    <strong>Screen access cannot be verified</strong>
+    <span id="screenMonitorMessage">This tab is not focused. A browser extension may still be able to capture your screen.</span>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
   <script>
+    VANTA.FOG({
+      el: '#vanta',
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200,
+      minWidth: 200,
+      highlightColor: 0x5b3d82,
+      midtoneColor: 0x302047,
+      lowlightColor: 0x151021,
+      baseColor: 0x06050a,
+      blurFactor: 0.7,
+      speed: 0.8,
+      zoom: 0.85
+    });
+
+    (() => {
+      const canvas = document.getElementById('stars');
+      const context = canvas.getContext('2d');
+      const stars = [];
+      let width = 0;
+      let height = 0;
+
+      function resizeStars() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      function seedStars() {
+        stars.length = 0;
+        const count = Math.min(72, Math.max(34, Math.floor((width * height) / 26000)));
+        for (let index = 0; index < count; index += 1) {
+          stars.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            radius: Math.random() * 0.65 + 0.35,
+            speed: Math.random() * 0.18 + 0.06,
+            opacity: Math.random() * 0.18 + 0.1,
+            phase: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      function drawStars(time) {
+        context.clearRect(0, 0, width, height);
+        stars.forEach((star) => {
+          star.y -= star.speed;
+          if (star.y < -star.radius) star.y = height + star.radius;
+          const shimmer = star.opacity + Math.sin(time * 0.0007 + star.phase) * 0.04;
+          context.beginPath();
+          context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+          context.fillStyle = `rgba(210, 190, 255, ${Math.max(0.04, shimmer)})`;
+          context.fill();
+        });
+        requestAnimationFrame(drawStars);
+      }
+
+      resizeStars();
+      seedStars();
+      window.addEventListener('resize', () => {
+        resizeStars();
+        seedStars();
+      });
+      requestAnimationFrame(drawStars);
+    })();
+
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -1020,14 +1275,14 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(211, 164, 255, 0.75)';
+        ctx.fillStyle = 'rgba(186, 156, 238, 0.42)';
         ctx.fill();
       }
     }
 
     function initParticles() {
       particles = [];
-      const count = Math.floor((canvas.width * canvas.height) / 12000);
+      const count = Math.floor((canvas.width * canvas.height) / 16000);
       for (let i = 0; i < count; i++) {
         particles.push(new Particle());
       }
@@ -1043,7 +1298,7 @@
           let dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < 115) {
-            let opacity = (1 - dist / 115) * 0.12;
+            let opacity = (1 - dist / 115) * 0.055;
             ctx.strokeStyle = `rgba(187, 134, 252, ${opacity})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
@@ -1091,6 +1346,8 @@
     const privacyGuardBtn = document.getElementById('privacyGuardBtn');
     const privacyStatus = document.getElementById('privacyStatus');
     const privacyGuardOverlay = document.getElementById('privacyGuardOverlay');
+    const screenMonitorNotice = document.getElementById('screenMonitorNotice');
+    const screenMonitorMessage = document.getElementById('screenMonitorMessage');
     
     let historyStack = [];
     let historyIndex = -1;
@@ -1191,6 +1448,19 @@
       privacyGuardOverlay.setAttribute('aria-hidden', String(!shouldObscure));
     }
 
+    function updateScreenMonitorNotice(reason) {
+      const pageIsHidden = document.hidden;
+      const pageIsUnfocused = !document.hasFocus();
+      const shouldNotify = pageIsHidden || pageIsUnfocused;
+      if (shouldNotify) {
+        screenMonitorMessage.textContent = pageIsHidden
+          ? 'This tab is hidden. A browser extension may still be able to capture your screen.'
+          : `This tab lost focus${reason ? ` because ${reason}` : ''}. A browser extension may still be able to capture your screen.`;
+      }
+      screenMonitorNotice.classList.toggle('visible', shouldNotify);
+      screenMonitorNotice.setAttribute('aria-hidden', String(!shouldNotify));
+    }
+
     function updatePrivacyGuardStatus() {
       privacyGuardBtn.setAttribute('aria-pressed', String(privacyGuardEnabled));
       privacyStatus.textContent = privacyGuardEnabled ? 'Active' : 'Inactive';
@@ -1218,10 +1488,20 @@
 
     collapseHandle.addEventListener('click', toggleBrowserBar);
     privacyGuardBtn.addEventListener('click', togglePrivacyGuard);
-    window.addEventListener('focus', updatePrivacyGuardVisibility);
-    window.addEventListener('blur', updatePrivacyGuardVisibility);
-    document.addEventListener('visibilitychange', updatePrivacyGuardVisibility);
+    window.addEventListener('focus', () => {
+      updatePrivacyGuardVisibility();
+      updateScreenMonitorNotice();
+    });
+    window.addEventListener('blur', () => {
+      updatePrivacyGuardVisibility();
+      updateScreenMonitorNotice('the browser window changed');
+    });
+    document.addEventListener('visibilitychange', () => {
+      updatePrivacyGuardVisibility();
+      updateScreenMonitorNotice();
+    });
     updatePrivacyGuardStatus();
+    updateScreenMonitorNotice();
 
     document.getElementById('homeBtn').addEventListener('click', closeGame);
 
@@ -1257,22 +1537,60 @@
       }
     });
 
-    // Tab Cloaking Toggle
     let isCloaked = false;
-    document.getElementById('cloakBtn').addEventListener('click', () => {
-      if (!isCloaked) {
-        document.title = "Home | Google Classroom";
-        let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-        link.type = 'image/x-icon';
-        link.rel = 'shortcut icon';
-        link.href = 'https://ssl.gstatic.com/classroom/favicon.png';
+    const originalTitle = document.title;
+    const originalFavicon = document.querySelector("link[rel*='icon']");
+    const originalFaviconHref = originalFavicon ? originalFavicon.getAttribute('href') : null;
+    const cloakMenu = document.getElementById('cloakMenu');
+    const cloakBtn = document.getElementById('cloakBtn');
+
+    function setFavicon(iconType) {
+      let link = document.querySelector("link[data-cloak-favicon='true']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        link.dataset.cloakFavicon = 'true';
         document.head.appendChild(link);
-        showToast("Cloaked as Google Classroom");
+      }
+      const colors = { search: '#38bdf8', notes: '#fbbf24', reading: '#34d399' };
+      link.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${colors[iconType] || colors.search}"/><circle cx="29" cy="29" r="14" fill="none" stroke="%230b1020" stroke-width="6"/><path d="m40 40 12 12" stroke="%230b1020" stroke-width="6" stroke-linecap="round"/></svg>`;
+    }
+
+    function restoreTabIdentity() {
+      document.title = originalTitle;
+      const cloakedFavicon = document.querySelector("link[data-cloak-favicon='true']");
+      if (cloakedFavicon) cloakedFavicon.remove();
+      if (originalFavicon && originalFaviconHref) originalFavicon.setAttribute('href', originalFaviconHref);
+      isCloaked = false;
+      cloakBtn.setAttribute('aria-pressed', 'false');
+      cloakMenu.classList.remove('open');
+      cloakMenu.setAttribute('aria-hidden', 'true');
+      showToast('Regen Games identity restored');
+    }
+
+    cloakBtn.addEventListener('click', () => {
+      const isOpen = cloakMenu.classList.toggle('open');
+      cloakMenu.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    document.querySelectorAll('.cloak-option').forEach((option) => {
+      option.addEventListener('click', () => {
+        document.title = option.dataset.cloakTitle;
+        setFavicon(option.dataset.cloakIcon);
         isCloaked = true;
-      } else {
-        document.title = "Regen Unblocker";
-        showToast("Tab restored");
-        isCloaked = false;
+        cloakBtn.setAttribute('aria-pressed', 'true');
+        cloakMenu.classList.remove('open');
+        cloakMenu.setAttribute('aria-hidden', 'true');
+        showToast(`${option.textContent} selected`);
+      });
+    });
+
+    document.getElementById('uncloakBtn').addEventListener('click', restoreTabIdentity);
+
+    document.addEventListener('click', (event) => {
+      if (!cloakMenu.contains(event.target) && !cloakBtn.contains(event.target)) {
+        cloakMenu.classList.remove('open');
+        cloakMenu.setAttribute('aria-hidden', 'true');
       }
     });
 
