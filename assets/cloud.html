@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -347,6 +348,68 @@
       .games-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <style>
+    :root {
+      --cloud-ink: #f7f4ff;
+      --cloud-muted: #a9a2b9;
+      --cloud-line: rgba(255, 255, 255, 0.12);
+    }
+
+    .app-shell { width: min(1080px, calc(100% - 40px)); padding: 7.2rem 0 5rem; }
+    .cloud-title { margin-bottom: 0.65rem; color: var(--cloud-ink); font-size: clamp(2.2rem, 6vw, 3.7rem); line-height: 1.04; letter-spacing: -0.05em; text-shadow: 0 12px 36px rgba(0, 0, 0, 0.35); }
+    .cloud-title::after { display: block; margin: 1.2rem auto 2rem; width: min(360px, 58%); height: 1px; background: linear-gradient(90deg, transparent, rgba(204, 183, 255, 0.62), transparent); content: ''; }
+    .cloud-title-accent { background: none; color: #c7adff; -webkit-text-fill-color: currentColor; }
+    .games-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0 auto; max-width: 940px; }
+
+    .game-card { min-height: 248px; justify-content: flex-start; align-items: stretch; padding: 1.2rem; border-color: var(--cloud-line); border-radius: 16px; background: linear-gradient(155deg, rgba(27, 24, 39, 0.88), rgba(9, 9, 15, 0.86)); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.07); text-align: left; }
+    .game-card:hover, .game-card:focus-visible { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38), 0 0 26px color-mix(in srgb, var(--card-accent) 12%, transparent); }
+    .game-info { align-items: flex-start; justify-content: space-between; width: 100%; gap: 1rem; }
+    .game-logo { width: 54px; height: 54px; padding: 0.8rem; border-radius: 14px; background: rgba(5, 6, 10, 0.5); }
+    .game-title { font-size: 1.15rem; }
+    .game-action { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--cloud-muted); font-size: 0.64rem; letter-spacing: 0.14em; }
+    .game-action::after { color: var(--card-accent); content: '\2192'; font-size: 0.9rem; letter-spacing: 0; }
+    .iframe-overlay { background: rgba(3, 3, 5, 0.96); }
+    .close-frame { top: 18px; right: 18px; border-color: rgba(255, 255, 255, 0.2); border-radius: 10px; background: rgba(19, 17, 29, 0.9); font-size: 1.25rem; }
+
+    @media (max-width: 760px) { .games-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) {
+      .app-shell { width: min(100% - 28px, 420px); padding-top: 5.8rem; }
+      .games-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+      .game-card { min-height: 190px; }
+    }
+  </style>
+  <style>
+    :root { --cloud-ink: #edf4f7; --cloud-muted: #9eafb9; --cloud-line: rgba(148, 163, 184, 0.2); }
+    .cloud-title { text-shadow: 0 12px 36px rgba(0, 0, 0, 0.35); }
+    .cloud-title::after { background: #6faac7; }
+    .cloud-title-accent { color: #8dbbd6; }
+    .game-card { border-radius: 10px; border-color: rgba(119, 151, 165, 0.24); background: linear-gradient(155deg, rgba(24, 38, 46, 0.9), rgba(5, 12, 16, 0.94)); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(179, 210, 220, 0.07); }
+    .game-card::before { background: radial-gradient(circle at 50% 8%, rgba(91, 166, 195, 0.16), transparent 58%); }
+    .game-card.roblox-card { --card-accent: #8dbbd6; --card-glow: rgba(91, 166, 195, 0.16); }
+    .game-card.android-card { --card-accent: #79c4a9; --card-glow: rgba(73, 171, 131, 0.16); }
+    .game-card.geometry-card { --card-accent: #9fd3c1; --card-glow: rgba(92, 174, 145, 0.16); }
+    .game-card:hover, .game-card:focus-visible { border-color: color-mix(in srgb, var(--card-accent) 70%, transparent); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.38), 0 0 22px color-mix(in srgb, var(--card-accent) 12%, transparent); }
+    .game-logo { border-radius: 10px; background: rgba(3, 10, 14, 0.66); }
+    .game-action::after { color: #79c4a9; }
+    .close-frame { border-radius: 8px; border-color: rgba(119, 151, 165, 0.34); background: rgba(7, 14, 19, 0.94); }
+  </style>
+  <style>
+    :root { --lunar-navy: #07111b; --lunar-panel: rgba(10, 24, 36, 0.9); --lunar-line: rgba(119, 183, 223, 0.22); --lunar-blue: #8fc8eb; }
+    html, body { background: #03070c; }
+    #bg-canvas, #vanta, #stars { filter: hue-rotate(8deg) saturate(0.8); }
+    .app-shell { padding-top: 5.6rem; }
+    .cloud-logo { display: block; width: min(330px, 72vw); max-height: 120px; margin: 0 auto 1rem; object-fit: contain; }
+    .cloud-title { margin-bottom: 0.8rem; color: #edf4f7; font-size: clamp(2rem, 5vw, 3rem); text-shadow: 0 10px 30px rgba(0, 0, 0, 0.48); }
+    .cloud-title::after { width: 180px; margin: 1rem auto 1.6rem; background: #6b9fca; }
+    .cloud-title-accent { color: var(--lunar-blue); }
+    .games-grid { max-width: 900px; gap: 0.85rem; }
+    .game-card { min-height: 220px; border-radius: 8px; border-color: var(--lunar-line); background: linear-gradient(150deg, rgba(14, 34, 50, 0.92), rgba(4, 12, 19, 0.96)); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(169, 213, 242, 0.08); }
+    .game-card:hover, .game-card:focus-visible { border-color: rgba(143, 200, 235, 0.72); box-shadow: 0 22px 46px rgba(0, 0, 0, 0.42), 0 0 24px rgba(74, 143, 190, 0.16); }
+    .game-logo { border-color: rgba(143, 200, 235, 0.24); background: rgba(2, 9, 15, 0.72); }
+    .game-action, .game-action::after { color: #8fc8eb; }
+    .iframe-overlay { background: #02070d; }
+    .close-frame { border-color: rgba(143, 200, 235, 0.34); background: rgba(7, 17, 27, 0.94); color: #d8ebf7; }
+  </style>
 </head>
 <body>
   <canvas id="bg-canvas"></canvas>
@@ -355,33 +418,36 @@
   <canvas id="stars" aria-hidden="true"></canvas>
 
   <main class="app-shell">
-    <h1 class="cloud-title">welcome to <span class="cloud-title-accent">Regen Cloud</span></h1>
+    <img class="cloud-logo" src="Lunar-proxy.png" alt="Lunar Proxy" />
+    <h1 class="cloud-title"><span class="cloud-title-accent">Lunar</span> Cloud</h1>
     <section class="games-grid" id="games-grid" aria-label="Games"></section>
   </main>
 
   <div class="iframe-overlay" id="iframe-overlay" aria-hidden="true">
     <button class="close-frame" id="close-frame" type="button" aria-label="Close game">&times;</button>
-    <iframe class="game-frame" id="game-frame" title="Game player" allow="fullscreen"></iframe>
+    <iframe class="game-frame" id="game-frame" title="Game player" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
   <script>
-    VANTA.FOG({
-      el: '#vanta',
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200,
-      minWidth: 200,
-      highlightColor: 0x5b3d82,
-      midtoneColor: 0x302047,
-      lowlightColor: 0x151021,
-      baseColor: 0x06050a,
-      blurFactor: 0.7,
-      speed: 0.8,
-      zoom: 0.85
-    });
+    if (window.VANTA && typeof window.VANTA.FOG === 'function') {
+      VANTA.FOG({
+        el: '#vanta',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        highlightColor: 0x4b7890,
+        midtoneColor: 0x263d49,
+        lowlightColor: 0x122027,
+        baseColor: 0x04090c,
+        blurFactor: 0.7,
+        speed: 0.8,
+        zoom: 0.85
+      });
+    }
 
     (() => {
       const canvas = document.getElementById('stars');
@@ -435,6 +501,10 @@
 
     const proxyBase = 'https://camp-doe-heroes-accent.trycloudflare.com/ixl/';
 
+    function buildProxyUrl(targetUrl) {
+      return `${proxyBase}${encodeURIComponent(targetUrl)}`;
+    }
+
     const games = [
       {
         name: 'Roblox',
@@ -480,7 +550,7 @@
     gamesGrid.addEventListener('click', (event) => {
       const gameButton = event.target.closest('.game-card');
       if (!gameButton) return;
-      gameFrame.src = proxyBase + gameButton.dataset.url;
+      gameFrame.src = buildProxyUrl(gameButton.dataset.url);
       iframeOverlay.classList.add('is-open');
       iframeOverlay.setAttribute('aria-hidden', 'false');
     });
@@ -532,7 +602,7 @@
           const dx = mouse.x - this.x;
           const dy = mouse.y - this.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
+          if (distance > 0 && distance < mouse.radius) {
             const force = (mouse.radius - distance) / mouse.radius;
             this.x -= (dx / distance) * force * 2;
             this.y -= (dy / distance) * force * 2;

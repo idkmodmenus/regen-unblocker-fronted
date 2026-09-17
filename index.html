@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Regen Unblocker</title>
+  <meta name="referrer" content="no-referrer" />
+  <title>Lunar Proxy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -947,6 +948,186 @@
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
+  <style>
+    :root {
+      --ui-ink: #f6f3ff;
+      --ui-muted: #a7a1b8;
+      --ui-line: rgba(255, 255, 255, 0.12);
+      --ui-accent: #b99aff;
+      --ui-accent-soft: rgba(185, 154, 255, 0.13);
+    }
+
+    body { color: var(--ui-ink); }
+    main { padding: 7rem 1.5rem 8.5rem; }
+
+    .hero-content { position: relative; max-width: 720px; padding: 2.1rem clamp(1.2rem, 4vw, 3.1rem) 2.35rem; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; background: rgba(10, 10, 16, 0.78); box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3); backdrop-filter: blur(16px); }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(230px, 0.72fr);
+      column-gap: clamp(1.4rem, 4vw, 3.5rem);
+      align-items: center;
+      text-align: left;
+    }
+
+    .hero-content > .regen-games-logo,
+    .hero-content > h1,
+    .hero-content > p { grid-column: 1 / -1; justify-self: center; text-align: center; }
+    .hero-content > .search-box { grid-column: 1; grid-row: 4 / span 2; margin: 0; }
+    .hero-content > .quick-links-heading { grid-column: 2; grid-row: 4; align-self: end; }
+    .hero-content > .quick-links { grid-column: 2; grid-row: 5; }
+
+    .hero-content::before { position: absolute; top: 0; left: 2rem; right: 2rem; height: 1px; background: rgba(199, 173, 255, 0.55); content: ''; }
+
+    .regen-games-logo { margin-bottom: 1.45rem; color: #ded7ef; font-size: 0.7rem; letter-spacing: 0.24em; }
+    .regen-games-logo svg { stroke: var(--ui-accent); }
+    .regen-games-logo strong { color: var(--ui-accent); }
+    .launcher-status { margin: -0.35rem auto 1.1rem; color: #8e899e; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+    .launcher-status::before { display: none; }
+    h1 { font-size: clamp(2.15rem, 5vw, 3.1rem); line-height: 1.05; letter-spacing: -0.045em; }
+    .accent-text { background: none; color: #c7adff; -webkit-text-fill-color: currentColor; }
+    .hero-content > p { margin-top: 0.8rem; color: var(--ui-muted); font-size: 0.88rem; }
+    .search-box { max-width: 620px; margin: 1rem 0 2rem; }
+    .search-box::after { display: block; margin: 0.65rem 0 0 0.2rem; color: #827b93; content: 'Enter a web address or search term'; font-size: 0.66rem; letter-spacing: 0.02em; text-align: left; }
+
+    .search-bar {
+      height: 56px;
+      padding-left: 3.2rem;
+      border-color: rgba(220, 207, 255, 0.2);
+      border-radius: 14px;
+      background: rgba(7, 7, 12, 0.72);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .search-bar:focus { border-color: rgba(185, 154, 255, 0.72); box-shadow: 0 0 0 4px rgba(185, 154, 255, 0.1), 0 16px 34px rgba(0, 0, 0, 0.28); transform: none; }
+    .quick-links-heading { max-width: 620px; color: #aaa2bd; font-size: 0.63rem; letter-spacing: 0.18em; }
+    .quick-links { max-width: 620px; gap: 0.65rem; }
+    .quick-btn { min-height: 64px; border-color: rgba(255, 255, 255, 0.1); border-radius: 8px; background: rgba(255, 255, 255, 0.035); color: #d7d1e3; box-shadow: none; }
+    .quick-btn:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 3px; }
+    .quick-btn:hover { border-color: rgba(185, 154, 255, 0.52); background: var(--ui-accent-soft); color: #fff; transform: translateY(-3px); }
+    .home-bottom-bar { border-color: rgba(255, 255, 255, 0.14); border-radius: 14px; background: rgba(12, 11, 20, 0.86); }
+    .local-launcher { border-color: rgba(185, 154, 255, 0.32); border-radius: 9px; background: rgba(185, 154, 255, 0.1); color: #ede8fb; }
+
+    @media (max-width: 520px) {
+      main { padding-top: 5.8rem; }
+      .hero-content { padding: 1.8rem 1rem 2rem; border-radius: 10px; }
+      .hero-content { display: flex; text-align: center; }
+      .launcher-status { margin-bottom: 0.8rem; }
+      .hero-content > .search-box { margin: 1rem 0 2rem; }
+      .hero-content > .quick-links-heading { align-self: stretch; text-align: left; }
+      .quick-links { gap: 0.5rem; }
+    }
+  </style>
+  <style>
+    :root { --ui-ink: #edf4f7; --ui-muted: #9eafb9; --ui-line: rgba(148, 163, 184, 0.2); --ui-accent: #7fb3d5; --ui-accent-soft: rgba(76, 151, 190, 0.14); }
+    .hero-content { border-color: rgba(100, 134, 153, 0.3); background: rgba(7, 14, 19, 0.86); }
+    .hero-content::before { background: #6faac7; }
+    .regen-games-logo, .toolbar-brand { color: #c0d0d8; }
+    .regen-games-logo svg, .local-launcher svg { stroke: #79b7a4; }
+    .regen-games-logo strong, .accent-text { color: #8dbbd6; }
+    .launcher-status { color: #82c4ae; }
+    .search-bar { border-color: rgba(116, 157, 177, 0.34); background: rgba(3, 9, 13, 0.82); }
+    .search-bar:focus { border-color: rgba(113, 194, 165, 0.75); box-shadow: 0 0 0 4px rgba(76, 151, 130, 0.12), 0 16px 34px rgba(0, 0, 0, 0.28); }
+    .quick-links-heading, .system-readout span + span { color: #8fa2ad; }
+    .quick-btn { border-color: rgba(119, 151, 165, 0.22); background: rgba(86, 112, 125, 0.1); }
+    .quick-btn:hover { border-color: rgba(103, 193, 163, 0.62); background: rgba(58, 133, 111, 0.18); }
+    .quick-btn:focus-visible { outline-color: #79c4a9; }
+    .home-bottom-bar { border-color: rgba(106, 142, 158, 0.3); background: rgba(5, 12, 16, 0.9); }
+    .local-launcher { border-color: rgba(103, 169, 148, 0.42); background: rgba(47, 121, 98, 0.14); color: #c4e2d6; }
+  </style>
+  <style>
+    .side-rail { position: fixed; top: 0; bottom: 0; left: 0; z-index: 140; display: flex; width: 48px; flex-direction: column; align-items: center; padding: 0.75rem 0.45rem; border-right: 1px solid rgba(119, 151, 165, 0.16); background: rgba(4, 10, 14, 0.8); backdrop-filter: blur(16px); transition: width 180ms ease, background 180ms ease; }
+    .side-rail:hover, .side-rail:focus-within { width: 218px; align-items: stretch; background: rgba(5, 13, 18, 0.94); }
+    .rail-brand { display: flex; align-items: center; justify-content: center; min-height: 34px; margin-bottom: 1.3rem; color: #8dbbd6; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em; white-space: nowrap; overflow: hidden; }
+    .rail-brand span { display: none; margin-left: 0.55rem; }
+    .side-rail:hover .rail-brand, .side-rail:focus-within .rail-brand { justify-content: flex-start; padding: 0 0.55rem; }
+    .side-rail:hover .rail-brand span, .side-rail:focus-within .rail-brand span { display: inline; }
+    .rail-brand svg { width: 22px; height: 22px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
+    .rail-nav { display: grid; gap: 0.35rem; }
+    .rail-item, .rail-cloud { display: flex; align-items: center; width: 100%; min-height: 38px; padding: 0 0.68rem; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #879aa4; cursor: pointer; font: inherit; text-decoration: none; transition: color 140ms ease, background 140ms ease, border-color 140ms ease; }
+    .rail-item:hover, .rail-item:focus-visible, .rail-cloud:hover, .rail-cloud:focus-visible { border-color: rgba(103, 193, 163, 0.3); background: rgba(58, 133, 111, 0.14); color: #c4e2d6; outline: none; }
+    .rail-item svg, .rail-cloud svg { width: 17px; height: 17px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+    .rail-label { display: none; margin-left: 0.75rem; overflow: hidden; font-size: 0.72rem; white-space: nowrap; }
+    .side-rail:hover .rail-label, .side-rail:focus-within .rail-label { display: inline; }
+    .rail-divider { height: 1px; margin: 0.75rem 0.45rem; background: rgba(119, 151, 165, 0.16); }
+    .rail-footer { margin-top: auto; }
+    .rail-session { display: none; padding: 0.75rem 0.68rem; color: #71838d; font-size: 0.62rem; line-height: 1.45; }
+    .side-rail:hover .rail-session, .side-rail:focus-within .rail-session { display: block; }
+    @media (max-width: 520px) { .side-rail { width: 42px; } .side-rail:hover, .side-rail:focus-within { width: min(218px, 78vw); } }
+  </style>
+  <style>
+    html, body { background: #050608; }
+    #bg-canvas, #vanta, #stars { display: none !important; }
+    main { padding-left: 4.5rem; }
+    .hero-content { max-width: 660px; grid-template-columns: 1fr; gap: 0; border-color: rgba(160, 174, 192, 0.2); border-radius: 6px; background: #0b0d10; box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42); }
+    .hero-content::before { left: 0; right: 0; background: #5f91b5; }
+    .hero-content > .regen-games-logo, .hero-content > h1, .hero-content > p { grid-column: 1; }
+    .hero-content > .search-box { grid-column: 1; grid-row: auto; width: min(100%, 560px); margin: 1.2rem auto 1.9rem; }
+    .hero-content > .quick-links-heading, .hero-content > .quick-links { grid-column: 1; grid-row: auto; width: min(100%, 560px); }
+    .regen-games-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 0.8rem; color: #f1f4f7; font-size: 1.75rem; letter-spacing: -0.04em; text-transform: none; }
+    .regen-games-logo svg { width: 42px; height: 42px; margin-right: 0.65rem; stroke: #8eb7d6; }
+    .regen-games-logo strong { color: #f1f4f7; font-weight: 800; }
+    .regen-games-logo span { font-weight: 700; }
+    .launcher-status { margin-bottom: 0.9rem; color: #7da8c8; }
+    h1 { color: #f4f6f8; font-size: clamp(2rem, 5vw, 2.8rem); }
+    .accent-text { color: #8eb7d6; }
+    .hero-content > p { color: #8a96a3; }
+    .search-bar { border-color: rgba(160, 174, 192, 0.24); border-radius: 5px; background: #111419; }
+    .search-bar:focus { border-color: #6d9fc2; box-shadow: 0 0 0 3px rgba(74, 126, 164, 0.14); }
+    .quick-btn { border-color: rgba(160, 174, 192, 0.16); border-radius: 5px; background: #111419; }
+    .quick-btn:hover { border-color: rgba(111, 164, 202, 0.62); background: #17222c; }
+    .home-bottom-bar { background: #0b0d10; border-radius: 6px; }
+    @media (max-width: 520px) { main { padding-left: 3.5rem; } .hero-content { border-radius: 5px; } }
+  </style>
+  <style>
+    main { padding: 5rem 2rem 4rem 5rem; }
+    .hero-content { max-width: 680px; grid-template-columns: 1fr; gap: 0; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+    .hero-content::before { display: none; }
+    .hero-content > .regen-games-logo { grid-column: 1; }
+    .hero-content > h1, .hero-content > p, .hero-content > .launcher-status, .hero-content > .quick-links-heading, .hero-content > .quick-links { display: none; }
+    .hero-content > .search-box { grid-column: 1; grid-row: auto; width: min(100%, 560px); margin: 1.4rem auto 0; }
+    .search-box::after { display: none; }
+    .regen-games-logo { margin-bottom: 0; font-size: 2.35rem; }
+    .search-bar { border-radius: 5px; background: #111419; }
+    .home-bottom-bar, .cloak-menu, .privacy-guard-overlay, .screen-monitor-notice, .toast { display: none !important; }
+    .side-rail { width: 48px; background: rgba(4, 10, 14, 0.8); border-right-color: rgba(160, 174, 192, 0.12); }
+    .side-rail:hover, .side-rail:focus-within { width: 218px; background: rgba(7, 10, 14, 0.96); }
+    .side-rail .rail-brand, .side-rail .rail-nav, .side-rail .rail-cloud, .side-rail .rail-divider, .side-rail .rail-footer { display: flex; }
+    .side-rail .rail-nav { display: grid; }
+    .side-rail .rail-brand span, .side-rail .rail-label, .side-rail .rail-session { display: none; }
+    .side-rail:hover .rail-brand span, .side-rail:focus-within .rail-brand span, .side-rail:hover .rail-label, .side-rail:focus-within .rail-label, .side-rail:hover .rail-session, .side-rail:focus-within .rail-session { display: inline; }
+    .side-rail::after { display: none; }
+    .lunar-proxy-image { display: block; width: min(100%, 620px); height: auto; max-height: 210px; object-fit: contain; margin: 0 auto; }
+    @media (max-width: 520px) { main { padding: 4rem 1rem 3rem 3.8rem; } .lunar-proxy-image { max-height: 150px; } }
+  </style>
+  <style>
+    #bg-canvas, #vanta, #stars { display: block !important; }
+    #bg-canvas { opacity: 0.7; }
+    #vanta { filter: blur(7px) saturate(0.78); opacity: 0.7; }
+    #stars { opacity: 0.55; }
+    .search-bar { border-color: rgba(123, 166, 196, 0.42); background: rgba(12, 18, 24, 0.54); backdrop-filter: blur(14px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(205, 224, 238, 0.08); }
+    .search-bar:focus { background: rgba(15, 25, 33, 0.68); border-color: rgba(130, 190, 226, 0.78); }
+  </style>
+  <style>
+    :root { --navy-950: #050b12; --navy-900: #091521; --navy-800: #102536; --blue-400: #77b7df; --blue-300: #a9d5f2; }
+    body { background: #03070c; }
+    .browser-toolbar { background: rgba(5, 13, 22, 0.94); border-bottom-color: rgba(119, 183, 223, 0.18); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45); }
+    .address-pill { background: rgba(15, 32, 47, 0.84); border-color: rgba(119, 183, 223, 0.3); }
+    .address-pill:focus-within { border-color: rgba(119, 183, 223, 0.7); box-shadow: 0 0 0 3px rgba(62, 133, 181, 0.16); }
+    .nav-controls, .window-actions { border-color: rgba(119, 183, 223, 0.16); background: rgba(13, 30, 44, 0.7); }
+    .toolbar-brand { color: var(--blue-300); }
+    .nav-btn:hover { background: rgba(62, 133, 181, 0.18); color: var(--blue-300); }
+    .loading-overlay { background: rgba(3, 9, 16, 0.96); backdrop-filter: blur(18px); gap: 1rem; }
+    .cyber-spinner { width: 46px; height: 46px; }
+    .cyber-spinner::before { border-top-color: var(--blue-400); border-right-color: rgba(119, 183, 223, 0.38); animation: spin 1s linear infinite; }
+    .cyber-spinner::after { border-color: rgba(119, 183, 223, 0.14); }
+    .loading-brand { color: var(--blue-300); text-shadow: 0 0 16px rgba(119, 183, 223, 0.24); letter-spacing: 0.16em; }
+    .loading-status { color: #8da4b7; }
+    .loader-bar { background: linear-gradient(90deg, #4d8eb9, #a9d5f2); box-shadow: 0 0 12px rgba(119, 183, 223, 0.7); }
+    .side-rail { background: rgba(3, 10, 17, 0.86); border-right-color: rgba(119, 183, 223, 0.16); }
+    .side-rail:hover, .side-rail:focus-within { background: rgba(5, 14, 23, 0.97); }
+    .rail-item:hover, .rail-item:focus-visible, .rail-cloud:hover, .rail-cloud:focus-visible { border-color: rgba(119, 183, 223, 0.4); background: rgba(62, 133, 181, 0.16); color: var(--blue-300); }
+  </style>
 </head>
 <body>
 
@@ -955,14 +1136,37 @@
   <div id="vanta" aria-hidden="true"></div>
   <canvas id="stars" aria-hidden="true"></canvas>
 
+  <aside class="side-rail" aria-label="Workspace navigation">
+    <div class="rail-brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4L12 2.8Z"/><path d="m8.2 8.8 3.8 2.2 3.8-2.2M12 11v5.1"/></svg>
+      <span>LUNAR</span>
+    </div>
+    <nav class="rail-nav">
+      <a class="rail-item" href="#search" aria-label="Search" title="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg><span class="rail-label">Search</span>
+      </a>
+      <button class="rail-item" type="button" onclick="document.getElementById('searchInput').focus()" aria-label="Focus search" title="Focus search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg><span class="rail-label">Quick access</span>
+      </button>
+    </nav>
+    <div class="rail-divider"></div>
+    <button class="rail-cloud local-launcher" type="button" data-local-file="assets/cloud.html" title="Open Lunar Cloud">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 18h9a4.5 4.5 0 0 0 .8-8.93A5.5 5.5 0 0 0 6.2 8.1 4 4 0 0 0 7.5 18Z"/></svg><span class="rail-label">Lunar Cloud</span>
+    </button>
+    <div class="rail-footer">
+      <div class="rail-divider"></div>
+      <div class="rail-session">Local workspace<br />Session ready</div>
+    </div>
+  </aside>
+
   <div id="topBrowserBar" class="top-browser-bar hidden">
     <div class="browser-toolbar">
-      <div class="toolbar-brand" aria-label="Regen Unblocker">
+      <div class="toolbar-brand" aria-label="Lunar Proxy">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4L12 2.8Z"/>
           <path d="m8.2 8.8 3.8 2.2 3.8-2.2M12 11v5.1"/>
         </svg>
-        REGEN
+        LUNAR
       </div>
 
       <div class="nav-controls">
@@ -1020,7 +1224,7 @@
           <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </button>
         <div class="nav-divider"></div>
-        <button id="closeModalBtn" class="nav-btn close-btn" title="Exit to Regen Home">
+        <button id="closeModalBtn" class="nav-btn close-btn" title="Exit to Lunar Home">
           <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
@@ -1042,29 +1246,25 @@
 
   <div id="cloakMenu" class="cloak-menu" aria-label="Tab appearance options" aria-hidden="true">
     <h2>Tab appearance</h2>
-    <p>Choose a neutral presentation for this tab. Restore the Regen identity any time.</p>
+    <p>Choose a neutral presentation for this tab. Restore the Lunar identity any time.</p>
     <div class="cloak-options">
       <button class="cloak-option" type="button" data-cloak-title="New Tab | Search" data-cloak-icon="search">Search tab</button>
       <button class="cloak-option" type="button" data-cloak-title="Notes | Workspace" data-cloak-icon="notes">Notes tab</button>
       <button class="cloak-option" type="button" data-cloak-title="Reading List" data-cloak-icon="reading">Reading tab</button>
     </div>
-    <button id="uncloakBtn" class="uncloak-option" type="button">Restore Regen Games</button>
+    <button id="uncloakBtn" class="uncloak-option" type="button">Restore Lunar Proxy</button>
   </div>
 
   <main>
     <div class="hero-content">
-      <div class="regen-games-logo" aria-label="Regen Games">
-        <svg viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M9 12.5 12 8h8l3 4.5v7a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3v-7Z"/>
-          <path d="M12 16h5M14.5 13.5v5M20 15.5h.01M23 18h.01"/>
-          <path d="m9 14-3-2.5M23 14l3-2.5"/>
-        </svg>
-        <span><strong>Regen</strong> Games</span>
+      <div class="regen-games-logo" aria-label="Lunar Proxy">
+        <img class="lunar-proxy-image" src="assets/Lunar-proxy.png" alt="Lunar Proxy" />
       </div>
-      <h1>welcome to <span class="accent-text">Regen Unblocker</span>!</h1>
-      <p>ultra-fast web proxy and search portal.</p>
+      <div class="launcher-status" role="status">Session ready</div>
+      <h1><span class="accent-text">Lunar</span> Proxy</h1>
+      <p>Web access, in one place.</p>
       
-      <div class="search-box">
+      <div class="search-box" id="search">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -1103,11 +1303,11 @@
   </main>
 
   <div id="homeBottomBar" class="home-bottom-bar" aria-label="Homepage tools">
-    <button class="local-launcher" type="button" data-local-file="assets/cloud.html" title="Open Cloud Gaming">
+    <button class="local-launcher" type="button" data-local-file="assets/cloud.html" title="Open Lunar Cloud">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M7.5 18h9a4.5 4.5 0 0 0 .8-8.93A5.5 5.5 0 0 0 6.2 8.1 4 4 0 0 0 7.5 18Z"/>
       </svg>
-      <span>Cloud Gaming</span>
+      <span>Lunar Cloud</span>
     </button>
     <div class="system-readout" aria-live="polite">
       <span id="currentTime">--:--:--</span>
@@ -1122,12 +1322,12 @@
       <div id="loadingOverlay" class="loading-overlay">
         <div class="cyber-spinner"></div>
         <div class="loading-text-wrapper">
-          <div class="loading-brand">Regen Unblocker</div>
+          <div class="loading-brand">Lunar Proxy</div>
           <div id="loadingStatus" class="loading-status">Deploying Proxy...</div>
         </div>
       </div>
 
-      <iframe id="gameFrame" src=""></iframe>
+      <iframe id="gameFrame" src="" referrerpolicy="no-referrer"></iframe>
     </div>
   </div>
 
@@ -1141,24 +1341,26 @@
     <span id="screenMonitorMessage">This tab is not focused. A browser extension may still be able to capture your screen.</span>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js" referrerpolicy="no-referrer"></script>
   <script>
-    VANTA.FOG({
-      el: '#vanta',
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200,
-      minWidth: 200,
-      highlightColor: 0x5b3d82,
-      midtoneColor: 0x302047,
-      lowlightColor: 0x151021,
-      baseColor: 0x06050a,
-      blurFactor: 0.7,
-      speed: 0.8,
-      zoom: 0.85
-    });
+    if (window.VANTA && typeof window.VANTA.FOG === 'function') {
+      VANTA.FOG({
+        el: '#vanta',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        highlightColor: 0x4b7890,
+        midtoneColor: 0x263d49,
+        lowlightColor: 0x122027,
+        baseColor: 0x04090c,
+        blurFactor: 0.7,
+        speed: 0.8,
+        zoom: 0.85
+      });
+    }
 
     (() => {
       const canvas = document.getElementById('stars');
@@ -1195,7 +1397,7 @@
           const shimmer = star.opacity + Math.sin(time * 0.0007 + star.phase) * 0.04;
           context.beginPath();
           context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          context.fillStyle = `rgba(210, 190, 255, ${Math.max(0.04, shimmer)})`;
+          context.fillStyle = `rgba(138, 190, 226, ${Math.max(0.04, shimmer)})`;
           context.fill();
         });
         requestAnimationFrame(drawStars);
@@ -1218,6 +1420,24 @@
     let fpsFrameCount = 0;
     let fpsLastUpdate = performance.now();
     const proxyBase = 'https://camp-doe-heroes-accent.trycloudflare.com/ixl/';
+    function createSessionToken() {
+      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+      return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+    }
+
+    function setSessionUrl() {
+      const sessionToken = createSessionToken();
+      const sessionUrl = `${window.location.pathname}?session=${encodeURIComponent(sessionToken)}`;
+      try {
+        window.history.replaceState({ sessionToken }, '', sessionUrl);
+      } catch {
+        window.location.hash = `session=${encodeURIComponent(sessionToken)}`;
+      }
+    }
+
+    function buildProxyUrl(targetUrl) {
+      return `${proxyBase}${encodeURIComponent(targetUrl)}`;
+    }
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -1256,7 +1476,7 @@
           let dx = mouse.x - this.x;
           let dy = mouse.y - this.y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
+          if (distance > 0 && distance < mouse.radius) {
             let force = (mouse.radius - distance) / mouse.radius;
             this.x -= (dx / distance) * force * 2;
             this.y -= (dy / distance) * force * 2;
@@ -1267,7 +1487,7 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(186, 156, 238, 0.42)';
+        ctx.fillStyle = 'rgba(105, 167, 204, 0.48)';
         ctx.fill();
       }
     }
@@ -1291,7 +1511,7 @@
 
           if (dist < 115) {
             let opacity = (1 - dist / 115) * 0.055;
-            ctx.strokeStyle = `rgba(187, 134, 252, ${opacity})`;
+            ctx.strokeStyle = `rgba(105, 167, 204, ${opacity})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
@@ -1557,7 +1777,7 @@
       cloakBtn.setAttribute('aria-pressed', 'false');
       cloakMenu.classList.remove('open');
       cloakMenu.setAttribute('aria-hidden', 'true');
-      showToast('Regen Games identity restored');
+      showToast('Lunar Proxy identity restored');
     }
 
     cloakBtn.addEventListener('click', () => {
@@ -1596,7 +1816,7 @@
 
     document.getElementById('newTabBtn').addEventListener('click', () => {
       if (frame.src) {
-        window.open(frame.src, '_blank');
+        window.open(frame.src, '_blank', 'noopener,noreferrer');
       }
     });
 
@@ -1659,13 +1879,13 @@
 
       if (isLikelyUrl(value)) {
         const finalUrl = /^https?:\/\//i.test(value) ? value : 'https://' + value;
-        const proxiedUrl = proxyBase + encodeURIComponent(finalUrl);
+        const proxiedUrl = buildProxyUrl(finalUrl);
         openGame('Proxy Page', proxiedUrl);
         return;
       }
 
       const ddgUrl = 'https://duckduckgo.com/?q=' + encodeURIComponent(value);
-      const proxiedDdgo = proxyBase + encodeURIComponent(ddgUrl);
+      const proxiedDdgo = buildProxyUrl(ddgUrl);
       openGame('DuckDuckGo', proxiedDdgo);
     }
 
@@ -1679,6 +1899,8 @@
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeGame();
     });
+
+    setSessionUrl();
   </script>
 </body>
 </html>
