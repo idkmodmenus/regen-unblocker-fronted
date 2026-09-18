@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="no-referrer" />
-  <title>Google Classroom</title>
+  <title>Classes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500&family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
   <style>
     /* ─── RESET & BASE ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -119,7 +119,6 @@
       filter: drop-shadow(0 0 24px rgba(119,183,223,0.3));
     }
 
-    /* Search */
     .search-wrap {
       position: relative; width: 100%;
     }
@@ -149,30 +148,6 @@
       main { padding: 3rem 1rem 6rem calc(var(--rail-w) + 0.75rem); }
     }
 
-    /* ─── BOTTOM HOME BAR ──────────────────────────────────────────── */
-    .home-bottom-bar {
-      position: fixed; bottom: 1rem; left: 50%; z-index: 20;
-      transform: translateX(-50%);
-      width: min(400px, calc(100vw - calc(var(--rail-w) + 2rem)));
-      min-height: 46px; padding: 0.35rem 0.5rem;
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      border: 1px solid var(--border); border-radius: 14px;
-      background: rgba(10, 18, 26, 0.82); backdrop-filter: blur(18px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.35), 0 0 20px rgba(119,183,223,0.06);
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .home-bottom-bar.hidden { opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(10px); }
-    .bottom-btn {
-      display: flex; align-items: center; gap: 0.4rem;
-      height: 34px; padding: 0 0.7rem;
-      border: 1px solid var(--border); border-radius: 8px;
-      background: var(--accent-soft); color: #d0e9f5;
-      font-size: 0.72rem; font-weight: 600;
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
-    }
-    .bottom-btn:hover { border-color: var(--border-hi); background: rgba(119,183,223,0.22); transform: translateY(-1px); }
-    .bottom-btn svg { width: 15px; height: 15px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
     /* ─── TOP BROWSER TOOLBAR ──────────────────────────────────────── */
     .top-bar {
       position: fixed; top: 0; left: 0; width: 100%; z-index: 150;
@@ -181,7 +156,6 @@
     }
     .top-bar.hidden { transform: translateY(calc(-1 * var(--bar-h))); }
 
-    /* ── Main bar row ─────────────────────────────────────────────── */
     .toolbar {
       width: 100%; height: var(--bar-h);
       background: rgba(5, 11, 20, 0.97);
@@ -189,19 +163,16 @@
       border-bottom: 1px solid rgba(119,183,223,0.12);
       box-shadow: 0 1px 0 rgba(119,183,223,0.06), 0 8px 28px rgba(0,0,0,0.55);
       display: grid;
-      /* left-cluster | address | right-cluster */
       grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 0.55rem;
       padding: 0 0.65rem;
     }
 
-    /* ── Clusters ─────────────────────────────────────────────────── */
     .tb-left, .tb-right {
       display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0;
     }
 
-    /* ── Brand ────────────────────────────────────────────────────── */
     .tb-brand {
       display: flex; align-items: center; gap: 0.38rem;
       height: 32px; padding: 0 0.55rem 0 0.3rem;
@@ -212,7 +183,6 @@
     .tb-brand svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
     @media (max-width: 620px) { .tb-brand-label { display: none; } .tb-brand { border-right: none; padding-right: 0.1rem; } }
 
-    /* ── Individual toolbar button ────────────────────────────────── */
     .tb-btn {
       position: relative;
       width: 30px; height: 30px;
@@ -232,13 +202,11 @@
     .tb-btn.is-active { color: var(--green); }
     .tb-btn.danger:hover { background: rgba(248,113,113,0.16); color: var(--red); }
 
-    /* ── Subtle divider between button groups ─────────────────────── */
     .tb-div {
       width: 1px; height: 18px; flex-shrink: 0;
       background: rgba(255,255,255,0.08); margin: 0 0.15rem;
     }
 
-    /* ── Tooltip ──────────────────────────────────────────────────── */
     .tb-btn::after {
       content: attr(data-tip);
       position: absolute; bottom: calc(100% + 8px); left: 50%;
@@ -252,7 +220,6 @@
     }
     .tb-btn:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ── Address pill ─────────────────────────────────────────────── */
     .address-pill {
       display: flex; align-items: center; gap: 0.4rem;
       height: 32px; padding: 0 0.45rem 0 0.6rem;
@@ -295,7 +262,6 @@
     }
     .zoom-badge:hover { color: var(--accent); border-color: rgba(119,183,223,0.4); }
 
-    /* ── Guard pill ───────────────────────────────────────────────── */
     .guard-pill {
       display: flex; align-items: center; gap: 0.28rem;
       height: 26px; padding: 0 0.55rem;
@@ -319,7 +285,6 @@
     }
     .guard-dot.on { background: var(--green); box-shadow: 0 0 6px rgba(52,211,153,0.9); }
 
-    /* ── Collapse handle ──────────────────────────────────────────── */
     .collapse-handle {
       height: 13px; width: 34px;
       background: rgba(5,11,20,0.94); border: 1px solid rgba(119,183,223,0.12);
@@ -334,8 +299,6 @@
     .top-bar.hidden .collapse-handle svg { transform: rotate(180deg); }
 
     /* ─── OVERLAY PANELS ───────────────────────────────────────────── */
-
-    /* ── Shared panel base ────────────────────────────────────────── */
     .panel {
       position: fixed; top: 58px; z-index: 175;
       padding: 1rem; border-radius: var(--radius-lg);
@@ -355,7 +318,6 @@
     .panel-title svg { width: 13px; height: 13px; fill: none; stroke: var(--accent); stroke-width: 2; }
     .panel-title-note { font-size: 0.62rem; font-weight: 400; color: var(--ink-muted); text-transform: none; letter-spacing: 0; margin-left: auto; }
 
-    /* ── Cloak panel ─────────────────────────────────────────────── */
     .cloak-menu {
       right: 0.75rem; width: min(310px, calc(100vw - 1.5rem));
     }
@@ -370,7 +332,7 @@
     }
     .cloak-opt:hover { background: rgba(119,183,223,0.1); border-color: rgba(119,183,223,0.35); }
     .cloak-opt.active { border-color: rgba(119,183,223,0.55); background: rgba(119,183,223,0.1); }
-    .cloak-opt-icon { font-size: 1.1rem; line-height: 1; }
+    .cloak-opt-icon { font-size: 1.1rem; line-height: 1; display: inline-flex; align-items: center; }
     .cloak-opt-name { color: var(--ink); font-size: 0.7rem; font-weight: 600; }
     .cloak-opt-sub  { color: var(--ink-muted); font-size: 0.6rem; }
     .cloak-sep { grid-column: 1 / -1; height: 1px; background: rgba(255,255,255,0.07); margin: 0.2rem 0; }
@@ -445,123 +407,189 @@
     .kbd { display: inline-block; padding: 1px 6px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; background: rgba(255,255,255,0.07); color: var(--ink); font-size: 0.62rem; font-weight: 600; }
     .shortcuts-close { display: block; margin: 1rem auto 0; }
 
-    /* ── Privacy / Decoy overlay ──────────────────────────────────── */
-    /* Covers the entire viewport with a convincing Google Classroom
-       decoy page the instant the tab loses focus or is hidden.
-       The real content is still live underneath — user snaps back
-       instantly when they refocus. Transition is kept short so there's
-       no visible flash when toggling. */
+    /* ─── GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ──────────────────── */
     .decoy-overlay {
       position: fixed; inset: 0; z-index: 2000;
-      background: #f1f3f4; /* Google's page background */
+      background: #ffffff;
       opacity: 0; pointer-events: none; visibility: hidden;
-      transition: opacity 0.08s ease, visibility 0.08s ease;
-      overflow: hidden; font-family: 'Google Sans', 'Roboto', sans-serif;
+      transition: opacity 0.06s ease, visibility 0.06s ease;
+      overflow-y: auto;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #3c4043;
+      user-select: none;
     }
     .decoy-overlay.visible {
       opacity: 1; pointer-events: auto; visibility: visible;
     }
 
-    /* Google top bar */
-    .decoy-topbar {
-      height: 64px; background: #fff;
-      border-bottom: 1px solid #e0e0e0;
-      display: flex; align-items: center;
-      padding: 0 24px; gap: 16px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    /* Google Classroom App Bar */
+    .gc-header {
+      height: 64px;
+      border-bottom: 1px solid #dadce0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: sticky; top: 0; background: #ffffff; z-index: 100;
     }
-    .decoy-hamburger {
-      width: 20px; height: 16px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      cursor: pointer; flex-shrink: 0;
+    .gc-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .decoy-hamburger span {
-      display: block; height: 2px; background: #5f6368; border-radius: 1px;
-    }
-    .decoy-gc-logo {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 22px; font-weight: 400; color: #1a73e8; letter-spacing: -0.5px;
-      flex-shrink: 0;
-    }
-    .decoy-gc-logo-square {
-      width: 32px; height: 32px; border-radius: 6px; background: #1a73e8;
+    .gc-icon-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 18px; font-weight: 700;
+      cursor: pointer;
+      color: #5f6368;
     }
-    .decoy-search {
-      flex: 1; max-width: 720px; height: 40px;
-      border: 1px solid #dfe1e5; border-radius: 24px;
-      background: #f8f9fa; display: flex; align-items: center;
-      padding: 0 16px; gap: 10px; margin: 0 auto;
+    .gc-icon-btn:hover { background: rgba(60,64,67,0.08); }
+    .gc-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
     }
-    .decoy-search-icon { color: #9aa0a6; font-size: 16px; }
-    .decoy-search input {
-      flex: 1; border: none; background: transparent; outline: none;
-      font-size: 14px; color: #202124;
+    .gc-brand span {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-size: 22px;
+      color: #5f6368;
+      letter-spacing: -0.2px;
+      vertical-align: middle;
     }
-    .decoy-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: #1a73e8; color: #fff;
+    .gc-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .gc-avatar-btn {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #1a73e8;
+      color: #ffffff;
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 600; flex-shrink: 0; margin-left: auto;
+      margin-left: 8px;
+      cursor: pointer;
     }
 
-    /* Left nav */
-    .decoy-body { display: flex; min-height: calc(100vh - 64px); }
-    .decoy-nav {
-      width: 256px; flex-shrink: 0; padding: 8px 0;
-      background: #fff; border-right: 1px solid #e0e0e0;
+    /* Grid layout */
+    .gc-layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
     }
-    .decoy-nav-item {
-      display: flex; align-items: center; gap: 14px;
-      padding: 0 24px; height: 48px; cursor: pointer;
-      color: #202124; font-size: 14px; border-radius: 0 24px 24px 0;
-      margin-right: 16px;
+    .gc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
     }
-    .decoy-nav-item:hover { background: #f1f3f4; }
-    .decoy-nav-item.active {
-      background: #e8f0fe; color: #1a73e8; font-weight: 600;
-    }
-    .decoy-nav-icon { font-size: 20px; }
 
-    /* Main content */
-    .decoy-main { flex: 1; padding: 24px 32px; background: #f1f3f4; }
-    .decoy-section-title {
-      font-size: 13px; font-weight: 600; color: #5f6368;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 16px; padding-bottom: 8px;
+    /* Classroom Card */
+    .gc-card {
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 290px;
+      position: relative;
+      transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .gc-card:hover {
+      box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+    }
+    .gc-card-header {
+      height: 136px;
+      padding: 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: #ffffff;
+    }
+    .gc-card-title {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #ffffff;
+      text-decoration: underline;
+      text-decoration-color: transparent;
+      transition: text-decoration-color 0.15s;
+    }
+    .gc-card:hover .gc-card-title {
+      text-decoration-color: #ffffff;
+    }
+    .gc-card-sub {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.85);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .gc-card-teacher {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.9);
+      margin-top: auto;
+    }
+    .gc-card-dots {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .gc-card-dots:hover { background: rgba(255,255,255,0.15); }
+    
+    .gc-card-avatar {
+      position: absolute;
+      top: 98px; right: 16px;
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: #5f6368;
+      border: 3px solid #ffffff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px;
+      color: #ffffff;
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .gc-card-body {
+      flex: 1;
+      padding: 16px;
       border-bottom: 1px solid #e0e0e0;
+      font-size: 0.8125rem;
+      color: #3c4043;
     }
-    .decoy-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .decoy-card {
-      background: #fff; border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-      overflow: hidden; cursor: pointer;
-      transition: box-shadow 0.2s;
+    .gc-card-footer {
+      height: 48px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
     }
-    .decoy-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.16); }
-    .decoy-card-header {
-      height: 96px; padding: 16px;
-      display: flex; flex-direction: column; justify-content: space-between;
+    .gc-footer-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #5f6368;
+      cursor: pointer;
     }
-    .decoy-card-title { color: #fff; font-size: 16px; font-weight: 500; }
-    .decoy-card-sub   { color: rgba(255,255,255,0.85); font-size: 12px; }
-    .decoy-card-body  { padding: 12px 16px 16px; border-top: 1px solid #f1f3f4; }
-    .decoy-card-link  { color: #1a73e8; font-size: 13px; text-decoration: none; }
-    .decoy-due {
-      margin-top: 16px; padding: 16px;
-      background: #fff; border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-    }
-    .decoy-due-title { font-size: 14px; font-weight: 600; color: #202124; margin-bottom: 12px; }
-    .decoy-due-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 0; border-bottom: 1px solid #f1f3f4;
-      font-size: 13px; color: #3c4043;
-    }
-    .decoy-due-dot {
-      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-    }
+    .gc-footer-btn:hover { background: rgba(60,64,67,0.08); }
 
     /* Screen monitor notice */
     .monitor-notice {
@@ -594,12 +622,6 @@
     .toast svg { flex-shrink: 0; }
 
     /* ─── MODAL / WEB VIEWPORT ─────────────────────────────────────── */
-    /*
-      --modal-top   : set by JS to bar height when toolbar is visible, else 0
-      --modal-left  : always equals --rail-w (sidebar is always present)
-      Transitions match the toolbar slide and sidebar expand so the iframe
-      smoothly reflows instead of jumping.
-    */
     :root {
       --modal-top:  0px;
       --modal-left: var(--rail-w);
@@ -667,7 +689,6 @@
     </div>
 
     <nav class="rail-nav" aria-label="Main nav">
-      <!-- Quick sites -->
       <button class="rail-item" data-url="https://youtube.com" title="YouTube">
         <svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         <span class="rail-label">YouTube</span>
@@ -696,7 +717,6 @@
 
     <div class="rail-divider"></div>
 
-    <!-- Tools -->
     <nav class="rail-nav" aria-label="Tools">
       <button class="rail-item" id="railBookmarks" type="button" title="Bookmarks">
         <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
@@ -718,7 +738,7 @@
     </div>
   </aside>
 
-  <!-- Home screen — logo + search only -->
+  <!-- Home screen -->
   <main id="homeScreen">
     <div class="hero-content">
       <div class="logo-wrap">
@@ -732,41 +752,30 @@
     </div>
   </main>
 
-  <!-- Bottom bar -->
-  <div id="homeBottomBar" class="home-bottom-bar">
-    <button class="bottom-btn" type="button" data-local-file="assets/cloud.html" id="cloudBtn">
-      <svg viewBox="0 0 24 24"><path d="M7.5 18h9a4.5 4.5 0 0 0 .8-8.93A5.5 5.5 0 0 0 6.2 8.1 4 4 0 0 0 7.5 18Z"/></svg>
-      Lunar Cloud
-    </button>
-  </div>
-
   <!-- ── TOP BROWSER TOOLBAR ─────────────────────────────────────────── -->
   <div id="topBar" class="top-bar hidden" aria-hidden="true">
     <div class="toolbar">
-
-      <!-- LEFT: brand + nav -->
       <div class="tb-left">
         <div class="tb-brand" aria-label="Lunar Proxy">
           <svg viewBox="0 0 24 24"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4L12 2.8Z"/><path d="m8.2 8.8 3.8 2.2 3.8-2.2M12 11v5.1"/></svg>
           <span class="tb-brand-label">LUNAR</span>
         </div>
 
-        <button id="homeBtn"    class="tb-btn" data-tip="Home">
+        <button id="homeBtn" class="tb-btn" data-tip="Home">
           <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </button>
         <div class="tb-div"></div>
-        <button id="backBtn"    class="tb-btn" data-tip="Back" disabled>
+        <button id="backBtn" class="tb-btn" data-tip="Back" disabled>
           <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
         <button id="forwardBtn" class="tb-btn" data-tip="Forward" disabled>
           <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
         </button>
-        <button id="reloadBtn"  class="tb-btn" data-tip="Reload  Ctrl+R">
+        <button id="reloadBtn" class="tb-btn" data-tip="Reload Ctrl+R">
           <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 2 5.3"/><path d="M20 4v7h-7"/></svg>
         </button>
       </div>
 
-      <!-- CENTRE: address pill -->
       <div class="address-pill">
         <span class="ssl-badge">
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -780,61 +789,51 @@
         <span id="zoomDisplay" class="zoom-badge">100%</span>
       </div>
 
-      <!-- RIGHT: tools -->
       <div class="tb-right">
-        <!-- Zoom -->
-        <button id="zoomOutBtn"  class="tb-btn" data-tip="Zoom out  Ctrl+-">
+        <button id="zoomOutBtn" class="tb-btn" data-tip="Zoom out Ctrl+-">
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <button id="zoomInBtn"   class="tb-btn" data-tip="Zoom in  Ctrl+=">
+        <button id="zoomInBtn" class="tb-btn" data-tip="Zoom in Ctrl+=">
           <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
 
         <div class="tb-div"></div>
 
-        <!-- Bookmarks -->
-        <button id="bookmarkBtn"     class="tb-btn" data-tip="Bookmarks">
+        <button id="bookmarkBtn" class="tb-btn" data-tip="Bookmarks">
           <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
         </button>
-        <button id="saveBookmarkBtn" class="tb-btn" data-tip="Save bookmark  Ctrl+D">
+        <button id="saveBookmarkBtn" class="tb-btn" data-tip="Save bookmark Ctrl+D">
           <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><line x1="12" y1="9" x2="12" y2="15"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
         </button>
 
         <div class="tb-div"></div>
 
-        <!-- Tab disguise -->
         <button id="cloakBtn" class="tb-btn" data-tip="Tab disguise">
           <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
 
-        <!-- Copy URL -->
-        <button id="copyUrlBtn" class="tb-btn" data-tip="Copy URL  Ctrl+L">
+        <button id="copyUrlBtn" class="tb-btn" data-tip="Copy URL Ctrl+L">
           <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
 
-        <!-- PiP -->
         <button id="pipBtn" class="tb-btn" data-tip="Picture-in-Picture">
           <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><rect x="12" y="12" width="9" height="7" rx="1"/></svg>
         </button>
 
-        <!-- Fullscreen -->
-        <button id="fullscreenBtn" class="tb-btn" data-tip="Fullscreen  F11">
+        <button id="fullscreenBtn" class="tb-btn" data-tip="Fullscreen F11">
           <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
         </button>
 
-        <!-- New window -->
         <button id="newTabBtn" class="tb-btn" data-tip="Open in new window">
           <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </button>
 
-        <!-- Shortcuts -->
-        <button id="shortcutsBtn" class="tb-btn" data-tip="Shortcuts  ?">
+        <button id="shortcutsBtn" class="tb-btn" data-tip="Shortcuts ?">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </button>
 
         <div class="tb-div"></div>
 
-        <!-- Privacy guard -->
         <button id="privacyGuardBtn" class="guard-pill" type="button" aria-pressed="false" data-tip="Privacy Guard">
           <svg viewBox="0 0 24 24"><path d="M12 3 20 6v5c0 5.2-3.4 8.8-8 10-4.6-1.2-8-4.8-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
           Guard
@@ -843,8 +842,7 @@
 
         <div class="tb-div"></div>
 
-        <!-- Close -->
-        <button id="closeModalBtn" class="tb-btn danger" data-tip="Close  Esc">
+        <button id="closeModalBtn" class="tb-btn danger" data-tip="Close Esc">
           <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
@@ -863,14 +861,25 @@
       <span class="panel-title-note">Hides this tab's identity</span>
     </div>
     <div class="cloak-grid">
-      <!-- Row 1: school disguises -->
-      <button class="cloak-opt" data-cloak-title="Google Classroom" data-cloak-icon="school" data-cloak-emoji="🏫">
-        <span class="cloak-opt-icon">🏫</span>
+      <button class="cloak-opt" data-cloak-title="Classes" data-cloak-icon="school">
+        <span class="cloak-opt-icon">
+          <svg width="20" height="20" viewBox="0 0 48 48">
+            <rect width="42" height="34" x="3" y="7" rx="3.5" fill="#00832d"/>
+            <rect width="36" height="28" x="6" y="10" rx="1.5" fill="#0f9d58"/>
+            <rect width="32" height="24" x="8" y="12" rx="1" fill="#006923"/>
+            <circle cx="24" cy="20" r="3.2" fill="#ffc107"/>
+            <path fill="#ffc107" d="M24 24.2c-3.1 0-5.6 1.4-5.6 3.2v1.6h11.2v-1.6c0-1.8-2.5-3.2-5.6-3.2z"/>
+            <circle cx="17.2" cy="21.5" r="2.5" fill="#ffffff"/>
+            <path fill="#ffffff" d="M17.2 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
+            <circle cx="30.8" cy="21.5" r="2.5" fill="#ffffff"/>
+            <path fill="#ffffff" d="M30.8 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
+          </svg>
+        </span>
         <span class="cloak-opt-name">Google Classroom</span>
         <span class="cloak-opt-sub">classroom.google.com</span>
       </button>
       <button class="cloak-opt" data-cloak-title="Google Docs" data-cloak-icon="docs" data-cloak-emoji="📄">
-        <span class="cloak-opt-icon">�</span>
+        <span class="cloak-opt-icon">📄</span>
         <span class="cloak-opt-name">Google Docs</span>
         <span class="cloak-opt-sub">docs.google.com</span>
       </button>
@@ -880,7 +889,7 @@
         <span class="cloak-opt-sub">drive.google.com</span>
       </button>
       <button class="cloak-opt" data-cloak-title="Khan Academy" data-cloak-icon="khan" data-cloak-emoji="📚">
-        <span class="cloak-opt-icon">�</span>
+        <span class="cloak-opt-icon">📚</span>
         <span class="cloak-opt-name">Khan Academy</span>
         <span class="cloak-opt-sub">khanacademy.org</span>
       </button>
@@ -894,20 +903,17 @@
         <span class="cloak-opt-name">Google Slides</span>
         <span class="cloak-opt-sub">slides.google.com</span>
       </button>
-      <!-- divider -->
       <div class="cloak-sep"></div>
-      <!-- Generic / other -->
       <button class="cloak-opt" data-cloak-title="New Tab" data-cloak-icon="search" data-cloak-emoji="🔍">
         <span class="cloak-opt-icon">🔍</span>
         <span class="cloak-opt-name">New Tab</span>
         <span class="cloak-opt-sub">Empty search tab</span>
       </button>
       <button class="cloak-opt" data-cloak-title="Notes — Workspace" data-cloak-icon="notes" data-cloak-emoji="📝">
-        <span class="cloak-opt-icon">�</span>
+        <span class="cloak-opt-icon">📝</span>
         <span class="cloak-opt-name">Notes</span>
         <span class="cloak-opt-sub">Workspace notes</span>
       </button>
-      <!-- Restore -->
       <button id="uncloakBtn" class="uncloak-opt">↩ Restore Lunar Proxy</button>
     </div>
   </div>
@@ -947,101 +953,115 @@
     </div>
   </div>
 
-  <!-- Privacy guard — Google Classroom decoy overlay -->
+  <!-- ─── ACCURATE GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ─────────── -->
   <div id="privacyOverlay" class="decoy-overlay" aria-hidden="true">
-
-    <!-- Top bar -->
-    <div class="decoy-topbar">
-      <div class="decoy-hamburger"><span></span><span></span><span></span></div>
-      <div class="decoy-gc-logo">
-        <div class="decoy-gc-logo-square">C</div>
-        Classroom
+    <header class="gc-header">
+      <div class="gc-left">
+        <div class="gc-icon-btn" title="Main menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </div>
+        <div class="gc-brand">
+          <svg width="28" height="28" viewBox="0 0 48 48">
+            <rect width="42" height="34" x="3" y="7" rx="3.5" fill="#00832d"/>
+            <rect width="36" height="28" x="6" y="10" rx="1.5" fill="#0f9d58"/>
+            <rect width="32" height="24" x="8" y="12" rx="1" fill="#006923"/>
+            <circle cx="24" cy="20" r="3.2" fill="#ffc107"/>
+            <path fill="#ffc107" d="M24 24.2c-3.1 0-5.6 1.4-5.6 3.2v1.6h11.2v-1.6c0-1.8-2.5-3.2-5.6-3.2z"/>
+            <circle cx="17.2" cy="21.5" r="2.5" fill="#ffffff"/>
+            <path fill="#ffffff" d="M17.2 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
+            <circle cx="30.8" cy="21.5" r="2.5" fill="#ffffff"/>
+            <path fill="#ffffff" d="M30.8 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
+          </svg>
+          <span>Google Classroom</span>
+        </div>
       </div>
-      <div class="decoy-search">
-        <span class="decoy-search-icon">🔍</span>
-        <input type="text" placeholder="Search" readonly />
+      <div class="gc-right">
+        <div class="gc-icon-btn" title="Create or join a class">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        </div>
+        <div class="gc-icon-btn" title="Google apps">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#5f6368"><path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"/></svg>
+        </div>
+        <div class="gc-avatar-btn" title="Google Account">S</div>
       </div>
-      <div class="decoy-avatar">S</div>
-    </div>
+    </header>
 
-    <!-- Body -->
-    <div class="decoy-body">
-
-      <!-- Left nav -->
-      <nav class="decoy-nav">
-        <div class="decoy-nav-item active">
-          <span class="decoy-nav-icon">🏠</span> Home
-        </div>
-        <div class="decoy-nav-item">
-          <span class="decoy-nav-icon">📅</span> Calendar
-        </div>
-        <div class="decoy-nav-item">
-          <span class="decoy-nav-icon">📋</span> To-do
-        </div>
-        <div class="decoy-nav-item">
-          <span class="decoy-nav-icon">⚙️</span> Settings
-        </div>
-      </nav>
-
-      <!-- Main area -->
-      <main class="decoy-main">
-        <div class="decoy-section-title">Enrolled classes</div>
-
-        <div class="decoy-cards">
-          <div class="decoy-card">
-            <div class="decoy-card-header" style="background:linear-gradient(135deg,#1a73e8,#0d47a1)">
-              <div class="decoy-card-title">AP Biology — Period 3</div>
-              <div class="decoy-card-sub">Mr. Henderson</div>
-            </div>
-            <div class="decoy-card-body">
-              <a class="decoy-card-link">3 assignments due this week</a>
+    <div class="gc-layout">
+      <div class="gc-grid">
+        <!-- Class 1 -->
+        <div class="gc-card">
+          <div class="gc-card-header" style="background-color: #137333;">
+            <div class="gc-card-title">AP Biology: Period 3</div>
+            <div class="gc-card-sub">2024-2025 Regular</div>
+            <div class="gc-card-teacher">Mr. Henderson</div>
+            <div class="gc-card-dots">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
             </div>
           </div>
-          <div class="decoy-card">
-            <div class="decoy-card-header" style="background:linear-gradient(135deg,#0f9d58,#1b5e20)">
-              <div class="decoy-card-title">Algebra II — Period 5</div>
-              <div class="decoy-card-sub">Ms. Patel</div>
-            </div>
-            <div class="decoy-card-body">
-              <a class="decoy-card-link">Quiz posted — due Friday</a>
-            </div>
+          <div class="gc-card-avatar">H</div>
+          <div class="gc-card-body">
+            <span style="font-weight: 500; font-size: 0.75rem; color: #5f6368;">Due Friday</span><br/>
+            <span style="display:inline-block; margin-top:4px;">11:59 PM — Cellular Energetics Review Packet</span>
           </div>
-          <div class="decoy-card">
-            <div class="decoy-card-header" style="background:linear-gradient(135deg,#f4b400,#e65100)">
-              <div class="decoy-card-title">World History — Period 1</div>
-              <div class="decoy-card-sub">Mr. Okafor</div>
+          <div class="gc-card-footer">
+            <div class="gc-footer-btn" title="Open Your Work">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
             </div>
-            <div class="decoy-card-body">
-              <a class="decoy-card-link">Essay draft returned</a>
-            </div>
-          </div>
-          <div class="decoy-card">
-            <div class="decoy-card-header" style="background:linear-gradient(135deg,#9c27b0,#4a148c)">
-              <div class="decoy-card-title">English Lit — Period 6</div>
-              <div class="decoy-card-sub">Ms. Nguyen</div>
-            </div>
-            <div class="decoy-card-body">
-              <a class="decoy-card-link">Discussion board open</a>
+            <div class="gc-footer-btn" title="Open Folder">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
             </div>
           </div>
         </div>
 
-        <div class="decoy-due">
-          <div class="decoy-due-title">Upcoming work</div>
-          <div class="decoy-due-item">
-            <span class="decoy-due-dot" style="background:#1a73e8"></span>
-            AP Bio — Chapter 12 Reading Notes &nbsp;<span style="margin-left:auto;color:#5f6368">Tomorrow</span>
+        <!-- Class 2 -->
+        <div class="gc-card">
+          <div class="gc-card-header" style="background-color: #1a73e8;">
+            <div class="gc-card-title">Algebra II — Honors</div>
+            <div class="gc-card-sub">Period 5 • Room 204</div>
+            <div class="gc-card-teacher">Ms. Patel</div>
+            <div class="gc-card-dots">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
           </div>
-          <div class="decoy-due-item">
-            <span class="decoy-due-dot" style="background:#0f9d58"></span>
-            Algebra II — Problem Set 7 &nbsp;<span style="margin-left:auto;color:#d93025">Due today</span>
+          <div class="gc-card-avatar">P</div>
+          <div class="gc-card-body">
+            <span style="font-weight: 500; font-size: 0.75rem; color: #5f6368;">Due Tomorrow</span><br/>
+            <span style="display:inline-block; margin-top:4px;">Polynomial Graphing Review #4</span>
           </div>
-          <div class="decoy-due-item">
-            <span class="decoy-due-dot" style="background:#f4b400"></span>
-            World History — Primary Source Analysis &nbsp;<span style="margin-left:auto;color:#5f6368">Friday</span>
+          <div class="gc-card-footer">
+            <div class="gc-footer-btn" title="Open Your Work">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+            </div>
+            <div class="gc-footer-btn" title="Open Folder">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+            </div>
           </div>
         </div>
-      </main>
+
+        <!-- Class 3 -->
+        <div class="gc-card">
+          <div class="gc-card-header" style="background-color: #5f6368;">
+            <div class="gc-card-title">World History — Period 1</div>
+            <div class="gc-card-sub">Semester 2</div>
+            <div class="gc-card-teacher">Mr. Okafor</div>
+            <div class="gc-card-dots">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+          </div>
+          <div class="gc-card-avatar">O</div>
+          <div class="gc-card-body">
+            <span style="color: #70757a;">No work due soon</span>
+          </div>
+          <div class="gc-card-footer">
+            <div class="gc-footer-btn" title="Open Your Work">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/><path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+            </div>
+            <div class="gc-footer-btn" title="Open Folder">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1075,30 +1095,24 @@
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js" referrerpolicy="no-referrer" defer></script>
   <script>
   (() => {
+    // Official Classroom SVG Vector Favicon
+    const CLASSROOM_FAVICON = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="42" height="34" x="3" y="7" rx="3.5" fill="%2300832d"/><rect width="36" height="28" x="6" y="10" rx="1.5" fill="%230f9d58"/><rect width="32" height="24" x="8" y="12" rx="1" fill="%23006923"/><circle cx="24" cy="20" r="3.2" fill="%23ffc107"/><path fill="%23ffc107" d="M24 24.2c-3.1 0-5.6 1.4-5.6 3.2v1.6h11.2v-1.6c0-1.8-2.5-3.2-5.6-3.2z"/><circle cx="17.2" cy="21.5" r="2.5" fill="%23ffffff"/><path fill="%23ffffff" d="M17.2 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/><circle cx="30.8" cy="21.5" r="2.5" fill="%23ffffff"/><path fill="%23ffffff" d="M30.8 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/></svg>';
+
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 1 — STEALTH TITLE & FAVICON
-       Apply a school-safe disguise the instant the page loads,
-       before any extension content-script has time to inspect the tab.
     ═══════════════════════════════════════════════════════════════ */
     (function stealthBoot() {
-      // Immediately set a neutral title so the tab never flashes "Lunar Proxy"
-      document.title = 'Google Classroom';
-
-      // Inject a Google Classroom-style favicon via data URI
-      // (avoids any network request that could reveal the real domain)
+      document.title = 'Classes';
       const link = document.createElement('link');
       link.rel = 'icon';
       link.type = 'image/svg+xml';
-      link.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="%234285f4"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="38">🏫</text></svg>`;
-      // Remove any existing favicons first
+      link.href = CLASSROOM_FAVICON;
       document.querySelectorAll("link[rel*='icon']").forEach(l => l.remove());
       document.head.appendChild(link);
     })();
 
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 2 — HASH-BASED URL OBFUSCATION
-       Hash fragments are never sent to the server (no 404s) and
-       change on every session so URL-pattern blockers can't match.
     ═══════════════════════════════════════════════════════════════ */
     const NOISE = 'abcdefghijklmnopqrstuvwxyz0123456789';
     function rand(n) {
@@ -1118,9 +1132,6 @@
 
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 3 — EXTENSION FINGERPRINT SCRUBBING
-       Many content-blocking extensions inject themselves by adding
-       attributes or shadow hosts to <html>/<body>. We watch for and
-       silently remove those markers so they can't read our state.
     ═══════════════════════════════════════════════════════════════ */
     const BLOCK_ATTR_PATTERNS = [
       /^data-extension/i, /^data-goguardian/i, /^data-securly/i,
@@ -1137,10 +1148,8 @@
       }
       toRemove.forEach(a => el.removeAttribute(a));
     }
-    // Scrub on load
     scrubExtensionAttrs(document.documentElement);
     scrubExtensionAttrs(document.body);
-    // Watch for extensions adding attributes dynamically
     new MutationObserver(mutations => {
       for (const m of mutations) {
         if (m.type === 'attributes') scrubExtensionAttrs(m.target);
@@ -1154,8 +1163,6 @@
 
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 4 — SHADOW DOM INJECTION WATCHER
-       GoGuardian and similar extensions inject a shadow-DOM overlay
-       to display block pages. We watch for and remove those nodes.
     ═══════════════════════════════════════════════════════════════ */
     const KNOWN_BLOCK_IDS = new Set([
       'goguardian', 'gg-ext', 'securly-ext', 'iboss-overlay',
@@ -1172,7 +1179,6 @@
       if (KNOWN_BLOCK_IDS.has(id)) return true;
       const cls = (node.className || '').toString().toLowerCase();
       if (BLOCK_CLASS_PATTERNS.some(p => p.test(id) || p.test(cls))) return true;
-      // Shadow DOM overlay — covers full viewport with fixed position
       if (node.shadowRoot) {
         try {
           const s = window.getComputedStyle(node);
@@ -1193,11 +1199,9 @@
 
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 5 — TITLE LOCK
-       Some extensions reset document.title to display a block message.
-       We intercept title writes via a property descriptor override.
     ═══════════════════════════════════════════════════════════════ */
     let _lockedTitle = document.title;
-    let _titleLocked = false; // unlocked by default; enabled on cloak
+    let _titleLocked = false;
 
     const _nativeTitle = Object.getOwnPropertyDescriptor(Document.prototype, 'title')
       || Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'title');
@@ -1206,7 +1210,7 @@
       Object.defineProperty(document, 'title', {
         get() { return _nativeTitle.get.call(this); },
         set(v) {
-          if (_titleLocked && v !== _lockedTitle) return; // block extension writes
+          if (_titleLocked && v !== _lockedTitle) return;
           _lockedTitle = v;
           _nativeTitle.set.call(this, v);
         },
@@ -1220,7 +1224,6 @@
     const proxyBase = 'https://camp-doe-heroes-accent.trycloudflare.com/ixl/';
 
     function buildProxyUrl(target) {
-      // Double-encode to prevent simple URL-pattern blocking
       return proxyBase + encodeURIComponent(encodeURIComponent(target));
     }
     function decodeProxyUrl(src) {
@@ -1234,7 +1237,7 @@
     }
 
     /* ────────────────────────────────────────────────────────────────
-       VANTA + STARS (init after scripts load)
+       VANTA + STARS
     ──────────────────────────────────────────────────────────────── */
     window.addEventListener('load', () => {
       if (window.VANTA?.FOG) {
@@ -1327,7 +1330,6 @@
     const loadingOverlay = document.getElementById('loadingOverlay');
     const loadingStatus  = document.getElementById('loadingStatus');
     const modal          = document.getElementById('gameModal');
-    const homeBottomBar  = document.getElementById('homeBottomBar');
     const privacyBtn     = document.getElementById('privacyGuardBtn');
     const privacyDot     = document.getElementById('privacyDot');
     const privacyOverlay = document.getElementById('privacyOverlay');
@@ -1381,7 +1383,6 @@
         statusStep = (statusStep + 1) % statusMsgs.length;
         loadingStatus.textContent = statusMsgs[statusStep];
       }, 650);
-      // Animate bar in stages
       requestAnimationFrame(() => {
         loaderBar.style.transition = 'width 0.4s ease';
         loaderBar.style.width = '30%';
@@ -1428,28 +1429,20 @@
     addressBar.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); openSearch(addressBar.value); } });
 
     /* ────────────────────────────────────────────────────────────────
-       MODAL LAYOUT  –  sync iframe offsets with toolbar + sidebar
+       MODAL LAYOUT
     ──────────────────────────────────────────────────────────────── */
     const root = document.documentElement;
-
     function syncModalLayout() {
-      // Top offset: toolbar height when visible, 0 when collapsed/hidden
       const barVisible = modal.classList.contains('active') && !topBar.classList.contains('hidden');
-      // The collapse-handle is 14px tall and sits below the bar
       const barH = barVisible ? (topBar.querySelector('.toolbar').offsetHeight + topBar.querySelector('.collapse-handle').offsetHeight) : 0;
       root.style.setProperty('--modal-top',  barH + 'px');
-
-      // Left offset: sidebar width — always var(--rail-w) since the rail never
-      // leaves the DOM; use its actual offsetWidth to be pixel-perfect
       const rail = document.querySelector('.side-rail');
       root.style.setProperty('--modal-left', (rail ? rail.offsetWidth : 48) + 'px');
     }
-
-    // Re-sync whenever the sidebar width transitions (it animates on hover)
     document.querySelector('.side-rail').addEventListener('transitionend', syncModalLayout);
 
     /* ────────────────────────────────────────────────────────────────
-       OPEN / CLOSE GAME
+       OPEN / CLOSE ENGINE
     ──────────────────────────────────────────────────────────────── */
     function openGame(url) {
       startLoading();
@@ -1457,12 +1450,10 @@
       frame.src = url;
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
-      homeBottomBar.classList.add('hidden');
       topBar.classList.remove('hidden');
       topBar.setAttribute('aria-hidden', 'false');
       syncAddressBar();
       syncModalLayout();
-      // Rotate URL so each session looks different
       obfuscateUrl();
     }
     function closeGame() {
@@ -1470,7 +1461,6 @@
       finishLoading();
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
-      homeBottomBar.classList.remove('hidden');
       topBar.classList.add('hidden');
       topBar.setAttribute('aria-hidden', 'true');
       closeAllPanels();
@@ -1514,7 +1504,6 @@
       if (addressBar.value) window.open(buildProxyUrl(addressBar.value), '_blank', 'noopener,noreferrer');
     });
 
-    /* Picture-in-Picture using iframe contentDocument */
     document.getElementById('pipBtn').addEventListener('click', async () => {
       try {
         const video = frame.contentDocument?.querySelector('video');
@@ -1525,22 +1514,13 @@
 
     collapseHandle.addEventListener('click', () => {
       topBar.classList.toggle('hidden');
-      // Wait for the CSS transition to finish before measuring heights
       setTimeout(syncModalLayout, 320);
     });
 
-    /* Search input */
     document.getElementById('searchInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') { e.preventDefault(); openSearch(e.target.value); }
     });
 
-    /* ────────────────────────────────────────────────────────────────
-       COLLAPSE HANDLE
-    ──────────────────────────────────────────────────────────────── */
-
-    /* ────────────────────────────────────────────────────────────────
-       LOCAL LAUNCHERS (Cloud button, rail cloud)
-    ──────────────────────────────────────────────────────────────── */
     document.querySelectorAll('[data-local-file]').forEach(el => {
       el.addEventListener('click', () => {
         const f = el.dataset.localFile;
@@ -1548,16 +1528,10 @@
       });
     });
 
-    /* ────────────────────────────────────────────────────────────────
-       SIDEBAR QUICK-LINK BUTTONS  (data-url attribute)
-    ──────────────────────────────────────────────────────────────── */
     document.querySelectorAll('.rail-item[data-url]').forEach(btn => {
       btn.addEventListener('click', () => openSearch(btn.dataset.url));
     });
 
-    /* ────────────────────────────────────────────────────────────────
-       PANEL CLOSE HELPERS
-    ──────────────────────────────────────────────────────────────── */
     function closeAllPanels() {
       [cloakMenu, bookmarksPanel].forEach(p => {
         p.classList.remove('open');
@@ -1566,12 +1540,10 @@
       closeShortcuts();
     }
     document.addEventListener('click', e => {
-      // Close cloak menu
       if (!cloakMenu.contains(e.target) && !cloakBtn.contains(e.target)) {
         cloakMenu.classList.remove('open');
         cloakMenu.setAttribute('aria-hidden', 'true');
       }
-      // Close bookmarks
       const bmBtn = document.getElementById('bookmarkBtn');
       const bmAdd = document.getElementById('bmAddBtn');
       if (!bookmarksPanel.contains(e.target) && !bmBtn?.contains(e.target) && !bmAdd?.contains(e.target)) {
@@ -1583,20 +1555,17 @@
     /* ────────────────────────────────────────────────────────────────
        CLOAK
     ──────────────────────────────────────────────────────────────── */
-    const origTitle = 'Google Classroom';
+    const origTitle = 'Classes';
     let isCloaked = false;
 
-    // Map cloak-icon → favicon background colour (hex, URL-encoded for data URI)
     const CLOAK_COLORS = {
-      school:  '%234285f4', // Google blue
       docs:    '%234285f4',
-      drive:   '%230f9d58', // Google green
-      khan:    '%23006700', // Khan Academy green
-      quizlet: '%23257af4', // Quizlet blue
-      slides:  '%23f4b400', // Google yellow
-      search:  '%2338bdf8', // sky blue
-      notes:   '%23fbbf24', // amber
-      reading: '%2334d399', // emerald
+      drive:   '%230f9d58',
+      khan:    '%23006700',
+      quizlet: '%23257af4',
+      slides:  '%23f4b400',
+      search:  '%2338bdf8',
+      notes:   '%23fbbf24',
     };
 
     function setFavicon(type, emoji) {
@@ -1606,16 +1575,20 @@
         link.rel = 'icon'; link.dataset.cloak = 'true';
         document.head.appendChild(link);
       }
-      const bg = CLOAK_COLORS[type] || '%231e3a5f';
-      const em = encodeURIComponent(emoji || '🔍');
-      link.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="${bg}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="38">${em}</text></svg>`;
+      if (type === 'school') {
+        link.href = CLASSROOM_FAVICON;
+      } else {
+        const bg = CLOAK_COLORS[type] || '%231e3a5f';
+        const em = encodeURIComponent(emoji || '🔍');
+        link.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="${bg}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="38">${em}</text></svg>`;
+      }
     }
 
     function restoreIdentity() {
       _titleLocked = false;
       document.title = origTitle;
       _lockedTitle = origTitle;
-      document.querySelector("link[data-cloak='true']")?.remove();
+      setFavicon('school');
       isCloaked = false;
       cloakBtn.setAttribute('aria-pressed', 'false');
       cloakBtn.classList.remove('is-active');
@@ -1627,7 +1600,6 @@
 
     cloakBtn.addEventListener('click', e => {
       e.stopPropagation();
-      // Close bookmarks if open
       bookmarksPanel.classList.remove('open');
       bookmarksPanel.setAttribute('aria-hidden', 'true');
       const isOpen = cloakMenu.classList.toggle('open');
@@ -1637,10 +1609,10 @@
     document.querySelectorAll('.cloak-opt').forEach(opt => {
       opt.addEventListener('click', () => {
         const newTitle = opt.dataset.cloakTitle || 'Tab';
-        _titleLocked = false; // temporarily unlock to allow our write
+        _titleLocked = false;
         document.title = newTitle;
         _lockedTitle = newTitle;
-        _titleLocked = true; // lock — extensions can't change it now
+        _titleLocked = true;
         setFavicon(opt.dataset.cloakIcon, opt.dataset.cloakEmoji);
         isCloaked = true;
         cloakBtn.setAttribute('aria-pressed', 'true');
@@ -1703,7 +1675,6 @@
     document.getElementById('saveBookmarkBtn').addEventListener('click', addBookmark);
     document.getElementById('bmAddBtn').addEventListener('click', addBookmark);
 
-    // Rail bookmarks button
     document.getElementById('railBookmarks').addEventListener('click', () => {
       const o = bookmarksPanel.classList.toggle('open');
       bookmarksPanel.setAttribute('aria-hidden', String(!o));
@@ -1720,7 +1691,7 @@
     shortcutsOv.addEventListener('click', e => { if (e.target === shortcutsOv) closeShortcuts(); });
 
     /* ────────────────────────────────────────────────────────────────
-       PRIVACY GUARD
+       PRIVACY GUARD (TRIGGER ON BLUR & VISIBILITY)
     ──────────────────────────────────────────────────────────────── */
     let guardOn = false;
     function setGuard(on) {
@@ -1731,14 +1702,11 @@
       updateGuardVisibility();
     }
     function updateGuardVisibility() {
-      // Show decoy if guard is on AND tab is hidden or unfocused
       const shouldHide = guardOn && (document.hidden || !document.hasFocus());
       privacyOverlay.classList.toggle('visible', shouldHide);
       privacyOverlay.setAttribute('aria-hidden', String(!shouldHide));
     }
 
-    // Snap the decoy on as fast as possible — use capture phase so we
-    // fire before GoGuardian's own blur listeners can read the page
     window.addEventListener('blur',  updateGuardVisibility, { capture: true });
     window.addEventListener('focus', updateGuardVisibility, { capture: true });
     document.addEventListener('visibilitychange', updateGuardVisibility, { capture: true });
@@ -1768,11 +1736,8 @@
        KEYBOARD SHORTCUTS
     ──────────────────────────────────────────────────────────────── */
     window.addEventListener('keydown', e => {
-      // Esc — close modal or shortcut overlay
       if (e.key === 'Escape') { if (shortcutsOv.classList.contains('open')) { closeShortcuts(); return; } closeGame(); return; }
-      // ? — shortcuts
       if (e.key === '?' && !e.ctrlKey && !e.metaKey && document.activeElement?.tagName !== 'INPUT') { openShortcuts(); return; }
-      // F11 — fullscreen
       if (e.key === 'F11') { e.preventDefault(); document.fullscreenElement ? document.exitFullscreen().catch(()=>{}) : document.documentElement.requestFullscreen().catch(()=>{}); return; }
       if (!e.ctrlKey && !e.metaKey) return;
       switch (e.key) {
