@@ -4,660 +4,512 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="referrer" content="no-referrer" />
+  <title>Lunar Cloud</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <template hidden>
-      min-height: 220px;
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(31, 28, 42, 0.94), rgba(9, 10, 15, 0.96));
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      height: 100%;
-      background: #030304;
-      overflow-x: hidden;
-      isolation: isolate;
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-    .game-card::before {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 8%, var(--card-glow), transparent 58%);
-      content: '';
-      opacity: 0.48;
-      pointer-events: none;
-      transition: opacity 180ms ease;
-      z-index: -1;
-    }
-    .game-card.roblox-card {
-      --card-accent: #e8edf7;
-      --card-glow: rgba(226, 232, 240, 0.2);
-    }
-    .game-card.android-card {
-      --card-accent: #9be15d;
-      --card-glow: rgba(126, 224, 88, 0.18);
-    }
-    body { position: relative; }
-    #bg-canvas {
-      border-color: color-mix(in srgb, var(--card-accent) 64%, transparent);
-      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38), 0 0 28px color-mix(in srgb, var(--card-accent) 14%, transparent);
-      width: 100%;
-      height: 100%;
-      display: block;
-    .game-card:hover::before,
-    .game-card:focus-visible::before {
-      opacity: 0.82;
-    }
-      display: none;
-      position: relative;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      gap: 0.8rem;
-      z-index: 1;
-    }
-    .game-logo {
-      width: 64px;
-      height: 64px;
-      padding: 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 18px;
-      background: rgba(5, 6, 10, 0.48);
-      color: var(--card-accent);
-      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
-    }
-    .game-logo svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      fill: none;
-      stroke: currentColor;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .roblox-logo {
-      stroke-width: 2.4;
-    }
-    .android-logo {
-      stroke-width: 2.2;
-    }
-      z-index: 0;
-      color: #f8fafc;
-      font-size: 1.15rem;
-    .glow-orb {
-      letter-spacing: -0.02em;
-    }
-    .game-action {
-      color: #9ca3af;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: none;
-    }
-    #vanta {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      filter: blur(7px) saturate(0.72);
-      transform: scale(1.08);
-      opacity: 0.78;
-      pointer-events: none;
-    }
-    #stars {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.7;
-    }
-    .app-shell {
-      position: relative;
-      z-index: 2;
-      width: min(1180px, calc(100% - 40px));
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 120px 0 52px;
-    }
-    .cloud-title {
-      margin-bottom: 2.5rem;
-      color: #fff;
-      font-size: 3.5rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      text-align: center;
-      text-shadow: 0 0 35px rgba(187, 134, 252, 0.3);
-    }
-    .cloud-title-accent {
-      background: linear-gradient(135deg, #d3a4ff 0%, #a262f7 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(245px, 280px));
-      justify-content: center;
-      gap: 18px;
-    }
-    .game-card {
-      position: relative;
-      display: flex;
-      min-height: 180px;
-      overflow: hidden;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.17);
-      border-radius: 15px;
-      background: #181818;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
-      color: #fff;
-      cursor: pointer;
-      font: inherit;
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-    .game-card:hover,
-    .game-card:focus-visible {
-      border-color: #b886fc;
-      box-shadow: 0 20px 50px rgba(162, 98, 247, 0.2);
-      outline: none;
-      transform: translateY(-5px);
-    }
-    .game-info {
-      display: block;
-    }
-    .game-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
-    .iframe-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      display: none;
-      background: #000;
-    }
-    .iframe-overlay.is-open { display: block; }
-    .game-frame {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #000;
-    }
-    .close-frame {
-      position: absolute;
-      top: 14px;
-      right: 18px;
-      z-index: 1;
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 50%;
-      background: rgba(20, 20, 20, 0.82);
-      color: #fff;
-      cursor: pointer;
-      font-size: 1.35rem;
-      line-height: 1;
-    }
-    @media (max-width: 620px) {
-      .app-shell { width: min(100% - 28px, 420px); padding-top: 90px; }
-      .games-grid { grid-template-columns: 1fr; }
-    }
-  </style></template>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: #030304;
-      overflow-x: hidden;
-      font-family: 'Inter', sans-serif;
-    }
-    body { position: relative; }
-    #bg-canvas,
-    .glow-orb { display: none; }
-    #vanta {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      filter: blur(7px) saturate(0.72);
-      transform: scale(1.08);
-      opacity: 0.78;
-      pointer-events: none;
-    }
-    #stars {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.7;
-    }
-    .app-shell {
-      position: relative;
-      z-index: 2;
-      width: min(1180px, calc(100% - 40px));
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 120px 0 52px;
-    }
-    .cloud-title {
-      margin-bottom: 2.5rem;
-      color: #fff;
-      font-size: 3.5rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      text-align: center;
-      text-shadow: 0 0 35px rgba(187, 134, 252, 0.3);
-    }
-    .cloud-title-accent {
-      background: linear-gradient(135deg, #d3a4ff 0%, #a262f7 100%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(245px, 280px));
-      justify-content: center;
-      gap: 18px;
-    }
-    .game-card {
-      position: relative;
-      display: flex;
-      min-height: 220px;
-      overflow: hidden;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(31, 28, 42, 0.94), rgba(9, 10, 15, 0.96));
-      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      color: #fff;
-      cursor: pointer;
-      font: inherit;
-      isolation: isolate;
-      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-    }
-    .game-card::before {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 8%, var(--card-glow), transparent 58%);
-      content: '';
-      opacity: 0.48;
-      pointer-events: none;
-      transition: opacity 180ms ease;
-      z-index: -1;
-    }
-    .game-card.roblox-card {
-      --card-accent: #e8edf7;
-      --card-glow: rgba(226, 232, 240, 0.2);
-    }
-    .game-card.android-card {
-      --card-accent: #9be15d;
-      --card-glow: rgba(126, 224, 88, 0.18);
-    }
-    .game-card.geometry-card {
-      --card-accent: #fbbf24;
-      --card-glow: rgba(251, 191, 36, 0.2);
-    }
-    .game-card:hover,
-    .game-card:focus-visible {
-      border-color: color-mix(in srgb, var(--card-accent) 64%, transparent);
-      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38), 0 0 28px color-mix(in srgb, var(--card-accent) 14%, transparent);
-      outline: none;
-      transform: translateY(-5px);
-    }
-    .game-card:hover::before,
-    .game-card:focus-visible::before { opacity: 0.82; }
-    .game-info {
-      position: relative;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      gap: 0.8rem;
-      z-index: 1;
-    }
-    .game-logo {
-      width: 64px;
-      height: 64px;
-      padding: 0.95rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 18px;
-      background: rgba(5, 6, 10, 0.48);
-      color: var(--card-accent);
-      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
-    }
-    .game-logo svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
-    .roblox-logo { stroke-width: 2.4; }
-    .android-logo { stroke-width: 2.2; }
-    .game-title { color: #f8fafc; font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
-    .game-action { color: #9ca3af; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
-    .iframe-overlay { position: fixed; inset: 0; z-index: 10; display: none; background: #000; }
-    .iframe-overlay.is-open { display: block; }
-    .game-frame { width: 100%; height: 100%; border: 0; background: #000; }
-    .close-frame { position: absolute; top: 14px; right: 18px; z-index: 1; width: 38px; height: 38px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 50%; background: rgba(20, 20, 20, 0.82); color: #fff; cursor: pointer; font-size: 1.35rem; line-height: 1; }
-    @media (max-width: 620px) {
-      .app-shell { width: min(100% - 28px, 420px); padding-top: 90px; }
-      .games-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-  <style>
+    /* ─── RESET & DESIGN TOKENS ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --cloud-ink: #f7f4ff;
-      --cloud-muted: #a9a2b9;
-      --cloud-line: rgba(255, 255, 255, 0.12);
+      --bg:          #03070c;
+      --surface:     rgba(10, 18, 28, 0.88);
+      --surface2:    rgba(14, 26, 40, 0.92);
+      --border:      rgba(119, 183, 223, 0.18);
+      --border-hi:   rgba(119, 183, 223, 0.55);
+      --ink:         #e8f2fa;
+      --ink-muted:   #7a9ab0;
+      --accent:      #77b7df;
+      --accent-soft: rgba(119, 183, 223, 0.14);
+      --green:       #34d399;
+      --yellow:      #fbbf24;
+      --radius-sm:   6px;
+      --radius:      10px;
+      --radius-lg:   14px;
+    }
+    html, body {
+      width: 100%; min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
     }
 
-    .app-shell { width: min(1080px, calc(100% - 40px)); padding: 7.2rem 0 5rem; }
-    .cloud-title { margin-bottom: 0.65rem; color: var(--cloud-ink); font-size: clamp(2.2rem, 6vw, 3.7rem); line-height: 1.04; letter-spacing: -0.05em; text-shadow: 0 12px 36px rgba(0, 0, 0, 0.35); }
-    .cloud-title::after { display: block; margin: 1.2rem auto 2rem; width: min(360px, 58%); height: 1px; background: linear-gradient(90deg, transparent, rgba(204, 183, 255, 0.62), transparent); content: ''; }
-    .cloud-title-accent { background: none; color: #c7adff; -webkit-text-fill-color: currentColor; }
-    .games-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 0 auto; max-width: 940px; }
-
-    .game-card { min-height: 248px; justify-content: flex-start; align-items: stretch; padding: 1.2rem; border-color: var(--cloud-line); border-radius: 16px; background: linear-gradient(155deg, rgba(27, 24, 39, 0.88), rgba(9, 9, 15, 0.86)); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.07); text-align: left; }
-    .game-card:hover, .game-card:focus-visible { transform: translateY(-4px); box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38), 0 0 26px color-mix(in srgb, var(--card-accent) 12%, transparent); }
-    .game-info { align-items: flex-start; justify-content: space-between; width: 100%; gap: 1rem; }
-    .game-logo { width: 54px; height: 54px; padding: 0.8rem; border-radius: 14px; background: rgba(5, 6, 10, 0.5); }
-    .game-title { font-size: 1.15rem; }
-    .game-action { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--cloud-muted); font-size: 0.64rem; letter-spacing: 0.14em; }
-    .game-action::after { color: var(--card-accent); content: '\2192'; font-size: 0.9rem; letter-spacing: 0; }
-    .iframe-overlay { background: rgba(3, 3, 5, 0.96); }
-    .close-frame { top: 18px; right: 18px; border-color: rgba(255, 255, 255, 0.2); border-radius: 10px; background: rgba(19, 17, 29, 0.9); font-size: 1.25rem; }
-
-    @media (max-width: 760px) { .games-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 520px) {
-      .app-shell { width: min(100% - 28px, 420px); padding-top: 5.8rem; }
-      .games-grid { grid-template-columns: 1fr; gap: 0.8rem; }
-      .game-card { min-height: 190px; }
+    /* ─── BACKGROUND LAYERS ──────────────────────────────────────── */
+    #vanta {
+      position: fixed; inset: 0; z-index: 0;
+      filter: blur(8px) saturate(0.7);
+      transform: scale(1.08); opacity: 0.7;
+      pointer-events: none;
     }
-  </style>
-  <style>
-    :root { --cloud-ink: #edf4f7; --cloud-muted: #9eafb9; --cloud-line: rgba(148, 163, 184, 0.2); }
-    .cloud-title { text-shadow: 0 12px 36px rgba(0, 0, 0, 0.35); }
-    .cloud-title::after { background: #6faac7; }
-    .cloud-title-accent { color: #8dbbd6; }
-    .game-card { border-radius: 10px; border-color: rgba(119, 151, 165, 0.24); background: linear-gradient(155deg, rgba(24, 38, 46, 0.9), rgba(5, 12, 16, 0.94)); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(179, 210, 220, 0.07); }
-    .game-card::before { background: radial-gradient(circle at 50% 8%, rgba(91, 166, 195, 0.16), transparent 58%); }
-    .game-card.roblox-card { --card-accent: #8dbbd6; --card-glow: rgba(91, 166, 195, 0.16); }
-    .game-card.android-card { --card-accent: #79c4a9; --card-glow: rgba(73, 171, 131, 0.16); }
-    .game-card.geometry-card { --card-accent: #9fd3c1; --card-glow: rgba(92, 174, 145, 0.16); }
-    .game-card:hover, .game-card:focus-visible { border-color: color-mix(in srgb, var(--card-accent) 70%, transparent); box-shadow: 0 22px 48px rgba(0, 0, 0, 0.38), 0 0 22px color-mix(in srgb, var(--card-accent) 12%, transparent); }
-    .game-logo { border-radius: 10px; background: rgba(3, 10, 14, 0.66); }
-    .game-action::after { color: #79c4a9; }
-    .close-frame { border-radius: 8px; border-color: rgba(119, 151, 165, 0.34); background: rgba(7, 14, 19, 0.94); }
-  </style>
-  <style>
-    :root { --lunar-navy: #07111b; --lunar-panel: rgba(10, 24, 36, 0.9); --lunar-line: rgba(119, 183, 223, 0.22); --lunar-blue: #8fc8eb; }
-    html, body { background: #03070c; }
-    #bg-canvas, #vanta, #stars { filter: hue-rotate(8deg) saturate(0.8); }
-    .app-shell { padding-top: 5.6rem; }
-    .cloud-logo { display: block; width: min(330px, 72vw); max-height: 120px; margin: 0 auto 1rem; object-fit: contain; }
-    .cloud-title { margin-bottom: 0.8rem; color: #edf4f7; font-size: clamp(2rem, 5vw, 3rem); text-shadow: 0 10px 30px rgba(0, 0, 0, 0.48); }
-    .cloud-title::after { width: 180px; margin: 1rem auto 1.6rem; background: #6b9fca; }
-    .cloud-title-accent { color: var(--lunar-blue); }
-    .games-grid { max-width: 900px; gap: 0.85rem; }
-    .game-card { min-height: 220px; border-radius: 8px; border-color: var(--lunar-line); background: linear-gradient(150deg, rgba(14, 34, 50, 0.92), rgba(4, 12, 19, 0.96)); box-shadow: 0 18px 42px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(169, 213, 242, 0.08); }
-    .game-card:hover, .game-card:focus-visible { border-color: rgba(143, 200, 235, 0.72); box-shadow: 0 22px 46px rgba(0, 0, 0, 0.42), 0 0 24px rgba(74, 143, 190, 0.16); }
-    .game-logo { border-color: rgba(143, 200, 235, 0.24); background: rgba(2, 9, 15, 0.72); }
-    .game-action, .game-action::after { color: #8fc8eb; }
-    .iframe-overlay { background: #02070d; }
-    .close-frame { border-color: rgba(143, 200, 235, 0.34); background: rgba(7, 17, 27, 0.94); color: #d8ebf7; }
+    #stars {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none; opacity: 0.55;
+    }
+
+    /* ─── LAYOUT SHELL ───────────────────────────────────────────── */
+    .shell {
+      position: relative; z-index: 2;
+      width: min(1060px, calc(100% - 2.5rem));
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 5rem 0 4rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────────────────── */
+    .cloud-header {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; margin-bottom: 2.8rem;
+    }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      margin-bottom: 1rem; padding: 0.28rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .header-badge svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .cloud-title {
+      color: var(--ink); font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.06;
+      text-shadow: 0 8px 28px rgba(0,0,0,0.45);
+      margin-bottom: 0.55rem;
+    }
+    .cloud-title-accent {
+      color: var(--accent);
+    }
+    .cloud-subtitle {
+      color: var(--ink-muted); font-size: 0.88rem; max-width: 440px; line-height: 1.5;
+    }
+    .header-rule {
+      width: min(320px, 55%); height: 1px; margin: 1.4rem auto 0;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.45;
+    }
+
+    /* ─── SEARCH BAR ─────────────────────────────────────────────── */
+    .cloud-search-wrap {
+      position: relative; width: 100%; max-width: 520px;
+      margin-bottom: 2.4rem;
+    }
+    .cloud-search-icon {
+      position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+      width: 15px; height: 15px; fill: none; stroke: var(--ink-muted);
+      stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round;
+      pointer-events: none;
+    }
+    .cloud-search {
+      width: 100%; height: 48px; padding: 0 1rem 0 2.7rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: rgba(5, 12, 20, 0.72); backdrop-filter: blur(14px);
+      color: var(--ink); font-size: 0.88rem; outline: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cloud-search::placeholder { color: rgba(255,255,255,0.25); }
+    .cloud-search:focus {
+      border-color: var(--border-hi);
+      box-shadow: 0 0 0 3px rgba(119,183,223,0.12), 0 10px 28px rgba(0,0,0,0.32);
+    }
+
+    /* ─── CATEGORY PILLS ─────────────────────────────────────────── */
+    .category-row {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+      justify-content: center; margin-bottom: 1.8rem;
+    }
+    .cat-pill {
+      padding: 0.3rem 0.85rem; border: 1px solid var(--border);
+      border-radius: 999px; background: transparent;
+      color: var(--ink-muted); font-size: 0.68rem; font-weight: 600;
+      cursor: pointer; transition: all 0.16s; white-space: nowrap;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      border-color: var(--border-hi); background: var(--accent-soft); color: var(--accent);
+    }
+
+    /* ─── GAMES GRID ─────────────────────────────────────────────── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1rem; width: 100%;
+    }
+
+    /* ─── GAME CARD ──────────────────────────────────────────────── */
+    .game-card {
+      position: relative; display: flex; flex-direction: column;
+      min-height: 200px; overflow: hidden;
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: 0 16px 38px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05);
+      color: var(--ink); cursor: pointer; isolation: isolate;
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+      padding: 1.2rem 1.1rem;
+      /* CSS var for per-card accent color */
+      --card-accent: var(--accent);
+      --card-glow:   rgba(119, 183, 223, 0.16);
+    }
+    .game-card::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(circle at 50% 0%, var(--card-glow), transparent 60%);
+      opacity: 0.5; transition: opacity 200ms;
+    }
+    .game-card:hover, .game-card:focus-visible {
+      outline: none;
+      border-color: color-mix(in srgb, var(--card-accent) 60%, transparent);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.36), 0 0 26px color-mix(in srgb, var(--card-accent) 12%, transparent);
+      transform: translateY(-4px);
+    }
+    .game-card:hover::before { opacity: 0.85; }
+
+    /* Card accent variants */
+    .game-card.card-blue    { --card-accent: #77b7df; --card-glow: rgba(119, 183, 223, 0.18); }
+    .game-card.card-green   { --card-accent: #34d399; --card-glow: rgba(52, 211, 153, 0.18); }
+    .game-card.card-yellow  { --card-accent: #fbbf24; --card-glow: rgba(251, 191, 36, 0.18); }
+    .game-card.card-purple  { --card-accent: #a78bfa; --card-glow: rgba(167, 139, 250, 0.18); }
+    .game-card.card-red     { --card-accent: #f87171; --card-glow: rgba(248, 113, 113, 0.18); }
+    .game-card.card-cyan    { --card-accent: #22d3ee; --card-glow: rgba(34, 211, 238, 0.18); }
+    .game-card.card-orange  { --card-accent: #fb923c; --card-glow: rgba(251, 146, 60, 0.18); }
+    .game-card.card-pink    { --card-accent: #f472b6; --card-glow: rgba(244, 114, 182, 0.18); }
+
+    .card-body {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 0.65rem; flex: 1;
+    }
+    .card-icon-wrap {
+      width: 52px; height: 52px; padding: 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius);
+      background: rgba(4, 10, 18, 0.55);
+      color: var(--card-accent);
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.3));
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-icon-wrap svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+    .card-name { color: var(--ink); font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; margin-top: auto; }
+    .card-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 0.2rem;
+    }
+    .card-tag {
+      color: var(--ink-muted); font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .card-arrow {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--card-accent); font-size: 0.8rem;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .game-card:hover .card-arrow {
+      background: var(--accent-soft); border-color: var(--border-hi);
+    }
+
+    /* ─── GAME VIEWER OVERLAY ────────────────────────────────────── */
+    .viewer {
+      position: fixed; inset: 0; z-index: 50;
+      background: #000; display: none;
+    }
+    .viewer.open { display: block; }
+    .viewer-frame { width: 100%; height: 100%; border: none; }
+
+    /* Close button */
+    .viewer-close {
+      position: absolute; top: 14px; right: 14px; z-index: 60;
+      width: 36px; height: 36px; border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(8, 16, 26, 0.92); backdrop-filter: blur(12px);
+      color: var(--ink); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.15s, border-color 0.15s;
+    }
+    .viewer-close:hover { background: rgba(248,113,113,0.2); border-color: rgba(248,113,113,0.5); color: #f87171; }
+    .viewer-close svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+
+    /* ─── EMPTY STATE ────────────────────────────────────────────── */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center; gap: 0.6rem;
+      padding: 3rem; color: var(--ink-muted); text-align: center; font-size: 0.82rem;
+    }
+    .empty-state svg { width: 36px; height: 36px; fill: none; stroke: var(--ink-muted); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0.5; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 620px) {
+      .shell { width: calc(100% - 1.5rem); padding: 3.5rem 0 3rem; }
+      .games-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .game-card { min-height: 170px; padding: 1rem; }
+    }
+    @media (max-width: 400px) {
+      .games-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FADE-IN ANIMATION ─────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .shell { animation: fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    .game-card { animation: fadeUp 0.35s cubic-bezier(0.16,1,0.3,1) both; }
   </style>
 </head>
 <body>
-  <canvas id="bg-canvas"></canvas>
-  <div class="glow-orb"></div>
   <div id="vanta" aria-hidden="true"></div>
   <canvas id="stars" aria-hidden="true"></canvas>
 
-  <main class="app-shell">
-    <img class="cloud-logo" src="Lunar-proxy.png" alt="Lunar Proxy" />
-    <h1 class="cloud-title"><span class="cloud-title-accent">Lunar</span> Cloud</h1>
-    <section class="games-grid" id="games-grid" aria-label="Games"></section>
-  </main>
+  <div class="shell">
+    <!-- Header -->
+    <header class="cloud-header">
+      <div class="header-badge">
+        <svg viewBox="0 0 24 24"><path d="M7.5 18h9a4.5 4.5 0 0 0 .8-8.93A5.5 5.5 0 0 0 6.2 8.1 4 4 0 0 0 7.5 18Z"/></svg>
+        Lunar Cloud
+      </div>
+      <h1 class="cloud-title"><span class="cloud-title-accent">Lunar</span> Cloud</h1>
+      <p class="cloud-subtitle">Play instantly — no installs, no accounts, no restrictions.</p>
+      <div class="header-rule"></div>
+    </header>
 
-  <div class="iframe-overlay" id="iframe-overlay" aria-hidden="true">
-    <button class="close-frame" id="close-frame" type="button" aria-label="Close game">&times;</button>
-    <iframe class="game-frame" id="game-frame" title="Game player" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+    <!-- Search -->
+    <div class="cloud-search-wrap">
+      <svg class="cloud-search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      <input id="cloudSearch" class="cloud-search" type="text" placeholder="Search games…" autocomplete="off" />
+    </div>
+
+    <!-- Category pills -->
+    <div class="category-row" id="catRow">
+      <button class="cat-pill active" data-cat="all">All</button>
+      <button class="cat-pill" data-cat="mobile">Mobile</button>
+      <button class="cat-pill" data-cat="action">Action</button>
+      <button class="cat-pill" data-cat="puzzle">Puzzle</button>
+      <button class="cat-pill" data-cat="io">IO</button>
+    </div>
+
+    <!-- Games grid -->
+    <section class="games-grid" id="gamesGrid" aria-label="Games"></section>
+    <div class="empty-state" id="emptyState">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m16.5 16.5 4 4"/></svg>
+      No games matched your search.
+    </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
+  <!-- Game viewer -->
+  <div id="viewer" class="viewer" aria-hidden="true">
+    <button id="viewerClose" class="viewer-close" aria-label="Close game">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <iframe id="viewerFrame" class="viewer-frame" title="Game player" allow="fullscreen" referrerpolicy="no-referrer"></iframe>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" referrerpolicy="no-referrer" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js" referrerpolicy="no-referrer" defer></script>
   <script>
-    if (window.VANTA && typeof window.VANTA.FOG === 'function') {
-      VANTA.FOG({
-        el: '#vanta',
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200,
-        minWidth: 200,
-        highlightColor: 0x4b7890,
-        midtoneColor: 0x263d49,
-        lowlightColor: 0x122027,
-        baseColor: 0x04090c,
-        blurFactor: 0.7,
-        speed: 0.8,
-        zoom: 0.85
-      });
-    }
-
-    (() => {
-      const canvas = document.getElementById('stars');
-      const context = canvas.getContext('2d');
-      const stars = [];
-      let width = 0;
-      let height = 0;
-
-      function resizeStars() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      }
-
-      function seedStars() {
-        stars.length = 0;
-        const count = Math.min(72, Math.max(34, Math.floor((width * height) / 26000)));
-        for (let index = 0; index < count; index += 1) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            radius: Math.random() * 0.65 + 0.35,
-            speed: Math.random() * 0.18 + 0.06,
-            opacity: Math.random() * 0.18 + 0.1,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
-      }
-
-      function drawStars(time) {
-        context.clearRect(0, 0, width, height);
-        stars.forEach((star) => {
-          star.y -= star.speed;
-          if (star.y < -star.radius) star.y = height + star.radius;
-          const shimmer = star.opacity + Math.sin(time * 0.0007 + star.phase) * 0.04;
-          context.beginPath();
-          context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-          context.fillStyle = `rgba(210, 190, 255, ${Math.max(0.04, shimmer)})`;
-          context.fill();
+  (() => {
+    /* ── Vanta ───────────────────────────────────────────────────── */
+    window.addEventListener('load', () => {
+      if (window.VANTA?.FOG) {
+        VANTA.FOG({
+          el: '#vanta', mouseControls: true, touchControls: true,
+          gyroControls: false, minHeight: 200, minWidth: 200,
+          highlightColor: 0x2a5570, midtoneColor: 0x132230,
+          lowlightColor: 0x060e16, baseColor: 0x030a12,
+          blurFactor: 0.72, speed: 0.7, zoom: 0.88
         });
-        requestAnimationFrame(drawStars);
       }
+    });
 
-      resizeStars();
-      seedStars();
-      window.addEventListener('resize', () => {
-        resizeStars();
-        seedStars();
-      });
-      requestAnimationFrame(drawStars);
+    /* ── Stars canvas ────────────────────────────────────────────── */
+    (() => {
+      const cvs = document.getElementById('stars');
+      const ctx = cvs.getContext('2d');
+      const stars = [];
+      let W, H;
+      function resize() { W = cvs.width = innerWidth; H = cvs.height = innerHeight; }
+      function seed() {
+        stars.length = 0;
+        const n = Math.min(80, Math.max(30, Math.floor(W * H / 22000)));
+        for (let i = 0; i < n; i++) stars.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*0.6+0.3, s: Math.random()*0.14+0.05, o: Math.random()*0.18+0.07, p: Math.random()*Math.PI*2 });
+      }
+      function draw(t) {
+        ctx.clearRect(0, 0, W, H);
+        for (const s of stars) {
+          s.y -= s.s;
+          if (s.y < 0) s.y = H + s.r;
+          const a = s.o + Math.sin(t * 0.0006 + s.p) * 0.04;
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(160,210,240,${Math.max(0.04,a)})`; ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+      resize(); seed();
+      window.addEventListener('resize', () => { resize(); seed(); });
+      requestAnimationFrame(draw);
     })();
 
-    const proxyBase = 'https://camp-doe-heroes-accent.trycloudflare.com/ixl/';
-
-    function buildProxyUrl(targetUrl) {
-      return `${proxyBase}${encodeURIComponent(targetUrl)}`;
-    }
-
-    const games = [
+    /* ── Game catalogue ──────────────────────────────────────────── */
+    const GAMES = [
       {
         name: 'Roblox',
         url: 'https://nowgg.fun/apps/a/19900/b.html',
-        cardClass: 'roblox-card',
-        logo: '<svg class="roblox-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="m7.1 3.6 13.3 3.1-3.1 13.3L4 16.9 7.1 3.6Z" fill="currentColor" stroke="none"/><path d="m10.1 8.5 5.4 1.3-1.3 5.4-5.4-1.3 1.3-5.4Z" fill="#171923" stroke="none"/></svg>'
+        cat: 'mobile',
+        color: 'card-blue',
+        tag: 'Platform',
+        icon: `<svg stroke-width="2.4" viewBox="0 0 24 24"><path d="m7.1 3.6 13.3 3.1-3.1 13.3L4 16.9 7.1 3.6Z" fill="currentColor" stroke="none"/><path d="m10.1 8.5 5.4 1.3-1.3 5.4-5.4-1.3 1.3-5.4Z" fill="rgba(3,7,12,0.6)" stroke="none"/></svg>`
       },
       {
         name: 'Android VM',
         url: 'https://nowgg.fun/apps/uncube/7074/now.html',
-        cardClass: 'android-card',
-        logo: '<svg class="android-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10.5h10v6.2a1.8 1.8 0 0 1-1.8 1.8H8.8A1.8 1.8 0 0 1 7 16.7v-6.2Z" fill="currentColor" stroke="none"/><path d="m8.2 9.8 1.6-2.6m6 2.6-1.6-2.6M5.3 11.2v4.5m13.4-4.5v4.5M10 18.5v2m4-2v2"/><path d="M9.4 10.5h5.2"/></svg>'
+        cat: 'mobile',
+        color: 'card-green',
+        tag: 'Virtual Machine',
+        icon: `<svg stroke-width="2.2" viewBox="0 0 24 24"><path d="M7 10.5h10v6.2a1.8 1.8 0 0 1-1.8 1.8H8.8A1.8 1.8 0 0 1 7 16.7v-6.2Z" fill="currentColor" stroke="none"/><path d="m8.2 9.8 1.6-2.6m6 2.6-1.6-2.6M5.3 11.2v4.5m13.4-4.5v4.5M10 18.5v2m4-2v2"/><path d="M9.4 10.5h5.2"/></svg>`
       },
       {
         name: 'Geometry Dash',
         url: 'https://nowgg.fun/apps/robtop-games/1400/geometry-dash.html',
-        cardClass: 'geometry-card',
-        logo: '<svg class="geometry-logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h14v14H5z" fill="currentColor" stroke="none"/><path d="m8 8 3 3 3-3m-6 8 3-3 3 3" stroke="#211b0b" stroke-width="1.8"/><path d="M8.5 12h7" stroke="#211b0b" stroke-width="1.8"/></svg>'
-      }
+        cat: 'action',
+        color: 'card-yellow',
+        tag: 'Rhythm',
+        icon: `<svg stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="currentColor" stroke="none"/><path d="m7 7 4 4 4-4M7 17l4-4 4 4M7 12h10" stroke="rgba(3,7,12,0.65)" stroke-width="2" stroke-linecap="round"/></svg>`
+      },
+      {
+        name: 'Subway Surfers',
+        url: 'https://nowgg.fun/apps/kiloo/5726/subway-surfers.html',
+        cat: 'action',
+        color: 'card-orange',
+        tag: 'Runner',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3" fill="currentColor" stroke="none"/><path d="M6 20c0-4 2-6 6-6s6 2 6 6"/><path d="M3 14h18M7 14l-2 6M17 14l2 6"/></svg>`
+      },
+      {
+        name: 'Among Us',
+        url: 'https://nowgg.fun/apps/innersloth/10848/among-us.html',
+        cat: 'action',
+        color: 'card-red',
+        tag: 'Social',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 1 6 0c3 .5 5 3 5 6v8H4v-8c0-3 2-5.5 5-6Z" fill="currentColor" stroke="none"/><path d="M9 20v2m6-2v2" stroke="currentColor" stroke-linecap="round"/><rect x="9" y="7" width="4" height="3" rx="1" fill="rgba(3,7,12,0.6)" stroke="none"/></svg>`
+      },
+      {
+        name: 'Minecraft',
+        url: 'https://nowgg.fun/apps/mojang/5889/minecraft.html',
+        cat: 'puzzle',
+        color: 'card-green',
+        tag: 'Sandbox',
+        icon: `<svg stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1" fill="currentColor" stroke="none"/><rect x="13" y="3" width="8" height="8" rx="1" fill="currentColor" stroke="none" opacity="0.7"/><rect x="3" y="13" width="8" height="8" rx="1" fill="currentColor" stroke="none" opacity="0.7"/><rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor" stroke="none"/></svg>`
+      },
+      {
+        name: 'Clash of Clans',
+        url: 'https://nowgg.fun/apps/supercell/4795/clash-of-clans.html',
+        cat: 'action',
+        color: 'card-purple',
+        tag: 'Strategy',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L3 7v5c0 5.25 3.9 10.15 9 11.35C17.1 22.15 21 17.25 21 12V7L12 2Z" fill="currentColor" stroke="none"/><path d="m9 12 2 2 4-4" stroke="rgba(3,7,12,0.7)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      },
+      {
+        name: '1v1.LOL',
+        url: 'https://1v1.lol',
+        cat: 'io',
+        color: 'card-cyan',
+        tag: 'IO Game',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/><path d="M9 3.5C9 3.5 9 6 12 6s3-2.5 3-2.5"/></svg>`
+      },
+      {
+        name: 'Agar.io',
+        url: 'https://agar.io',
+        cat: 'io',
+        color: 'card-pink',
+        tag: 'IO Game',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="currentColor" stroke="none"/><circle cx="19" cy="6" r="3" fill="currentColor" stroke="none" opacity="0.6"/><circle cx="5" cy="18" r="2" fill="currentColor" stroke="none" opacity="0.45"/></svg>`
+      },
+      {
+        name: 'Slither.io',
+        url: 'https://slither.io',
+        cat: 'io',
+        color: 'card-green',
+        tag: 'IO Game',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><path d="M3 12c0-3 2-5 5-5 2 0 4 2 7 2s4-1 4-3" stroke="currentColor" fill="none" stroke-linecap="round"/><path d="M3 14c0 3 2 5 5 5 2 0 4-2 7-2s4 1 4 3" stroke="currentColor" fill="none" stroke-linecap="round" opacity="0.6"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/></svg>`
+      },
+      {
+        name: 'Paper.io 2',
+        url: 'https://paper-io.com',
+        cat: 'io',
+        color: 'card-blue',
+        tag: 'IO Game',
+        icon: `<svg stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="9" height="9" rx="1" fill="currentColor" stroke="none"/><rect x="13" y="2" width="9" height="9" rx="1" fill="currentColor" stroke="none" opacity="0.5"/><rect x="2" y="13" width="9" height="9" rx="1" fill="currentColor" stroke="none" opacity="0.5"/><rect x="13" y="13" width="9" height="9" rx="1" fill="currentColor" stroke="none" opacity="0.25"/></svg>`
+      },
+      {
+        name: 'Krunker.io',
+        url: 'https://krunker.io',
+        cat: 'io',
+        color: 'card-orange',
+        tag: 'FPS IO',
+        icon: `<svg stroke-width="2" viewBox="0 0 24 24"><path d="M3 8h4l2-4h6l2 4h4v8H3V8Z" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="2" fill="rgba(3,7,12,0.6)" stroke="none"/></svg>`
+      },
     ];
 
-    const gamesGrid = document.getElementById('games-grid');
-    gamesGrid.innerHTML = games.map((game) => `
-      <button class="game-card ${game.cardClass}" type="button" data-url="${game.url}">
-        <span class="game-info">
-          <span class="game-logo">${game.logo}</span>
-          <span class="game-title">${game.name}</span>
-          <span class="game-action">Launch game</span>
-        </span>
-      </button>
-    `).join('');
-
-    const iframeOverlay = document.getElementById('iframe-overlay');
-    const gameFrame = document.getElementById('game-frame');
-    const closeFrame = document.getElementById('close-frame');
-
-    function closeGame() {
-      iframeOverlay.classList.remove('is-open');
-      iframeOverlay.setAttribute('aria-hidden', 'true');
-      gameFrame.src = '';
-    }
-
-    gamesGrid.addEventListener('click', (event) => {
-      const gameButton = event.target.closest('.game-card');
-      if (!gameButton) return;
-      gameFrame.src = buildProxyUrl(gameButton.dataset.url);
-      iframeOverlay.classList.add('is-open');
-      iframeOverlay.setAttribute('aria-hidden', 'false');
-    });
-
-    closeFrame.addEventListener('click', closeGame);
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeGame();
-    });
-
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let mouse = { x: null, y: null, radius: 220 };
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    window.addEventListener('mousemove', (event) => {
-      mouse.x = event.x;
-      mouse.y = event.y;
-    });
-
-    window.addEventListener('mouseout', () => {
-      mouse.x = null;
-      mouse.y = null;
-    });
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 0.7 + 0.7;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-        if (mouse.x && mouse.y) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance > 0 && distance < mouse.radius) {
-            const force = (mouse.radius - distance) / mouse.radius;
-            this.x -= (dx / distance) * force * 2;
-            this.y -= (dy / distance) * force * 2;
-          }
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(211, 164, 255, 0.75)';
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      const count = Math.floor((canvas.width * canvas.height) / 12000);
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
-      }
-    }
-    initParticles();
-    window.addEventListener('resize', initParticles);
-
-    function connectParticles() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 115) {
-            const opacity = (1 - distance / 115) * 0.12;
-            ctx.strokeStyle = `rgba(187, 134, 252, ${opacity})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
+    /* ── Stagger animation delay ─────────────────────────────────── */
+    function buildCards(list) {
+      const grid  = document.getElementById('gamesGrid');
+      const empty = document.getElementById('emptyState');
+      grid.innerHTML = '';
+      if (list.length === 0) { empty.style.display = 'flex'; return; }
+      empty.style.display = 'none';
+      list.forEach((g, i) => {
+        const card = document.createElement('button');
+        card.className = `game-card ${g.color}`;
+        card.type = 'button';
+        card.dataset.url = g.url;
+        card.style.animationDelay = `${i * 40}ms`;
+        card.innerHTML = `
+          <div class="card-body">
+            <div class="card-icon-wrap">${g.icon}</div>
+            <div class="card-name">${g.name}</div>
+            <div class="card-meta">
+              <span class="card-tag">${g.tag}</span>
+              <span class="card-arrow">→</span>
+            </div>
+          </div>`;
+        card.addEventListener('click', () => openGame(g.url, g.name));
+        grid.appendChild(card);
       });
-      connectParticles();
-      requestAnimationFrame(animate);
     }
-    animate();
+    buildCards(GAMES);
+
+    /* ── Filter / search ─────────────────────────────────────────── */
+    let activeCat = 'all', searchQuery = '';
+    function applyFilter() {
+      const q = searchQuery.toLowerCase();
+      buildCards(GAMES.filter(g =>
+        (activeCat === 'all' || g.cat === activeCat) &&
+        (!q || g.name.toLowerCase().includes(q) || g.tag.toLowerCase().includes(q))
+      ));
+    }
+    document.getElementById('cloudSearch').addEventListener('input', e => {
+      searchQuery = e.target.value; applyFilter();
+    });
+    document.getElementById('catRow').addEventListener('click', e => {
+      const pill = e.target.closest('.cat-pill');
+      if (!pill) return;
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCat = pill.dataset.cat;
+      applyFilter();
+    });
+
+    /* ── Viewer ──────────────────────────────────────────────────── */
+    const viewer      = document.getElementById('viewer');
+    const viewerFrame = document.getElementById('viewerFrame');
+    const viewerClose = document.getElementById('viewerClose');
+
+    function openGame(url) {
+      viewerFrame.src = url;
+      viewer.classList.add('open');
+      viewer.setAttribute('aria-hidden', 'false');
+    }
+    function closeGame() {
+      viewerFrame.src = '';
+      viewer.classList.remove('open');
+      viewer.setAttribute('aria-hidden', 'true');
+    }
+    viewerClose.addEventListener('click', closeGame);
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeGame(); });
+  })();
   </script>
 </body>
 </html>
