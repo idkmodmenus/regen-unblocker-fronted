@@ -97,7 +97,7 @@
     }
 
     /* ─── HOME SCREEN ──────────────────────────────────────────────── */
-    main {
+    main#homeScreen {
       position: relative; z-index: 2;
       min-height: 100vh;
       display: flex; flex-direction: column;
@@ -119,9 +119,7 @@
       filter: drop-shadow(0 0 24px rgba(119,183,223,0.3));
     }
 
-    .search-wrap {
-      position: relative; width: 100%;
-    }
+    .search-wrap { position: relative; width: 100%; }
     .search-icon {
       position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
       width: 16px; height: 16px; stroke: var(--ink-muted); pointer-events: none;
@@ -145,7 +143,7 @@
       box-shadow: 0 0 0 3px rgba(119,183,223,0.14), 0 12px 36px rgba(0,0,0,0.38);
     }
     @media (max-width: 520px) {
-      main { padding: 3rem 1rem 6rem calc(var(--rail-w) + 0.75rem); }
+      main#homeScreen { padding: 3rem 1rem 6rem calc(var(--rail-w) + 0.75rem); }
     }
 
     /* ─── TOP BROWSER TOOLBAR ──────────────────────────────────────── */
@@ -169,10 +167,7 @@
       padding: 0 0.65rem;
     }
 
-    .tb-left, .tb-right {
-      display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0;
-    }
-
+    .tb-left, .tb-right { display: flex; align-items: center; gap: 0.25rem; flex-shrink: 0; }
     .tb-brand {
       display: flex; align-items: center; gap: 0.38rem;
       height: 32px; padding: 0 0.55rem 0 0.3rem;
@@ -191,21 +186,13 @@
       transition: background 0.14s, color 0.14s, transform 0.1s;
       flex-shrink: 0;
     }
-    .tb-btn svg {
-      width: 14px; height: 14px; fill: none; stroke: currentColor;
-      stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round;
-      pointer-events: none;
-    }
+    .tb-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
     .tb-btn:hover  { background: rgba(119,183,223,0.13); color: #c8e8f8; }
     .tb-btn:active { transform: scale(0.92); }
     .tb-btn:disabled { opacity: 0.22; pointer-events: none; }
     .tb-btn.is-active { color: var(--green); }
     .tb-btn.danger:hover { background: rgba(248,113,113,0.16); color: var(--red); }
-
-    .tb-div {
-      width: 1px; height: 18px; flex-shrink: 0;
-      background: rgba(255,255,255,0.08); margin: 0 0.15rem;
-    }
+    .tb-div { width: 1px; height: 18px; flex-shrink: 0; background: rgba(255,255,255,0.08); margin: 0 0.15rem; }
 
     .tb-btn::after {
       content: attr(data-tip);
@@ -318,9 +305,7 @@
     .panel-title svg { width: 13px; height: 13px; fill: none; stroke: var(--accent); stroke-width: 2; }
     .panel-title-note { font-size: 0.62rem; font-weight: 400; color: var(--ink-muted); text-transform: none; letter-spacing: 0; margin-left: auto; }
 
-    .cloak-menu {
-      right: 0.75rem; width: min(310px, calc(100vw - 1.5rem));
-    }
+    .cloak-menu { right: 0.75rem; width: min(310px, calc(100vw - 1.5rem)); }
     .cloak-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
     .cloak-opt {
       display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem;
@@ -332,7 +317,8 @@
     }
     .cloak-opt:hover { background: rgba(119,183,223,0.1); border-color: rgba(119,183,223,0.35); }
     .cloak-opt.active { border-color: rgba(119,183,223,0.55); background: rgba(119,183,223,0.1); }
-    .cloak-opt-icon { font-size: 1.1rem; line-height: 1; display: inline-flex; align-items: center; }
+    .cloak-opt-icon { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; }
+    .cloak-opt-icon img { width: 100%; height: 100%; object-fit: contain; }
     .cloak-opt-name { color: var(--ink); font-size: 0.7rem; font-weight: 600; }
     .cloak-opt-sub  { color: var(--ink-muted); font-size: 0.6rem; }
     .cloak-sep { grid-column: 1 / -1; height: 1px; background: rgba(255,255,255,0.07); margin: 0.2rem 0; }
@@ -350,10 +336,7 @@
       right: 0.75rem; width: min(320px, calc(100vw - 1.5rem));
       max-height: 420px; display: flex; flex-direction: column;
     }
-    .bm-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 0.55rem;
-    }
+    .bm-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.55rem; }
     .bm-header h2 { color: var(--ink); font-size: 0.82rem; }
     .bm-add-btn {
       display: flex; align-items: center; gap: 0.3rem;
@@ -407,13 +390,13 @@
     .kbd { display: inline-block; padding: 1px 6px; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; background: rgba(255,255,255,0.07); color: var(--ink); font-size: 0.62rem; font-weight: 600; }
     .shortcuts-close { display: block; margin: 1rem auto 0; }
 
-    /* ─── GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ──────────────────── */
+    /* ─── REALISTIC GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ─────────── */
     .decoy-overlay {
       position: fixed; inset: 0; z-index: 2000;
       background: #ffffff;
       opacity: 0; pointer-events: none; visibility: hidden;
-      transition: opacity 0.06s ease, visibility 0.06s ease;
-      overflow-y: auto;
+      transition: opacity 0.05s ease, visibility 0.05s ease;
+      overflow-y: scroll;
       font-family: 'Roboto', Arial, sans-serif;
       color: #3c4043;
       user-select: none;
@@ -422,10 +405,10 @@
       opacity: 1; pointer-events: auto; visibility: visible;
     }
 
-    /* Google Classroom App Bar */
+    /* Google Top Bar */
     .gc-header {
       height: 64px;
-      border-bottom: 1px solid #dadce0;
+      border-bottom: 1px solid #e0e0e0;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -476,7 +459,7 @@
       cursor: pointer;
     }
 
-    /* Grid layout */
+    /* Classroom Grid Layout */
     .gc-layout {
       max-width: 1280px;
       margin: 0 auto;
@@ -488,7 +471,7 @@
       gap: 24px;
     }
 
-    /* Classroom Card */
+    /* Google Classroom Card */
     .gc-card {
       border: 1px solid #dadce0;
       border-radius: 8px;
@@ -636,8 +619,7 @@
       bottom: 0;
       background: #000;
       z-index: 100;
-      transition: top 0.3s cubic-bezier(0.16,1,0.3,1),
-                  left 0.2s ease;
+      transition: top 0.3s cubic-bezier(0.16,1,0.3,1), left 0.2s ease;
     }
     .modal.active { display: block; }
     .modal-inner { position: relative; width: 100%; height: 100%; }
@@ -656,9 +638,7 @@
       opacity: 0; pointer-events: none; transition: opacity 0.22s;
     }
     .loading-overlay.active { opacity: 1; pointer-events: all; }
-    .spinner {
-      width: 44px; height: 44px; position: relative;
-    }
+    .spinner { width: 44px; height: 44px; position: relative; }
     .spinner::before {
       content: ''; position: absolute; inset: 0; border-radius: 50%;
       border: 2px solid rgba(119,183,223,0.15);
@@ -717,6 +697,7 @@
 
     <div class="rail-divider"></div>
 
+    <!-- Tools -->
     <nav class="rail-nav" aria-label="Tools">
       <button class="rail-item" id="railBookmarks" type="button" title="Bookmarks">
         <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
@@ -738,7 +719,7 @@
     </div>
   </aside>
 
-  <!-- Home screen -->
+  <!-- Home screen — logo + search only -->
   <main id="homeScreen">
     <div class="hero-content">
       <div class="logo-wrap">
@@ -861,59 +842,72 @@
       <span class="panel-title-note">Hides this tab's identity</span>
     </div>
     <div class="cloak-grid">
-      <button class="cloak-opt" data-cloak-title="Classes" data-cloak-icon="school">
+      <button class="cloak-opt" data-cloak-title="Classes" data-cloak-icon="https://ssl.gstatic.com/classroom/ic_product_classroom_144.png">
         <span class="cloak-opt-icon">
-          <svg width="20" height="20" viewBox="0 0 48 48">
-            <rect width="42" height="34" x="3" y="7" rx="3.5" fill="#00832d"/>
-            <rect width="36" height="28" x="6" y="10" rx="1.5" fill="#0f9d58"/>
-            <rect width="32" height="24" x="8" y="12" rx="1" fill="#006923"/>
-            <circle cx="24" cy="20" r="3.2" fill="#ffc107"/>
-            <path fill="#ffc107" d="M24 24.2c-3.1 0-5.6 1.4-5.6 3.2v1.6h11.2v-1.6c0-1.8-2.5-3.2-5.6-3.2z"/>
-            <circle cx="17.2" cy="21.5" r="2.5" fill="#ffffff"/>
-            <path fill="#ffffff" d="M17.2 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
-            <circle cx="30.8" cy="21.5" r="2.5" fill="#ffffff"/>
-            <path fill="#ffffff" d="M30.8 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/>
-          </svg>
+          <img src="https://ssl.gstatic.com/classroom/ic_product_classroom_144.png" alt="Google Classroom" />
         </span>
         <span class="cloak-opt-name">Google Classroom</span>
         <span class="cloak-opt-sub">classroom.google.com</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Google Docs" data-cloak-icon="docs" data-cloak-emoji="📄">
-        <span class="cloak-opt-icon">📄</span>
+
+      <button class="cloak-opt" data-cloak-title="Google Docs" data-cloak-icon="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico">
+        <span class="cloak-opt-icon">
+          <img src="https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico" alt="Google Docs" />
+        </span>
         <span class="cloak-opt-name">Google Docs</span>
         <span class="cloak-opt-sub">docs.google.com</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Google Drive" data-cloak-icon="drive" data-cloak-emoji="📁">
-        <span class="cloak-opt-icon">📁</span>
+
+      <button class="cloak-opt" data-cloak-title="Google Drive - My Drive" data-cloak-icon="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png">
+        <span class="cloak-opt-icon">
+          <img src="https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png" alt="Google Drive" />
+        </span>
         <span class="cloak-opt-name">Google Drive</span>
         <span class="cloak-opt-sub">drive.google.com</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Khan Academy" data-cloak-icon="khan" data-cloak-emoji="📚">
-        <span class="cloak-opt-icon">📚</span>
+
+      <button class="cloak-opt" data-cloak-title="Dashboard | Khan Academy" data-cloak-icon="https://www.google.com/s2/favicons?domain=khanacademy.org&sz=128">
+        <span class="cloak-opt-icon">
+          <img src="https://www.google.com/s2/favicons?domain=khanacademy.org&sz=128" alt="Khan Academy" />
+        </span>
         <span class="cloak-opt-name">Khan Academy</span>
         <span class="cloak-opt-sub">khanacademy.org</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Quizlet" data-cloak-icon="quizlet" data-cloak-emoji="🧠">
-        <span class="cloak-opt-icon">🧠</span>
+
+      <button class="cloak-opt" data-cloak-title="Flashcards, learning tools and textbook solutions | Quizlet" data-cloak-icon="https://www.google.com/s2/favicons?domain=quizlet.com&sz=128">
+        <span class="cloak-opt-icon">
+          <img src="https://www.google.com/s2/favicons?domain=quizlet.com&sz=128" alt="Quizlet" />
+        </span>
         <span class="cloak-opt-name">Quizlet</span>
         <span class="cloak-opt-sub">quizlet.com</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Google Slides" data-cloak-icon="slides" data-cloak-emoji="📊">
-        <span class="cloak-opt-icon">📊</span>
+
+      <button class="cloak-opt" data-cloak-title="Google Slides" data-cloak-icon="https://ssl.gstatic.com/docs/presentations/images/favicon-ya.ico">
+        <span class="cloak-opt-icon">
+          <img src="https://ssl.gstatic.com/docs/presentations/images/favicon-ya.ico" alt="Google Slides" />
+        </span>
         <span class="cloak-opt-name">Google Slides</span>
         <span class="cloak-opt-sub">slides.google.com</span>
       </button>
+
       <div class="cloak-sep"></div>
-      <button class="cloak-opt" data-cloak-title="New Tab" data-cloak-icon="search" data-cloak-emoji="🔍">
-        <span class="cloak-opt-icon">🔍</span>
+
+      <button class="cloak-opt" data-cloak-title="New Tab" data-cloak-icon="https://www.google.com/favicon.ico">
+        <span class="cloak-opt-icon">
+          <img src="https://www.google.com/favicon.ico" alt="Google" />
+        </span>
         <span class="cloak-opt-name">New Tab</span>
-        <span class="cloak-opt-sub">Empty search tab</span>
+        <span class="cloak-opt-sub">Default Chrome Tab</span>
       </button>
-      <button class="cloak-opt" data-cloak-title="Notes — Workspace" data-cloak-icon="notes" data-cloak-emoji="📝">
-        <span class="cloak-opt-icon">📝</span>
-        <span class="cloak-opt-name">Notes</span>
-        <span class="cloak-opt-sub">Workspace notes</span>
+
+      <button class="cloak-opt" data-cloak-title="Canvas LMS" data-cloak-icon="https://www.google.com/s2/favicons?domain=instructure.com&sz=128">
+        <span class="cloak-opt-icon">
+          <img src="https://www.google.com/s2/favicons?domain=instructure.com&sz=128" alt="Canvas" />
+        </span>
+        <span class="cloak-opt-name">Canvas</span>
+        <span class="cloak-opt-sub">instructure.com</span>
       </button>
+
       <button id="uncloakBtn" class="uncloak-opt">↩ Restore Lunar Proxy</button>
     </div>
   </div>
@@ -953,7 +947,7 @@
     </div>
   </div>
 
-  <!-- ─── ACCURATE GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ─────────── -->
+  <!-- ─── AUTHENTIC GOOGLE CLASSROOM PRIVACY DECOY OVERLAY ─────────── -->
   <div id="privacyOverlay" class="decoy-overlay" aria-hidden="true">
     <header class="gc-header">
       <div class="gc-left">
@@ -1095,20 +1089,26 @@
   <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js" referrerpolicy="no-referrer" defer></script>
   <script>
   (() => {
-    // Official Classroom SVG Vector Favicon
-    const CLASSROOM_FAVICON = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="42" height="34" x="3" y="7" rx="3.5" fill="%2300832d"/><rect width="36" height="28" x="6" y="10" rx="1.5" fill="%230f9d58"/><rect width="32" height="24" x="8" y="12" rx="1" fill="%23006923"/><circle cx="24" cy="20" r="3.2" fill="%23ffc107"/><path fill="%23ffc107" d="M24 24.2c-3.1 0-5.6 1.4-5.6 3.2v1.6h11.2v-1.6c0-1.8-2.5-3.2-5.6-3.2z"/><circle cx="17.2" cy="21.5" r="2.5" fill="%23ffffff"/><path fill="%23ffffff" d="M17.2 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/><circle cx="30.8" cy="21.5" r="2.5" fill="%23ffffff"/><path fill="%23ffffff" d="M30.8 24.8c-2.4 0-4.2 1.1-4.2 2.5v1.2h8.4v-1.2c0-1.4-1.8-2.5-4.2-2.5z"/></svg>';
+    // Official Classroom Favicon URL
+    const CLASSROOM_FAVICON = 'https://ssl.gstatic.com/classroom/ic_product_classroom_144.png';
 
     /* ═══════════════════════════════════════════════════════════════
        ANTI-BLOCK LAYER 1 — STEALTH TITLE & FAVICON
     ═══════════════════════════════════════════════════════════════ */
+    function setTabFavicon(url) {
+      let link = document.querySelector("link[rel*='icon']");
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+      }
+      link.type = url.endsWith('.ico') ? 'image/x-icon' : 'image/png';
+      link.href = url;
+    }
+
     (function stealthBoot() {
       document.title = 'Classes';
-      const link = document.createElement('link');
-      link.rel = 'icon';
-      link.type = 'image/svg+xml';
-      link.href = CLASSROOM_FAVICON;
-      document.querySelectorAll("link[rel*='icon']").forEach(l => l.remove());
-      document.head.appendChild(link);
+      setTabFavicon(CLASSROOM_FAVICON);
     })();
 
     /* ═══════════════════════════════════════════════════════════════
@@ -1558,37 +1558,11 @@
     const origTitle = 'Classes';
     let isCloaked = false;
 
-    const CLOAK_COLORS = {
-      docs:    '%234285f4',
-      drive:   '%230f9d58',
-      khan:    '%23006700',
-      quizlet: '%23257af4',
-      slides:  '%23f4b400',
-      search:  '%2338bdf8',
-      notes:   '%23fbbf24',
-    };
-
-    function setFavicon(type, emoji) {
-      let link = document.querySelector("link[data-cloak='true']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon'; link.dataset.cloak = 'true';
-        document.head.appendChild(link);
-      }
-      if (type === 'school') {
-        link.href = CLASSROOM_FAVICON;
-      } else {
-        const bg = CLOAK_COLORS[type] || '%231e3a5f';
-        const em = encodeURIComponent(emoji || '🔍');
-        link.href = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="${bg}"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="38">${em}</text></svg>`;
-      }
-    }
-
     function restoreIdentity() {
       _titleLocked = false;
       document.title = origTitle;
       _lockedTitle = origTitle;
-      setFavicon('school');
+      setTabFavicon(CLASSROOM_FAVICON);
       isCloaked = false;
       cloakBtn.setAttribute('aria-pressed', 'false');
       cloakBtn.classList.remove('is-active');
@@ -1609,11 +1583,12 @@
     document.querySelectorAll('.cloak-opt').forEach(opt => {
       opt.addEventListener('click', () => {
         const newTitle = opt.dataset.cloakTitle || 'Tab';
+        const iconUrl = opt.dataset.cloakIcon;
         _titleLocked = false;
         document.title = newTitle;
         _lockedTitle = newTitle;
         _titleLocked = true;
-        setFavicon(opt.dataset.cloakIcon, opt.dataset.cloakEmoji);
+        if (iconUrl) setTabFavicon(iconUrl);
         isCloaked = true;
         cloakBtn.setAttribute('aria-pressed', 'true');
         cloakBtn.classList.add('is-active');
