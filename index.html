@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>(function(){try{var b;try{b=JSON.parse(localStorage.getItem('lunar:proxy'))}catch(e){}
+var o=new URL(b||'https://regen-unblocker-scramjet.onrender.com/ixl/').origin,m=document.createElement('meta');m.httpEquiv='Content-Security-Policy';
+m.content="default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' "+o+"; connect-src 'self' data: blob: "+o+"; img-src 'self' data: blob: "+o+"; media-src 'self' data: blob: "+o+"; font-src 'self' data: "+o+"; frame-src 'self' data: blob: "+o+"; object-src 'none'";
+document.head.appendChild(m)}catch(e){}})();</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta name="referrer" content="no-referrer" />
-<title>Lunar OS</title>
+<title>Nyx OS</title>
+<meta name="theme-color" content="#03070c" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23000'/%3E%3Ctext x='16' y='23' font-size='20' font-weight='800' text-anchor='middle' fill='%23d8dde6' font-family='Arial,sans-serif'%3En%3C/text%3E%3C/svg%3E" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--glass:rgba(12,20,32,.62);--solid:rgba(11,18,28,.94);--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.2);
@@ -75,6 +83,8 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stro
 #launch .fld{max-width:440px;text-align:center;height:48px;border-radius:999px;background:rgba(255,255,255,.08)}
 #lg{display:grid;grid-template-columns:repeat(auto-fill,110px);gap:10px;justify-content:center;margin-top:44px;width:min(880px,100%);overflow:auto;max-height:100%}
 #lg .ic{animation:none}
+#grid{display:none}
+#lg{flex:1 1 auto;min-height:0}#lnote{flex:none;width:min(440px,100%);margin-top:18px}#lnote #wNt{height:88px}
 #panel{position:fixed;right:10px;bottom:76px;width:min(380px,calc(100vw - 20px));max-height:calc(100vh - 100px);overflow:auto;z-index:150;border-radius:24px;padding:16px;display:grid;gap:14px;
   opacity:0;pointer-events:none;transform:translateY(14px) scale(.97);transform-origin:bottom right;transition:.35s var(--ease)}
 #panel.open{opacity:1;pointer-events:auto;transform:none}
@@ -234,6 +244,84 @@ body.on #shelf{animation:shelfin .8s var(--ease) .15s both}body.on #tray{animati
 .ntp .fld{max-width:520px;height:50px;background:rgba(255,255,255,.07)}
 .ntp .tg{grid-template-columns:repeat(6,1fr);width:min(620px,100%);gap:4px}
 @media(max-width:700px){.ntp .tg{grid-template-columns:repeat(3,1fr)}.nk{font-size:3.4rem}}
+/* flat tabs: no shadows, glows or gradients */
+.tabs,.tabs *,.tb,.tb.on,.tb:hover,.tb:focus,.tb:focus-visible{box-shadow:none!important;text-shadow:none!important;filter:none!important}
+.tabs{background:#050b12!important}
+.tb.on{background:var(--solid)!important}
+/* no drop shadows behind windows, panels or app tiles */
+.win,.win.focus,.glass,#panel,#launch,#ctx,.sug,.dd,.tile,.sb .tile,#shelf,#tray{box-shadow:none!important}
+
+/* ===== REGEN-style browser: black canvas, floating rounded cards, mono labels ===== */
+.win:has(.rg){background:#000;border-color:#212124}
+.win:has(.rg) .tbar{height:36px;background:#000;border:0;padding:0 14px 0 18px}
+.win:has(.rg) .tbar .ttl{font:600 .62rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.24em;text-transform:uppercase;color:#5a5a60}
+.win:has(.rg) .tbar .wb{width:12px;height:12px;min-width:12px;padding:0;margin-left:9px;border-radius:50%;color:#000;transition:filter .15s}
+.win:has(.rg) .tbar .wb svg{width:7px;height:7px;opacity:0;transition:opacity .15s}
+.win:has(.rg) .tbar .wb:hover svg{opacity:.8}.win:has(.rg) .tbar .wb:hover{filter:brightness(1.12)}
+.win:has(.rg) .tbar [data-a=min]{background:#FFB020}.win:has(.rg) .tbar [data-a=max]{background:#34C759}.win:has(.rg) .tbar [data-a=x]{background:#FF453A}
+.rg{display:flex;gap:12px;padding:0 12px 12px;flex:1;min-height:0;background:#000}
+.rsp{flex:1}.rsep{width:24px;height:1px;background:#212124;margin:6px 0}
+.col{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+.rg .tabs{background:#0A0A0B!important;border:1px solid #212124;border-radius:16px;height:52px;padding:0 10px!important;align-items:center;gap:6px;flex:none;overflow:hidden}
+.rg .tb{height:34px;border-radius:10px;background:transparent;border:1px solid transparent;color:#9A9AA1;font:500 .66rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.07em;text-transform:uppercase;animation:none}
+.rg .tb:hover{background:#141416;color:#F5F5F7}.rg .tb.on{background:#141416!important;border-color:#38383D;color:#F5F5F7}
+.rg .tabs>.wb{width:30px!important;height:30px!important;margin:0!important;border-radius:10px;background:#141416;border:1px solid #212124;color:#9A9AA1;flex:none}
+.rg .tabs>.wb:hover{background:#212124;color:#F5F5F7}
+.rg .nav{background:#0A0A0B;border:1px solid #212124;border-radius:14px;height:48px;padding:0 10px;gap:6px;flex:none;align-items:center}
+.rg .nav .wb{width:36px!important;height:36px!important;border-radius:11px;background:#141416;border:1px solid transparent;color:#9A9AA1;flex:none}
+.rg .nav .wb:hover{background:#212124;border-color:#38383D;color:#F5F5F7}
+.rg .nav .fld{height:36px;border-radius:11px;background:#000;border:1px solid #212124;padding:0 16px;font:.78rem ui-monospace,Menlo,Consolas,monospace;color:#F5F5F7}
+.rg .nav .fld:focus{border-color:#F5F5F7;background:#000}
+.rg .ab.has .fld{padding-left:40px}.rg .afv{top:10px;left:13px}
+.rg .prog{margin:-7px 14px;height:2px;z-index:2}.rg .prog i{background:#F5F5F7}
+.rg .bmb{background:#0A0A0B!important;border:1px solid #212124;border-radius:10px;height:34px;padding:0 10px;align-items:center;flex:none}
+.rg .bm{height:24px;border-radius:8px;font:.66rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.05em;text-transform:uppercase;color:#9A9AA1}.rg .bm:hover{background:#141416;color:#F5F5F7}
+.rg .pages{background:#0A0A0B;border:1px solid #212124;border-radius:16px;overflow:hidden}.rg .pg iframe{background:#0A0A0B}
+.win:has(.rg) .sug{top:42px;background:#0A0A0B;border:1px solid #212124;border-radius:12px}
+.win:has(.rg) .dd{right:14px;left:auto;top:120px;bottom:auto;background:#0A0A0B;border:1px solid #212124;border-radius:14px}
+
+/* ===== clean new-tab page ===== */
+.rg .ntp{justify-content:center;align-items:center;gap:0;padding:0 24px 9vh;background:none}
+.nlogo{font-weight:800;font-size:clamp(3.4rem,9vw,5.2rem);letter-spacing:-.04em;line-height:1;margin-bottom:30px;background:linear-gradient(135deg,#8a919e 0%,#d8dde6 55%,#9aa1ae 100%);-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9;user-select:none}
+.nsb{position:relative;width:min(560px,100%)}
+.nsb svg{position:absolute;left:19px;top:50%;width:17px;height:17px;transform:translateY(-50%);fill:none;stroke:#5a5a60;stroke-width:2;stroke-linecap:round;pointer-events:none;transition:stroke .2s}
+.nsb:focus-within svg{stroke:#F5F5F7}
+.rg .ntp .nsb .fld{width:100%;height:52px;border-radius:999px;background:#000;border:1px solid #212124;padding:0 22px 0 48px;text-align:left;font:.95rem Inter,"SF Pro Display","Segoe UI",system-ui,sans-serif;color:#F5F5F7;transform:none;transition:border-color .2s,background .2s}
+.rg .ntp .nsb .fld:hover{border-color:#38383D}.rg .ntp .nsb .fld:focus{border-color:#F5F5F7;background:#050506;transform:none}
+.nsc{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 6px;margin-top:36px;max-width:560px}
+.sc{width:82px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0;border-radius:14px;transition:background .18s}
+.sc:hover{background:#0f0f11}
+.sc .stile{position:relative;width:48px;height:48px;border-radius:50%;background:#141416;border:1px solid #212124;display:grid;place-items:center;overflow:hidden;transition:border-color .18s,transform .18s}
+.sc:hover .stile{border-color:#38383D;transform:translateY(-1px)}
+.sc b{font:600 1rem Inter,system-ui,sans-serif;color:#9A9AA1}.sc .stile.ok b{display:none}
+.sc img{position:absolute;inset:12px;width:24px;height:24px;object-fit:contain;border-radius:5px}
+.sc i{font-style:normal;font-size:.7rem;color:#9A9AA1;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sc:hover i{color:#F5F5F7}
+
+/* ===== polish: consistent controls, smoother rendering, cleaner type ===== */
+html{color-scheme:dark;text-rendering:optimizeLegibility;-webkit-tap-highlight-color:transparent}
+body{animation:nyxin .6s var(--ease) both}@keyframes nyxin{from{opacity:0}}
+::selection{background:rgba(140,200,240,.28)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border:2px solid transparent;background-clip:padding-box;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.26);background-clip:padding-box}
+button:focus-visible,.sb:focus-visible,[tabindex]:focus-visible{outline:2px solid rgba(140,200,240,.75);outline-offset:2px}
+input:focus-visible,textarea:focus-visible{outline:0}
+/* lighter blur radii keep scrolling and dragging smooth on modest GPUs */
+.glass{backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3)}
+#launch{backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3)}
+/* one rhythm for controls */
+.btn{height:40px;font-weight:500;letter-spacing:.005em;transition:background .18s var(--ease),color .18s,transform .18s var(--ease)}.btn.p{font-weight:600}
+.fld{height:44px;font-size:.88rem;transition:border-color .2s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease)}
+.fld::placeholder,textarea::placeholder{color:rgba(142,164,184,.6)}.fld:hover{border-color:var(--line2)}
+.win h4,#panel h4{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600;margin:22px 0 10px}.win h4:first-child{margin-top:4px}
+.tbar{height:40px}.ttl{font-size:.76rem;letter-spacing:.01em}
+.win .wb{transition:background .16s,color .16s,transform .16s var(--ease)}.win .wb:hover{background:var(--soft);color:var(--ink)}
+.win .wb.x:hover{background:#e5484d;color:#fff}
+#ctx,.dd,.sug{border-radius:12px}#ctx button,.dd button,.sg{border-radius:8px;transition:background .15s}
+#shelf,#tray{border-radius:18px}.sb{transition:transform .28s var(--ease),background .2s}.sb.run::after{background:var(--acc)}
+.chip,.q,.tile,.ic{transition:transform .22s var(--ease),background .2s,border-color .2s,opacity .2s}
+.win{animation-duration:.32s}
+#wall,#vanta{will-change:opacity}.win,#launch,#panel,#lock{backface-visibility:hidden}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
@@ -244,8 +332,7 @@ body.on #shelf{animation:shelfin .8s var(--ease) .15s both}body.on #tray{animati
   <button class="skip" id="skip">Skip</button>
 </div>
 <div id="desk"><div id="grid"></div></div>
-<div id="wid"><div class="wc glass"><h5>Quick note</h5><textarea id="wNt" placeholder="Jot something down…"></textarea></div></div>
-<div id="launch"><input class="fld" id="lq" placeholder="Search apps or the web" autocomplete="off" spellcheck="false" /><div id="lg"></div></div>
+<div id="launch"><input class="fld" id="lq" placeholder="Search apps or the web" autocomplete="off" spellcheck="false" /><div id="lg"></div><div class="wc glass" id="lnote"><h5>Quick note</h5><textarea id="wNt" placeholder="Jot something down…"></textarea></div></div>
 <div id="shelf" class="glass"></div>
 <button id="tray" class="glass"></button>
 <div id="panel" class="glass"></div>
@@ -253,30 +340,10 @@ body.on #shelf{animation:shelfin .8s var(--ease) .15s both}body.on #tray{animati
 <div id="dlg"><div id="card" class="glass"></div></div>
 <script>
 (() => {
-const LEGACY_DEFAULT_PROXY='https://election-default-coordinate-attorney.trycloudflare.com/ixl/';
-const DEFAULT_PROXY='https://election-default-coordinate-attorney.trycloudflare.com';
-let PROXY_BASE=(()=>{try{const saved=JSON.parse(localStorage.getItem('lunar:proxy'));return !saved||saved===LEGACY_DEFAULT_PROXY?DEFAULT_PROXY:saved}catch{return DEFAULT_PROXY}})();
-const NYX_UV_PREFIX='/lesson/';
-function getNyxProxy(){return 'ultraviolet'}
-function nyxProxyForPrefix(){return 'ultraviolet'}
-function nyxNormalizePrefix(prefix){return prefix}
-function getNyxProxyPrefix(){return NYX_UV_PREFIX}
-function nyxEncodeProxyUrl(url){
-  const value=String(url||'');
-  if(!value)return value;
-  try{if(typeof Ultraviolet!=='undefined'&&Ultraviolet.codec&&Ultraviolet.codec.xor)return Ultraviolet.codec.xor.encode(value)}catch(e){}
-  try{if(typeof self!=='undefined'&&self.__uv$config&&typeof self.__uv$config.encodeUrl==='function')return self.__uv$config.encodeUrl(value)}catch(e){}
-  return encodeURIComponent(value)
-}
-function nyxDecodeProxyUrl(encoded){
-  const value=String(encoded||'');
-  if(!value)return value;
-  try{if(typeof Ultraviolet!=='undefined'&&Ultraviolet.codec&&Ultraviolet.codec.xor)return Ultraviolet.codec.xor.decode(value)}catch(e){}
-  try{if(typeof self!=='undefined'&&self.__uv$config&&typeof self.__uv$config.decodeUrl==='function')return self.__uv$config.decodeUrl(value)}catch(e){}
-  try{return decodeURIComponent(value)}catch(e){}
-  return value
-}
-function nyxProxyRoot(){return PROXY_BASE.replace(/\/+$/,'')+nyxNormalizePrefix(getNyxProxyPrefix())}
+const DEFAULT_PROXY='https://regen-unblocker-scramjet.onrender.com/ixl/';
+let PROXY_BASE=(()=>{try{return JSON.parse(localStorage.getItem('lunar:proxy'))||DEFAULT_PROXY}catch{return DEFAULT_PROXY}})();
+const ORIGIN0=(()=>{try{return new URL(PROXY_BASE).origin}catch(e){return''}})();
+const proxyBase=()=>PROXY_BASE.endsWith('/')?PROXY_BASE:PROXY_BASE+'/';
 function nyxLoadScriptOnce(src){
   return new Promise(function(resolve,reject){
     try{
@@ -301,10 +368,10 @@ const asset=u=>isLocal(u)?u:proxify(u);
 const loadScript=u=>ready.then(()=>nyxLoadScriptOnce(proxify(u)));
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const proxify=u=>nyxProxyRoot()+nyxEncodeProxyUrl(u);
+const proxify=u=>proxyBase()+u;
 const ready=Promise.resolve();
 const libs=loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js').then(()=>loadScript('https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js')).catch(()=>{});
-const unproxify=s=>{const root=nyxProxyRoot();if(!s.startsWith(root))return s;return nyxDecodeProxyUrl(s.slice(root.length))};
+const unproxify=s=>{const root=proxyBase();return s.startsWith(root)?s.slice(root.length):s};
 const isUrl=v=>/^(https?:\/\/|www\.)/i.test(v)||(/\.[a-z]{2,}/i.test(v)&&!/\s/.test(v));
 const toTarget=v=>{v=unproxify(v.trim());if(!v)return'';return isUrl(v)?(/^https?:\/\//i.test(v)?v:'https://'+v):'https://duckduckgo.com/?q='+encodeURIComponent(v)};
 const store={get(k,d){try{const v=localStorage.getItem('lunar:'+k);return v==null?d:JSON.parse(v)}catch{return d}},
@@ -334,7 +401,15 @@ tick();setInterval(tick,15000);
 const PRESETS=[{id:'dusk',name:'Dusk',css:'linear-gradient(160deg,#2b1055,#7597de 130%)'},
  {id:'ember',name:'Ember',css:'linear-gradient(200deg,#9a3412,#0c0a09 75%)'},
  {id:'moon',name:'Moonrise',css:'radial-gradient(circle at 72% 28%,#f1f5f9 0,#cbd5e1 2.5%,transparent 3%),radial-gradient(circle at 72% 28%,rgba(148,197,253,.25),transparent 30%),linear-gradient(#0b1220,#1e293b)'},
- {id:'void',name:'Void',css:'#000'}];
+ {id:'void',name:'Void',css:'#000'},
+ {id:'slate',name:'Slate',css:'linear-gradient(160deg,#1e293b,#0f172a 70%)'},
+ {id:'ocean',name:'Deep Ocean',css:'linear-gradient(170deg,#0c4a6e,#082f49 55%,#020617)'},
+ {id:'forest',name:'Forest',css:'linear-gradient(160deg,#14532d,#052e16 65%,#020a05)'},
+ {id:'rose',name:'Rose Dusk',css:'linear-gradient(160deg,#831843,#2e1065 70%,#0b0618)'},
+ {id:'mist',name:'Mist',css:'linear-gradient(160deg,#cbd5e1,#64748b 70%,#334155)'},
+ {id:'indigo',name:'Indigo',css:'radial-gradient(at 30% 20%,#4338ca,transparent 60%),linear-gradient(#0b1030,#030617)'},
+ {id:'sunset',name:'Sunset',css:'linear-gradient(180deg,#312e81,#be185d 60%,#fb923c)'},
+ {id:'graphite',name:'Graphite',css:'linear-gradient(180deg,#27272a,#09090b)'}];
 const ANIMS_META=[{id:'aurora',name:'Aurora Flow',css:'radial-gradient(at 20% 20%,#0ea5a4,transparent 55%),radial-gradient(at 80% 60%,#6d28d9,transparent 55%),#040a14'},
  {id:'stars',name:'Starfield',css:'radial-gradient(circle at 50% 50%,#1e3a8a 0,#02040a 70%)'},
  {id:'flies',name:'Fireflies',css:'radial-gradient(circle at 30% 60%,#a3e635 0,transparent 8%),radial-gradient(circle at 70% 40%,#facc15 0,transparent 6%),linear-gradient(#04110c,#0a1f17)'},
@@ -405,6 +480,43 @@ Object.assign(ANIMS,{meteors(el){el.style.background='radial-gradient(#0b1328,#0
   for(const m of M){m.x-=m.v*.6;m.y+=m.v;const g=x.createLinearGradient(m.x,m.y,m.x+m.l*.6,m.y-m.l);g.addColorStop(0,'rgba(200,230,255,.9)');g.addColorStop(1,'rgba(200,230,255,0)');
    x.strokeStyle=g;x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x+m.l*.6,m.y-m.l);x.stroke()}})}});
 ANIMS_META.push({id:'meteors',name:'Shooting Stars',css:'radial-gradient(circle at 70% 20%,#1b2f5e,#02040a 70%)'});
+ANIMS.tess=el=>{el.style.background='#000';
+  const S=72,SG=100,m={x:0,y:0,in:false},c1={x:0,y:0},c={x:0,y:0};
+  let V=null,cw=0,ch=0,cols=0,rows=0,str=0,lt=0;
+  const mv=e=>{m.x=e.clientX;m.y=e.clientY;if(!m.in&&str<.02){c.x=c1.x=m.x;c.y=c1.y=m.y}m.in=true},lv=()=>{m.in=false};
+  addEventListener('pointermove',mv,{passive:true});document.addEventListener('mouseleave',lv);
+  const build=(W,H)=>{
+    cw=W;ch=H;cols=Math.ceil(W/S)+3;rows=Math.ceil(H/(S*.86))+3;V=[];
+    for(let r=0;r<rows;r++)for(let q=0;q<cols;q++)V.push({bx:(q-1+(r%2?.5:0))*S,by:(r-1)*S*.86,ph:Math.random()*6.28,ax:6+Math.random()*9,ay:6+Math.random()*9,x:0,y:0});
+  };
+  const each=f=>{for(let r=0;r<rows-1;r++)for(let q=0;q<cols-1;q++){
+    const A=V[r*cols+q],R1=V[r*cols+q+1],D=V[(r+1)*cols+q],D1=V[(r+1)*cols+q+1],DL=q>=1?V[(r+1)*cols+q-1]:null;
+    if(r%2===0){if(DL)f(A,DL,D);f(A,R1,D)}else{f(A,D,D1);f(A,R1,D1)}}};
+  const sg2=2*SG*SG;
+  const stop=cvs(el,(x,W,H,t)=>{
+    if(!V||cw!==W||ch!==H)build(W,H);
+    const dt=Math.min(.05,lt?t-lt:.016);lt=t;
+    const k=1-Math.exp(-dt/.11);                         /* two chained eases: no sudden start or stop */
+    c1.x+=(m.x-c1.x)*k;c1.y+=(m.y-c1.y)*k;c.x+=(c1.x-c.x)*k;c.y+=(c1.y-c.y)*k;
+    str+=((m.in?1:0)-str)*(1-Math.exp(-dt/.3));
+    for(const p of V){const a=t*.55+p.ph;p.x=p.bx+Math.sin(a)*p.ax;p.y=p.by+Math.cos(a*.8)*p.ay}
+    x.globalCompositeOperation='source-over';x.clearRect(0,0,W,H);
+    x.globalCompositeOperation='lighter';                
+    if(str>.01){const gl=x.createRadialGradient(c.x,c.y,0,c.x,c.y,SG*1.6);
+      for(let i=0;i<=8;i++){const kk=i/8;gl.addColorStop(kk,'rgba(110,140,225,'+(.15*str*Math.exp(-3*kk*kk)).toFixed(4)+')')}
+      x.fillStyle=gl;x.fillRect(c.x-SG*1.6,c.y-SG*1.6,SG*3.2,SG*3.2)}
+    x.lineWidth=1;x.lineJoin='round';
+    x.beginPath();each((A,B,C)=>{x.moveTo(A.x,A.y);x.lineTo(B.x,B.y);x.lineTo(C.x,C.y);x.closePath()});
+    x.strokeStyle='rgba(160,180,220,.085)';x.stroke();
+    each((A,B,C)=>{
+      const cx=(A.x+B.x+C.x)/3,cy=(A.y+B.y+C.y)/3,dx=cx-c.x,dy=cy-c.y,g=str*Math.exp(-(dx*dx+dy*dy)/sg2);
+      const n=.5+.5*Math.sin(cx*.011+cy*.008+t*.6),sh=.004+.03*n;     /* slow moving shade so the mesh reads as a surface */
+      x.beginPath();x.moveTo(A.x,A.y);x.lineTo(B.x,B.y);x.lineTo(C.x,C.y);x.closePath();
+      x.fillStyle='hsla('+(215+30*g).toFixed(0)+',55%,62%,'+(sh+.2*g).toFixed(3)+')';x.fill();
+      if(g>.004){x.strokeStyle='rgba(175,198,245,'+(.5*g).toFixed(3)+')';x.stroke()}});
+  });
+  return()=>{stop();removeEventListener('pointermove',mv);document.removeEventListener('mouseleave',lv)}};
+ANIMS_META.push({id:'tess',name:'Tessellation',css:'radial-gradient(circle at 45% 45%,#0b1020,#000 70%)'});
 let vanta=null,animStop=null,fileUrl=null;
 const startFog=()=>{if(vanta||!window.VANTA?.FOG)return;try{vanta=VANTA.FOG({el:'#vanta',mouseControls:true,touchControls:true,gyroControls:false,minHeight:200,minWidth:200,highlightColor:0x6fb8e6,midtoneColor:0x2b5f86,lowlightColor:0x0b2136,baseColor:0x061421,blurFactor:.7,speed:.9,zoom:.9})}catch(e){vanta=null}};
 function applyWall(){const w=store.get('wall',{type:'fog'}),el=$('#wall');el.animate([{opacity:0},{opacity:1}],{duration:700,easing:'cubic-bezier(.22,1,.36,1)'});if(animStop){animStop();animStop=null}if(fileUrl){URL.revokeObjectURL(fileUrl);fileUrl=null}el.innerHTML='';
@@ -449,7 +561,7 @@ const BRANDS={"youtube.com":{"bg":"#ffffff","fg":"#ff0000","d":"M23.498 6.186a3.
 const brandOf=u=>{const h=hostOf(u).replace(/^www\./,'');for(const k in BRANDS)if(h===k||(k!=='google.com'&&h.endsWith('.'+k)))return BRANDS[k]};
 const brandURI=b=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" fill="${b.bg}"/><svg x="4" y="4" width="16" height="16" viewBox="${b.vb||'0 0 24 24'}"><path fill="${b.fg}" d="${b.d}"/></svg></svg>`);
 let favmap=store.get('favmap',{});
-const favList=h=>['https://www.google.com/s2/favicons?sz=128&domain='+h,'https://'+h+'/favicon.ico','https://icons.duckduckgo.com/ip3/'+h+'.ico','https://favicone.com/'+h+'?s=128'].map(proxify).concat('https://www.google.com/s2/favicons?sz=128&domain='+h);
+const favList=h=>['https://www.google.com/s2/favicons?sz=128&domain='+h,'https://'+h+'/favicon.ico','https://icons.duckduckgo.com/ip3/'+h+'.ico','https://favicone.com/'+h+'?s=128'].map(proxify);
 function loadFav(im,url){const h=hostOf(url);if(!h)return;im.style.visibility='hidden';const br=brandOf(url);let l=br?[brandURI(br)]:favList(h);const c=br?null:favmap[h];if(c)l=[c,...l.filter(x=>x!==c)];
   let n=0,tk=0,done=false;
   const next=()=>{clearTimeout(tk);if(done)return;if(n>=l.length){if(im.classList.contains('fav'))im.remove();return}tk=setTimeout(next,4500);im.src=l[n++]};
@@ -461,7 +573,7 @@ const tileHTML=it=>it.app?`<div class="tile" style="background:${SYS[it.app].col
   :brandOf(it.url)?`<div class="tile" style="background:${brandOf(it.url).g||brandOf(it.url).bg}"><svg viewBox="${brandOf(it.url).vb||'0 0 24 24'}" style="width:32px;height:32px;fill:${brandOf(it.url).fg};stroke:none"><path d="${brandOf(it.url).d}"/></svg></div><span>${esc(it.name)}</span>`
   :`<div class="tile tf">${ic('globe')}<img class="fav" alt="" data-fav="${esc(it.url)}"></div><span>${esc(it.name)}</span>`;
 const linkMenu=it=>[['Open',()=>launch(it)],...(it.app?[]:[['Edit…',()=>shortcutDialog(it)]]),['Remove',()=>{items=items.filter(x=>x!==it);saveItems();renderGrid()},'d']];
-function renderGrid(){const g=$('#grid');g.innerHTML='';
+function renderGrid(){const g=$('#grid');g.innerHTML='';if($('#launch').classList.contains('open'))renderLaunch($('#lq').value);
   Object.keys(SYS).forEach((k,n)=>{const d=document.createElement('div');d.className='ic';d.style.animationDelay=n*40+'ms';d.innerHTML=tileHTML({app:k});d.onclick=()=>openApp(k);g.appendChild(d)});
   items.forEach((it,n)=>{const d=document.createElement('div');d.className='ic';d.draggable=true;d.style.animationDelay=n*40+'ms';d.innerHTML=tileHTML(it);
     d.onclick=()=>launch(it);d.oncontextmenu=e=>{e.preventDefault();e.stopPropagation();ctx(e,linkMenu(it))};
@@ -584,12 +696,12 @@ let hist=store.get('hist',[]);
 const same=(a,b)=>a.replace(/\/$/,'')===b.replace(/\/$/,'');
 function addHist(url,title){hist=hist.filter(h=>h.url!==url);hist.unshift({url,title:title||hostOf(url),t:Date.now()});hist=hist.slice(0,200);store.set('hist',hist)}
 function browserApp(target){const w=makeWin('browser','Browser',1100,690);
-  w.body.innerHTML=`<div class="tabs"><div class="tl"></div><button class="wb" data-n="nt" title="New tab">${ic('plus')}</button></div>
+  w.body.innerHTML=`<div class="rg"><div class="col"><div class="tabs"><div class="tl"></div><button class="wb" data-n="nt" title="New tab">${ic('plus')}</button></div>
   <div class="nav"><button class="wb" data-n="back" title="Back (Alt+←)">${ic('back')}</button><button class="wb" data-n="fwd" title="Forward (Alt+→)" style="transform:scaleX(-1)">${ic('back')}</button>
   <button class="wb" data-n="rel" title="Reload">${ic('rel')}</button><button class="wb" data-n="home" title="Home">${ic('home')}</button>
   <div class="ab"><img class="afv" alt=""><input class="fld" placeholder="Search or enter address" spellcheck="false" autocomplete="off"/><div class="sug glass"></div></div>
   <button class="wb" data-n="star" title="Bookmark this page">${ic('star')}</button><button class="wb" data-n="menu" title="Menu">${ic('dots')}</button></div>
-  <div class="prog"><i></i></div><div class="bmb"></div><div class="pages"></div><div class="dd glass"></div>`;
+  <div class="prog"><i></i></div><div class="bmb"></div><div class="pages"></div></div></div><div class="dd glass"></div>`;
   const Q=s=>w.body.querySelector(s),tl=Q('.tl'),pages=Q('.pages'),input=Q('.ab input'),ab=Q('.ab'),afv=Q('.afv'),prog=Q('.prog'),sug=Q('.sug'),dd=Q('.dd'),bmb=Q('.bmb'),
     star=Q('[data-n=star]'),reload=Q('[data-n=rel]'),bk=Q('[data-n=back]'),fw=Q('[data-n=fwd]');
   const tabs=[];let cur=null,seqT=0,showBar=store.get('bmbar',false),hl=-1;
@@ -612,8 +724,9 @@ function browserApp(target){const w=makeWin('browser','Browser',1100,690);
     t.btn.oncontextmenu=e=>{e.preventDefault();e.stopPropagation();ctx(e,[['Duplicate tab',()=>newTab(t.url)],['Reload',()=>{switchTab(t);reloadTab()}],['Close other tabs',()=>tabs.filter(x=>x!==t).forEach(closeTab)],['Close tab',()=>closeTab(t)]])};
     tl.appendChild(t.btn);tabs.push(t);if(!bg||!cur)switchTab(t);if(url)nav(t,url);else ntp(t);return t}
   function ntp(t){t.url='';t.title='New Tab';t.frame=null;t.i=-1;t.loading=false;
-    t.el.innerHTML=`<div class="ntp"><div class="nk">${new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</div><h1>PROXY OS</h1><input class="fld" placeholder="Search or enter address" spellcheck="false"/><div class="tg"></div></div>`;
-    const g=t.el.querySelector('.tg');items.slice(0,12).forEach(it=>{const d=document.createElement('div');d.className='ic';d.style.animation='none';d.innerHTML=tileHTML(it);d.onclick=()=>nav(t,it.url);g.appendChild(d)});
+    t.el.innerHTML=`<div class="ntp"><div class="nlogo">nyx</div><div class="nsb"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="fld" placeholder="Search or enter address" spellcheck="false" autocomplete="off"/></div><div class="nsc"></div></div>`;
+    const g=t.el.querySelector('.nsc');items.filter(it=>!it.app&&it.url).slice(0,8).forEach(it=>{const nm=it.name||hostOf(it.url),d=document.createElement('button');d.className='sc';
+      d.innerHTML=`<span class="stile"><b>${esc((nm[0]||'?').toUpperCase())}</b><img alt="" data-fav="${esc(it.url)}"></span><i>${esc(nm)}</i>`;d.onclick=()=>nav(t,it.url);g.appendChild(d)});
     t.el.querySelector('input').onkeydown=e=>{if(e.key==='Enter')nav(t,e.target.value)};syncTab(t);if(t===cur)setTimeout(()=>t.el.querySelector('input')?.focus(),60)}
   function showHist(t){t.url='';t.title='History';t.frame=null;t.i=-1;t.loading=false;
     t.el.innerHTML=`<div class="hist"><div class="nh"><span>History</span><button data-c>Clear all</button></div><div class="hl"></div></div>`;
@@ -686,6 +799,10 @@ function renderSettings(){const w=wins.find(x=>x.app==='settings');if(!w)return;
   ${ANIMS_META.map(a=>`<div class="wp ${on('anim',a.id)?'on':''}" data-t="anim" data-id="${a.id}" style="background:${a.css}">${a.name}<i>live</i></div>`).join('')}
   ${PRESETS.map(p=>`<div class="wp ${on('preset',p.id)?'on':''}" data-t="preset" data-id="${p.id}" style="background:${p.css}">${p.name}</div>`).join('')}
   ${cur.type==='image'?`<div class="wp on" style="background-image:url('${esc(asset(cur.src))}')">Custom</div>`:cur.type==='video'||cur.type==='file'?'<div class="wp on" style="background:#111">Custom '+(cur.kind||'video')+'</div>':''}</div>
+  <h4>GIF &amp; video links</h4>
+  <div class="gs"><input class="fld" id="gu" placeholder="Paste a GIF, image or MP4/WebM link…" spellcheck="false"/><button class="btn p" id="ga">Set</button></div>
+  <div class="gm">Links you set are saved here so you can switch back with one click. Loaded through your proxy.</div>
+  <div class="walls">${store.get('gifs',[]).map((g,n)=>`<div class="wp" data-gu="${n}" style="background:url('${esc(asset(g.url)).replace(/'/g,'%27')}') center/cover,#111">${esc(g.name)}<i data-gx>✕</i></div>`).join('')}</div>
   <h4>Find images &amp; GIFs</h4>
   <div class="gs"><input class="fld" id="gq" placeholder="Search images or GIFs…" value="${esc(gq)}"/><button class="btn p" id="gb">Search</button></div>
   <div class="chips"><label class="chk"><input type="checkbox" id="gg" ${ggif?'checked':''}> Animated GIFs only</label>${['Space','City at night','Mountains','Anime','Ocean','Cyberpunk'].map(c=>`<button class="chip">${c}</button>`).join('')}<button class="chip" id="gopen">Open in Browser ↗</button></div>
@@ -701,6 +818,12 @@ function renderSettings(){const w=wins.find(x=>x.app==='settings');if(!w)return;
   <h4>Home</h4><div class="row" style="justify-content:flex-start"><button class="btn" id="sa">Add shortcut</button><button class="btn" id="rs">Reset OS</button></div>`;
   const Q=s=>w.body.querySelector(s);
   w.body.querySelectorAll('[data-t]').forEach(e=>e.onclick=()=>{const t=e.dataset.t;setWall(t==='fog'?{type:'fog'}:{type:t,id:e.dataset.id})});
+  const gifs=store.get('gifs',[]);
+  Q('#ga').onclick=()=>{const v=Q('#gu').value.trim();if(!v)return;const u=/^(https?:|data:|blob:)/i.test(v)?v:'https://'+v;
+    if(!gifs.some(x=>x.url===u)){gifs.push({url:u,name:hostOf(u)||'Link'});store.set('gifs',gifs);renderSettings()}setUrlWall(u)};
+  Q('#gu').onkeydown=e=>{if(e.key==='Enter')Q('#ga').click()};
+  w.body.querySelectorAll('[data-gu]').forEach(e=>e.onclick=ev=>{const n=+e.dataset.gu;
+    if(ev.target.dataset.gx!=null){gifs.splice(n,1);store.set('gifs',gifs);renderSettings();return}setUrlWall(gifs[n].url)});
   Q('#gq').oninput=e=>gq=e.target.value;Q('#gq').onkeydown=e=>{if(e.key==='Enter')gSearch()};Q('#gb').onclick=gSearch;Q('#gg').onchange=e=>{ggif=e.target.checked;if(gq.trim())gSearch()};
   w.body.querySelectorAll('.chip:not(#gopen)').forEach(c=>c.onclick=()=>{gq=c.textContent;gSearch()});
   Q('#gopen').onclick=()=>openUrl('https://www.google.com/search?tbm=isch&q='+encodeURIComponent(gq||'wallpaper'));
@@ -709,14 +832,14 @@ function renderSettings(){const w=wins.find(x=>x.app==='settings');if(!w)return;
   Q('#up').onclick=()=>Q('#fi').click();Q('#fi').onchange=e=>e.target.files[0]&&fileToWall(e.target.files[0]);
   Q('#wu').onkeydown=e=>{const v=e.target.value.trim();if(e.key==='Enter'&&v)setUrlWall(v)};
   Q('#nm').oninput=e=>{S.name=e.target.value;saveS()};
-  Q('#pxu').onchange=e=>{let v=e.target.value.trim();if(v&&!v.endsWith('/'))v+='/';PROXY_BASE=v||DEFAULT_PROXY;store.set('proxy',PROXY_BASE);notify('Proxy updated')};
+  Q('#pxu').onchange=e=>{let v=e.target.value.trim();if(v&&!v.endsWith('/'))v+='/';PROXY_BASE=v||DEFAULT_PROXY;store.set('proxy',PROXY_BASE);notify('Proxy updated');try{if(new URL(PROXY_BASE).origin!==ORIGIN0)setTimeout(()=>location.reload(),700)}catch(e){}};
   Q('#pxt').onclick=async()=>{const m=Q('#pxm'),t0=performance.now();m.textContent='Testing…';
     try{await fetch(proxify('https://example.com/'),{mode:'no-cors'});m.textContent='Proxy reachable · '+Math.round(performance.now()-t0)+' ms'}catch{m.textContent='Can\'t reach the proxy. The tunnel link has probably changed.'}};
   Q('#sa').onclick=()=>shortcutDialog();
-  Q('#rs').onclick=()=>{if(confirm('Erase all Lunar OS data and start over?')){Object.keys(localStorage).filter(k=>k.startsWith('lunar:')).forEach(k=>localStorage.removeItem(k));location.reload()}}}
+  Q('#rs').onclick=()=>{if(confirm('Erase all Nyx OS data and start over?')){Object.keys(localStorage).filter(k=>k.startsWith('lunar:')).forEach(k=>localStorage.removeItem(k));location.reload()}}}
 function renderLaunch(q=''){const g=$('#lg');g.innerHTML='';g.classList.toggle('typing',!!q);q=q.toLowerCase();
   const all=[...Object.keys(SYS).map(a=>({app:a,name:SYS[a].name})),...items.filter(i=>!i.app)].filter(i=>i.name.toLowerCase().includes(q));
-  all.forEach((it,n)=>{const d=document.createElement('div');d.className='ic';d.style.setProperty('--n',n);d.innerHTML=tileHTML(it);d.onclick=()=>launch(it);g.appendChild(d)})}
+  all.forEach((it,n)=>{const d=document.createElement('div');d.className='ic';d.style.setProperty('--n',n);d.innerHTML=tileHTML(it);d.onclick=()=>launch(it);if(!it.app)d.oncontextmenu=e=>{e.preventDefault();e.stopPropagation();ctx(e,linkMenu(it))};g.appendChild(d)})}
 function toggleLaunch(){const o=$('#launch').classList.toggle('open');$('#panel').classList.remove('open');$('#tray').classList.remove('on');if(o){$('#lq').value='';renderLaunch();setTimeout(()=>$('#lq').focus(),120)}}
 $('#lq').oninput=e=>renderLaunch(e.target.value);
 $('#lq').onkeydown=e=>{if(e.key==='Enter'&&e.target.value.trim()){const first=$('#lg .ic');if(first&&!isUrl(e.target.value))first.click();else openUrl(e.target.value)}};
@@ -743,7 +866,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeOverlays();clo
 const lock=$('#lock');let picked=null;
 function enter(){lock.classList.add('gone');document.body.classList.add('on');renderGrid();const n=S.name;if(n)setTimeout(()=>notify(`Welcome back, ${n}`),700)}
 function showSetup(){lock.classList.add('blur');
-  $('#setup').innerHTML=`<h2>Welcome to Lunar OS</h2><p>Let's make it yours.</p><input class="fld" id="sn" placeholder="What should we call you?" maxlength="20"/>
+  $('#setup').innerHTML=`<h2>Welcome to Nyx OS</h2><p>Let's make it yours.</p><input class="fld" id="sn" placeholder="What should we call you?" maxlength="20"/>
   <div class="mini"><div data-p="fog" class="on" style="background:linear-gradient(135deg,#3f7ea6,#030a12)"></div>${PRESETS.slice(0,3).map(p=>`<div data-p="${p.id}" style="background:${p.css}"></div>`).join('')}</div>
   <button class="btn p" id="gs">Get started</button>`;picked='fog';
   $('#setup').querySelectorAll('[data-p]').forEach(d=>d.onclick=()=>{$('#setup').querySelectorAll('[data-p]').forEach(x=>x.classList.remove('on'));d.classList.add('on');picked=d.dataset.p;
