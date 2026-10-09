@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <script>(function(){try{var b;try{b=JSON.parse(localStorage.getItem('lunar:proxy'))}catch(e){}
 var o=new URL(b||'https://regen-unblocker-scramjet.onrender.com/ixl/').origin,m=document.createElement('meta');m.httpEquiv='Content-Security-Policy';
-m.content="default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' "+o+"; connect-src 'self' data: blob: "+o+"; img-src 'self' data: blob: "+o+"; media-src 'self' data: blob: "+o+"; font-src 'self' data: "+o+"; frame-src 'self' data: blob: "+o+"; object-src 'none'";
+m.content="default-src 'self' data: blob: 'unsafe-inline' 'unsafe-eval' "+o+"; connect-src 'self' data: blob: "+o+"; img-src 'self' data: blob: "+o+"; media-src 'self' data: blob: "+o+"; font-src 'self' data: "+o+"; frame-src 'self' data: blob: "+o+"; object-src 'none'; base-uri 'self'; form-action 'self'";
 document.head.appendChild(m)}catch(e){}})();</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -322,6 +322,7 @@ input:focus-visible,textarea:focus-visible{outline:0}
 .win{animation-duration:.32s}
 #wall,#vanta{will-change:opacity}.win,#launch,#panel,#lock{backface-visibility:hidden}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.gx{display:flex;flex-direction:column;height:100%;padding:14px;gap:12px}.gx-top{display:flex;gap:10px;align-items:center}.gx-top .fld{flex:1}.gx-st{color:var(--mut);font-size:12px}.gx-grid{flex:1;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;align-content:start}.gx-t{aspect-ratio:1;border-radius:14px;background:var(--soft);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:transform .25s var(--ease),border-color .25s}.gx-t:hover{transform:translateY(-3px);border-color:var(--line2)}.gx-t b{font-size:30px;color:var(--acc)}.gx-t span{font-size:12px;padding:0 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gx-e{grid-column:1/-1;text-align:center;color:var(--mut);padding:40px 0}
 </style>
 </head>
 <body>
@@ -341,9 +342,13 @@ input:focus-visible,textarea:focus-visible{outline:0}
 <script>
 (() => {
 const DEFAULT_PROXY='https://regen-unblocker-scramjet.onrender.com/ixl/';
+const nativeOpen=window.open.bind(window);                 /* real window.open (the OS overrides window.open further down) */
+const SEARCH_URL='https://duckduckgo.com/?q=';             /* default search engine (goes through the proxy like everything else) */
+const ENCODE_TARGET=true;                                  /* true = proxy/<percent-encoded-url> (keeps ?query=strings intact). false = proxy/<raw-url> */
 let PROXY_BASE=(()=>{try{return JSON.parse(localStorage.getItem('lunar:proxy'))||DEFAULT_PROXY}catch{return DEFAULT_PROXY}})();
 const ORIGIN0=(()=>{try{return new URL(PROXY_BASE).origin}catch(e){return''}})();
 const proxyBase=()=>PROXY_BASE.endsWith('/')?PROXY_BASE:PROXY_BASE+'/';
+try{fetch(proxyBase(),{mode:'no-cors',cache:'no-store'}).catch(()=>{})}catch(e){}
 function nyxLoadScriptOnce(src){
   return new Promise(function(resolve,reject){
     try{
@@ -368,12 +373,24 @@ const asset=u=>isLocal(u)?u:proxify(u);
 const loadScript=u=>ready.then(()=>nyxLoadScriptOnce(proxify(u)));
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const proxify=u=>proxyBase()+u;
+const proxify=u=>{u=String(u==null?'':u).trim();if(!u||isLocal(u))return u;const root=proxyBase();if(u.startsWith(root))return u;
+  if(u.startsWith('//'))u='https:'+u;else if(!/^https?:\/\//i.test(u))u='https://'+u;
+  return root+(ENCODE_TARGET?encodeURIComponent(u):u)};
 const ready=Promise.resolve();
+/* ===== Proxy guard: any stray absolute http(s) request is rewritten onto the proxy instead of being blocked ===== */
+(()=>{const root=proxyBase(),off=u=>typeof u==='string'&&/^(https?:)?\/\//i.test(u)&&!u.startsWith(root)&&!u.startsWith(location.origin+'/');
+  const of=window.fetch.bind(window);
+  window.fetch=(i,o)=>{try{if(typeof i==='string'){if(off(i))i=proxify(i)}else if(i&&i.url&&off(i.url))i=new Request(proxify(i.url),i)}catch(e){}return of(i,o)};
+  const A={IMG:'src',VIDEO:'src',AUDIO:'src',SOURCE:'src',SCRIPT:'src',IFRAME:'src',TRACK:'src',EMBED:'src',LINK:'href'};
+  const fix=n=>{const a=A[n.tagName];if(!a)return;const v=n.getAttribute(a);if(off(v))n.setAttribute(a,proxify(v))};
+  new MutationObserver(ms=>ms.forEach(m=>{if(m.type==='attributes')return fix(m.target);m.addedNodes.forEach(n=>{if(n.nodeType!==1)return;fix(n);n.querySelectorAll?.('img,video,audio,source,script,iframe,track,embed,link').forEach(fix)})}))
+    .observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['src','href']})})();
 const libs=loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js').then(()=>loadScript('https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js')).catch(()=>{});
-const unproxify=s=>{const root=proxyBase();return s.startsWith(root)?s.slice(root.length):s};
+const unproxify=s=>{s=String(s==null?'':s);const root=proxyBase();if(!s.startsWith(root))return s;let r=s.slice(root.length);
+  if(/^https?%3a/i.test(r)){try{r=decodeURIComponent(r)}catch(e){}}
+  return r.replace(/^(https?):\/(?!\/)/i,'$1://')};
 const isUrl=v=>/^(https?:\/\/|www\.)/i.test(v)||(/\.[a-z]{2,}/i.test(v)&&!/\s/.test(v));
-const toTarget=v=>{v=unproxify(v.trim());if(!v)return'';return isUrl(v)?(/^https?:\/\//i.test(v)?v:'https://'+v):'https://duckduckgo.com/?q='+encodeURIComponent(v)};
+const toTarget=v=>{v=unproxify(v.trim());if(!v)return'';return isUrl(v)?(/^https?:\/\//i.test(v)?v:'https://'+v):SEARCH_URL+encodeURIComponent(v)};
 const store={get(k,d){try{const v=localStorage.getItem('lunar:'+k);return v==null?d:JSON.parse(v)}catch{return d}},
   set(k,v){try{localStorage.setItem('lunar:'+k,JSON.stringify(v));return true}catch{notify('Storage full','Try a smaller image');return false}}};
 const P={globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/>',
@@ -391,6 +408,8 @@ let tt;
 const S=Object.assign({wifi:true,plane:false,dnd:false,night:false,bright:100,vol:70,name:''},store.get('sys',{}));
 const saveS=()=>store.set('sys',S);
 let notes=store.get('notes',[]);
+const SW_OK=('serviceWorker' in navigator)&&window.isSecureContext,IS_SAFARI=/^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent);
+let OPEN_TAB=store.get('opentab',!SW_OK||IS_SAFARI);
 function notify(title,body=''){notes.unshift({title,body,t:Date.now()});notes=notes.slice(0,20);store.set('notes',notes);renderPanel();
   if(S.dnd)return;const b=document.createElement('div');b.className='bn glass';b.innerHTML=`<b>${esc(title)}</b>${body?`<small>${esc(body)}</small>`:''}`;$('#ban').appendChild(b);
   setTimeout(()=>{b.classList.add('out');setTimeout(()=>b.remove(),450)},3000)}
@@ -550,7 +569,7 @@ applySys();
 const COLORS=['#3b82f6','#8b5cf6','#ec4899','#ef4444','#f59e0b','#10b981','#06b6d4','#6366f1'];
 const colorFor=s=>COLORS[[...s].reduce((a,c)=>a+c.charCodeAt(0),0)%COLORS.length];
 Object.assign(P,{play:'<path d="M7 5v14l12-7z"/>',notes:'<path d="M5 4h14v16H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>',calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',game:'<rect x="3" y="8" width="18" height="9" rx="4"/><path d="M8 11v3M6.5 12.5h3M16 12h.01M18 13.5h.01"/>'});
-const SYS={browser:{name:'Browser',color:'linear-gradient(135deg,#3b82f6,#1d4ed8)',ic:'globe'},studio:{name:'Code Studio',color:'linear-gradient(135deg,#0ea5e9,#1e3a8a)',ic:'code'},notes:{name:'Notes',color:'linear-gradient(135deg,#fbbf24,#d97706)',ic:'notes'},calc:{name:'Calculator',color:'linear-gradient(135deg,#fb923c,#ea580c)',ic:'calc'},clock:{name:'Clock',color:'linear-gradient(135deg,#a78bfa,#6d28d9)',ic:'clock'},snake:{name:'Snake',color:'linear-gradient(135deg,#4ade80,#15803d)',ic:'game'},settings:{name:'Settings',color:'linear-gradient(135deg,#94a3b8,#475569)',ic:'gear'}};
+const SYS={browser:{name:'Browser',color:'linear-gradient(135deg,#3b82f6,#1d4ed8)',ic:'globe'},studio:{name:'Code Studio',color:'linear-gradient(135deg,#0ea5e9,#1e3a8a)',ic:'code'},notes:{name:'Notes',color:'linear-gradient(135deg,#fbbf24,#d97706)',ic:'notes'},calc:{name:'Calculator',color:'linear-gradient(135deg,#fb923c,#ea580c)',ic:'calc'},clock:{name:'Clock',color:'linear-gradient(135deg,#a78bfa,#6d28d9)',ic:'clock'},snake:{name:'Snake',color:'linear-gradient(135deg,#4ade80,#15803d)',ic:'game'},games:{name:'Games',color:'linear-gradient(135deg,#f472b6,#be185d)',ic:'game'},settings:{name:'Settings',color:'linear-gradient(135deg,#94a3b8,#475569)',ic:'gear'}};
 let items=store.get('items',null)||[{id:'s1',name:'YouTube',url:'https://youtube.com'},{id:'s2',name:'Discord',url:'https://discord.com'},{id:'s3',name:'GitHub',url:'https://github.com'},{id:'s4',name:'Reddit',url:'https://reddit.com'}];
 items=items.filter(i=>!i.type||i.type==='link');
 const saveItems=()=>{store.set('items',items);wins.forEach(x=>x.api?.bar())};
@@ -589,7 +608,7 @@ function shortcutDialog(edit,pre){const c=$('#card');
   c.innerHTML=`<h3>${edit?'Edit shortcut':'Add to home'}</h3><input class="fld" id="fN" placeholder="Name" maxlength="24" value="${esc(edit?.name||pre?.name||'')}"/><input class="fld" id="fU" placeholder="Address (example.com)" spellcheck="false" value="${esc(edit?.url||pre?.url||'')}"/>
   <div class="row"><button class="btn" id="fC">Cancel</button><button class="btn p" id="fS">Save</button></div>`;
   $('#dlg').classList.add('open');setTimeout(()=>$('#fN').focus(),60);$('#fC').onclick=closeDlg;
-  const save=()=>{let name=$('#fN').value.trim(),url=toTarget($('#fU').value);if(!url||url.includes('duckduckgo.com/?q='))return $('#fU').focus();
+  const save=()=>{let name=$('#fN').value.trim(),url=toTarget($('#fU').value);if(!url||url.startsWith(SEARCH_URL))return $('#fU').focus();
     if(!name)name=new URL(url).hostname.replace(/^www\./,'');
     if(edit)Object.assign(edit,{name,url});else items.push({id:'l'+Date.now(),name,url});saveItems();renderGrid();closeDlg();notify(edit?'Shortcut updated':'Saved to home',name)};
   $('#fS').onclick=save;c.onkeydown=e=>{if(e.key==='Enter')save();if(e.key==='Escape')closeDlg()}}
@@ -659,7 +678,58 @@ function snakeApp(){appWin('snake','Snake',440,510,b=>{b.innerHTML='<div class="
     const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];
     if(m){e.preventDefault();if(m[0]!==-dr.x||m[1]!==-dr.y)nx={x:m[0],y:m[1]}}else if(e.key===' '){e.preventDefault();if(!alive)rst()}};
   addEventListener('keydown',key);rst();draw();tm=setInterval(step,110)})}
-const APPS={notes:notesApp,calc:calcApp,clock:clockApp,snake:snakeApp};
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+const GMIME={html:'text/html',htm:'text/html',js:'text/javascript',mjs:'text/javascript',css:'text/css',json:'application/json',png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',gif:'image/gif',svg:'image/svg+xml',webp:'image/webp',ico:'image/x-icon',mp3:'audio/mpeg',ogg:'audio/ogg',wav:'audio/wav',mp4:'video/mp4',webm:'video/webm',wasm:'application/wasm',woff:'font/woff',woff2:'font/woff2',ttf:'font/ttf',txt:'text/plain',xml:'text/xml'};
+const GDB=()=>new Promise((ok,no)=>{const r=indexedDB.open('lunar-games',1);r.onupgradeneeded=()=>{r.result.createObjectStore('files');r.result.createObjectStore('games',{keyPath:'id'})};r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const gtx=(db,st,mode,f)=>new Promise((ok,no)=>{const t=db.transaction(st,mode),q=f(t.objectStore(st));t.oncomplete=()=>ok(q&&q.result);t.onerror=()=>no(t.error)});
+async function* zipEntries(file){
+  const tail=new DataView(await file.slice(Math.max(0,file.size-65557)).arrayBuffer());let e=-1;
+  for(let i=tail.byteLength-22;i>=0;i--)if(tail.getUint32(i,true)===0x06054b50){e=i;break}
+  if(e<0)throw Error('That is not a valid zip');
+  const n=tail.getUint16(e+10,true),cdSize=tail.getUint32(e+12,true),cdOff=tail.getUint32(e+16,true);
+  if(cdOff===0xFFFFFFFF)throw Error('Zip64 archives are not supported. Split the games into smaller zips.');
+  const cd=new DataView(await file.slice(cdOff,cdOff+cdSize).arrayBuffer()),dec=new TextDecoder();let p=0;
+  for(let k=0;k<n;k++){
+    const m=cd.getUint16(p+10,true),cs=cd.getUint32(p+20,true),nl=cd.getUint16(p+28,true),xl=cd.getUint16(p+30,true),cl=cd.getUint16(p+32,true),lo=cd.getUint32(p+42,true);
+    const name=dec.decode(new Uint8Array(cd.buffer,p+46,nl));p+=46+nl+xl+cl;
+    if(name.endsWith('/'))continue;
+    const lh=new DataView(await file.slice(lo,lo+30).arrayBuffer()),ds=lo+30+lh.getUint16(26,true)+lh.getUint16(28,true);
+    let blob=file.slice(ds,ds+cs);
+    if(m===8)blob=await new Response(blob.stream().pipeThrough(new DecompressionStream('deflate-raw'))).blob();
+    yield{name,blob}}}
+async function gImport(file,say){
+  const db=await GDB(),names=[];let n=0;
+  for await(const {name,blob} of zipEntries(file)){
+    if(/(^|\/)(__MACOSX|\.)/.test(name))continue;
+    const ext=name.split('.').pop().toLowerCase();
+    await gtx(db,'files','readwrite',st=>st.put({type:GMIME[ext]||'application/octet-stream',blob},name));
+    names.push(name);if(++n%20===0)say('Unpacking… '+n+' files')}
+  const dirs=names.filter(f=>/(^|\/)index\.html$/i.test(f)).map(f=>f.replace(/index\.html$/i,'')).sort((a,b)=>a.length-b.length).filter((d,i,a)=>!a.slice(0,i).some(x=>x&&d.startsWith(x)));
+  for(const d of dirs){const raw=d?d.replace(/\/$/,'').split('/').pop():file.name.replace(/\.zip$/i,'');
+    const name=raw.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+    await gtx(db,'games','readwrite',st=>st.put({id:d||file.name,dir:d,name}))}
+  return dirs.length}
+async function gPlay(g){
+  if(!('serviceWorker' in navigator))return notify('Games need service workers','Open Lunar OS over https, with sw.js next to index.html');
+  await navigator.serviceWorker.ready;
+  if(!navigator.serviceWorker.controller)await new Promise(r=>{navigator.serviceWorker.addEventListener('controllerchange',r,{once:true});setTimeout(r,1500)});
+  appWin('gplay:'+g.id,g.name,960,640,f=>{f.innerHTML='<iframe allow="fullscreen; autoplay; gamepad; clipboard-write"></iframe>';f.querySelector('iframe').src='__games/'+encodeURI(g.dir)+'index.html'})}
+function gamesApp(){appWin('games','Games',900,620,b=>{
+  b.innerHTML='<div class="gx"><div class="gx-top"><input class="fld" placeholder="Search games" spellcheck="false"/><button class="btn">Upload zip…</button><input type="file" accept=".zip,application/zip" multiple hidden/><span class="gx-st"></span></div><div class="gx-grid"></div></div>';
+  const q=b.querySelector.bind(b),inp=q('.fld'),fi=q('input[type=file]'),st=q('.gx-st'),grid=q('.gx-grid');
+  async function render(){const db=await GDB(),all=await gtx(db,'games','readonly',s=>s.getAll()),f=inp.value.trim().toLowerCase();
+    const list=all.filter(g=>g.name.toLowerCase().includes(f)).sort((a,c)=>a.name.localeCompare(c.name));
+    grid.innerHTML='';if(!list.length)grid.innerHTML='<div class="gx-e">'+(all.length?'No matches':'Upload a zip full of games to get started.')+'</div>';
+    list.forEach(g=>{const d=document.createElement('div');d.className='gx-t';d.innerHTML='<b>'+esc(g.name[0]||'?')+'</b><span>'+esc(g.name)+'</span>';
+      d.onclick=()=>gPlay(g);
+      d.oncontextmenu=e=>{e.preventDefault();ctx(e,[['Remove game',async()=>{const db=await GDB();await gtx(db,'files','readwrite',s=>s.delete(IDBKeyRange.bound(g.dir,g.dir+'\uffff')));await gtx(db,'games','readwrite',s=>s.delete(g.id));render()}]])};
+      grid.appendChild(d)})}
+  q('.btn').onclick=()=>fi.click();inp.oninput=render;
+  fi.onchange=async()=>{let c=0;for(const f of fi.files){try{c+=await gImport(f,t=>st.textContent=t)}catch(e){notify('Upload failed',e.message)}}
+    fi.value='';st.textContent=c+' game'+(c==1?'':'s')+' added';render()};
+  render()})}
+const APPS={games:gamesApp,notes:notesApp,calc:calcApp,clock:clockApp,snake:snakeApp};
 const LN={js:'JavaScript',html:'HTML',css:'CSS',json:'JSON',md:'Markdown',txt:'Plain text'};
 const SHIM=`<script>const _s=(t,a)=>parent.postMessage({cs:1,t,a:a.map(v=>{try{return typeof v==='string'?v:JSON.stringify(v)??String(v)}catch{return String(v)}}).join(' ')},'*');['log','info','warn','error'].forEach(k=>console[k]=(...a)=>_s(k,a));addEventListener('error',e=>_s('error',[e.message]));addEventListener('unhandledrejection',e=>_s('error',[String(e.reason)]));<\/script>`;
 function studioApp(){const ex=wins.find(x=>x.app==='studio');if(ex){ex.el.classList.remove('min');return focusWin(ex)}
@@ -700,7 +770,7 @@ function browserApp(target){const w=makeWin('browser','Browser',1100,690);
   <div class="nav"><button class="wb" data-n="back" title="Back (Alt+←)">${ic('back')}</button><button class="wb" data-n="fwd" title="Forward (Alt+→)" style="transform:scaleX(-1)">${ic('back')}</button>
   <button class="wb" data-n="rel" title="Reload">${ic('rel')}</button><button class="wb" data-n="home" title="Home">${ic('home')}</button>
   <div class="ab"><img class="afv" alt=""><input class="fld" placeholder="Search or enter address" spellcheck="false" autocomplete="off"/><div class="sug glass"></div></div>
-  <button class="wb" data-n="star" title="Bookmark this page">${ic('star')}</button><button class="wb" data-n="menu" title="Menu">${ic('dots')}</button></div>
+  <button class="wb" data-n="ext" title="Open this page in a real browser tab"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button><button class="wb" data-n="star" title="Bookmark this page">${ic('star')}</button><button class="wb" data-n="menu" title="Menu">${ic('dots')}</button></div>
   <div class="prog"><i></i></div><div class="bmb"></div><div class="pages"></div></div></div><div class="dd glass"></div>`;
   const Q=s=>w.body.querySelector(s),tl=Q('.tl'),pages=Q('.pages'),input=Q('.ab input'),ab=Q('.ab'),afv=Q('.afv'),prog=Q('.prog'),sug=Q('.sug'),dd=Q('.dd'),bmb=Q('.bmb'),
     star=Q('[data-n=star]'),reload=Q('[data-n=rel]'),bk=Q('[data-n=back]'),fw=Q('[data-n=fwd]');
@@ -737,6 +807,8 @@ function browserApp(target){const w=makeWin('browser','Browser',1100,690);
     if(!S.wifi||S.plane)return notify("You're offline",'Turn on Wi-Fi in quick settings');
     t.url=u;t.title=hostOf(u).replace(/^www\./,'');
     if(push){t.h=t.h.slice(0,t.i+1);t.h.push(u);t.i=t.h.length-1}
+    if(OPEN_TAB){nativeOpen(proxify(u),'_blank');addHist(u,t.title);syncTab(t);t.frame=null;
+      t.el.innerHTML=`<div class="ntp"><div class="nlogo">nyx</div><div class="gm" style="text-align:center">Opened ${esc(hostOf(u))} in a new browser tab.</div></div>`;return}
     if(!t.frame){t.el.innerHTML='';const f=document.createElement('iframe');f.allow='fullscreen; autoplay; clipboard-write';f.referrerPolicy='no-referrer';f.style.zoom=t.z;
       f.onload=()=>{if(!f.getAttribute('src'))return;setLoading(t,false);try{const d=f.contentDocument.title;if(d){t.title=d;syncTab(t)}}catch{}};t.el.appendChild(f);t.frame=f}
     setLoading(t,true);t.frame.src=proxify(u);addHist(u,t.title);syncTab(t)}
@@ -762,7 +834,7 @@ function browserApp(target){const w=makeWin('browser','Browser',1100,690);
     if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();hl=(hl+(e.key==='ArrowDown'?1:-1)+rows.length)%rows.length;rows.forEach((r,n)=>r.classList.toggle('hl',n===hl));if(rows[hl])input.value=rows[hl].dataset.v}
     else if(e.key==='Enter'){sug.classList.remove('on');nav(cur,input.value);input.blur()}else if(e.key==='Escape'){input.value=cur.url;sug.classList.remove('on');input.blur()}};
   
-  Q('[data-n=nt]').onclick=()=>newTab();bk.onclick=back;fw.onclick=fwd;reload.onclick=reloadTab;Q('[data-n=home]').onclick=()=>ntp(cur);
+  Q('[data-n=ext]').onclick=()=>{if(cur&&cur.url)nativeOpen(proxify(cur.url),'_blank')};Q('[data-n=nt]').onclick=()=>newTab();bk.onclick=back;fw.onclick=fwd;reload.onclick=reloadTab;Q('[data-n=home]').onclick=()=>ntp(cur);
   star.onclick=()=>{if(!cur.url)return notify('Open a page first');const it=items.find(i=>same(i.url,cur.url));
     if(it){items=items.filter(x=>x!==it);saveItems();renderGrid();notify('Bookmark removed',cur.title)}else{items.push({id:'l'+Date.now(),name:cur.title,url:cur.url});saveItems();renderGrid();notify('Bookmarked',cur.title+' · added to home')}};
   
@@ -812,7 +884,8 @@ function renderSettings(){const w=wins.find(x=>x.app==='settings');if(!w)return;
     <small>Create a key in Google Cloud (Custom Search API) and a Programmable Search Engine at programmablesearchengine.google.com. Searches are sent through your proxy.</small></details>
   <h4>Your own</h4><div class="gm">Drop an image, GIF or video on the desktop, or paste it with Ctrl+V.</div><div class="row" style="justify-content:flex-start"><button class="btn" id="up">Upload image or GIF…</button><input type="file" id="fi" accept="image/*,video/mp4,video/webm" hidden/></div>
   <input class="fld" id="wu" placeholder="Paste an image, GIF or .mp4/.webm URL and press Enter" spellcheck="false"/>
-  <h4>Proxy</h4><div class="gs"><input class="fld" id="pxu" placeholder="Proxy address" spellcheck="false" value="${esc(PROXY_BASE)}"/><button class="btn" id="pxt">Test</button></div><div class="gm" id="pxm">Everything loads through this address. Tunnel links change, so paste the newest one here.</div>
+  <h4>Proxy</h4><div class="gs"><input class="fld" id="pxu" placeholder="Proxy address" spellcheck="false" value="${esc(PROXY_BASE)}"/><button class="btn" id="pxt">Test</button><button class="btn" id="pxr">Reset</button></div><div class="gm" id="pxm">Everything loads through this address. Tunnel links change, so paste the newest one here.</div>
+  <label class="row" style="justify-content:flex-start;gap:10px;cursor:pointer"><input type="checkbox" id="otb" ${OPEN_TAB?'checked':''}/><span class="gm" style="margin:0">Open sites in a new browser tab (fixes “browser does not support service workers”)</span></label>
   <h4>Profile &amp; privacy</h4><input class="fld" id="nm" placeholder="Your name" maxlength="20" value="${esc(S.name)}"/>
   <div class="gm">🔒 Strict proxy mode: sites, logos, wallpapers, scripts and searches all load through your proxy.</div>
   <h4>Home</h4><div class="row" style="justify-content:flex-start"><button class="btn" id="sa">Add shortcut</button><button class="btn" id="rs">Reset OS</button></div>`;
@@ -832,9 +905,13 @@ function renderSettings(){const w=wins.find(x=>x.app==='settings');if(!w)return;
   Q('#up').onclick=()=>Q('#fi').click();Q('#fi').onchange=e=>e.target.files[0]&&fileToWall(e.target.files[0]);
   Q('#wu').onkeydown=e=>{const v=e.target.value.trim();if(e.key==='Enter'&&v)setUrlWall(v)};
   Q('#nm').oninput=e=>{S.name=e.target.value;saveS()};
+  Q('#otb').onchange=e=>{OPEN_TAB=e.target.checked;store.set('opentab',OPEN_TAB);notify(OPEN_TAB?'Sites open in a new tab':'Sites open inside Nyx')};
   Q('#pxu').onchange=e=>{let v=e.target.value.trim();if(v&&!v.endsWith('/'))v+='/';PROXY_BASE=v||DEFAULT_PROXY;store.set('proxy',PROXY_BASE);notify('Proxy updated');try{if(new URL(PROXY_BASE).origin!==ORIGIN0)setTimeout(()=>location.reload(),700)}catch(e){}};
-  Q('#pxt').onclick=async()=>{const m=Q('#pxm'),t0=performance.now();m.textContent='Testing…';
-    try{await fetch(proxify('https://example.com/'),{mode:'no-cors'});m.textContent='Proxy reachable · '+Math.round(performance.now()-t0)+' ms'}catch{m.textContent='Can\'t reach the proxy. The tunnel link has probably changed.'}};
+  Q('#pxr').onclick=()=>{try{localStorage.removeItem('lunar:proxy')}catch(e){}location.reload()};
+  Q('#pxt').onclick=async()=>{const m=Q('#pxm'),t0=performance.now();
+    for(let i=0;i<4;i++){m.textContent=i?'Waking the proxy up… ('+i+'/3)':'Testing…';
+      try{const c=new AbortController(),to=setTimeout(()=>c.abort(),15000);await fetch(proxyBase()+'?'+Date.now(),{mode:'no-cors',signal:c.signal,cache:'no-store'});clearTimeout(to);return m.textContent='Proxy reachable · '+Math.round(performance.now()-t0)+' ms'}catch(e){}}
+    m.textContent='Can\'t reach '+PROXY_BASE+' — the server may be down or the link changed. Try Reset, or paste the newest link.'};
   Q('#sa').onclick=()=>shortcutDialog();
   Q('#rs').onclick=()=>{if(confirm('Erase all Nyx OS data and start over?')){Object.keys(localStorage).filter(k=>k.startsWith('lunar:')).forEach(k=>localStorage.removeItem(k));location.reload()}}}
 function renderLaunch(q=''){const g=$('#lg');g.innerHTML='';g.classList.toggle('typing',!!q);q=q.toLowerCase();
